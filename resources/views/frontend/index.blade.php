@@ -50,7 +50,7 @@
                                             <ul class="nav nav-pills" id="mainNav">
                                                 <li>
                                                     <a class="nav-link active" href="demo-renewable-energy.html">
-                                                        Beranda
+                                                        Berandaaaa
                                                     </a>
                                                 </li>
                                                 <li>

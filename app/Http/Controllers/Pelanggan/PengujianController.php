@@ -19,7 +19,7 @@ use Carbon\Carbon;
 class PengujianController extends Controller
 {
     public function index(){
-        $pengujian = PengujianOrder::where('id_user', auth()->user()->id)->orderBy('id', 'DESC')->get();
+        $pengujian = PengujianOrder::with('timelinePengujian')->where('id_user', auth()->user()->id)->orderBy('id', 'DESC')->get();
         $tipe_pelanggan = TipePelanggan::all();
 
         return view('pelanggan.pengujian.index', compact('pengujian', 'tipe_pelanggan'));
@@ -182,8 +182,21 @@ class PengujianController extends Controller
             toast('Gagal ! Data Order Belum Memiliki Sampel','error');
             return redirect()->back();
         }
-
-      
-
     }
+
+    public function tracking(Request $request, $id){
+
+        $timeline = TimelinePengujian::where('id_pengujian_order', $id)->orderBy('id', 'DESC')->get();
+        $nomor_after = PengujianOrder::where('id', $id)->first()->nomor_after;
+
+        if ($nomor_after) {
+            $nomor_order = PengujianOrder::where('id', $id)->first()->nomor_after;
+        } else {
+            $nomor_order = PengujianOrder::where('id', $id)->first()->nomor_pre;
+        }
+
+        return view('pelanggan.pengujian.tracking', compact('timeline', 'nomor_order'));
+    }
+
+
 }

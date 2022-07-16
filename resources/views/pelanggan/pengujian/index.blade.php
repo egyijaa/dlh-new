@@ -36,7 +36,10 @@
                                         <td>{{ $p->nomor_pre }}</td>
                                         <td>{{ $p->nama_pemesan }}</td>
                                         <td>{{ date('d M Y', strtotime($p->tanggal_isi)) }}</td>
-                                        <th><span class="badge badge-primary">{{ $p->statusPengujian->status_pelanggan }}</span></th>
+                                        <th><span class="badge badge-primary">{{ $p->statusPengujian->status_pelanggan }}</span>
+                                        <br>
+                                        <a href="{{ route('pelanggan.pengujian.tracking', $p->id) }}"><i class="fas fa-angle-double-right" style="font-size: 11px">Tracking</i></a>
+                                        </th>
                                         <td>
                                            <form action="{{ route('pelanggan.pengujian.sampel') }}" method="POST">
                                                 @csrf

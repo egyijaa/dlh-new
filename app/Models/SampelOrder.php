@@ -24,7 +24,7 @@ class SampelOrder extends Model
 
     public function shu()
     {
-        return $this->hasOne(Shu::class);
+        return $this->hasOne(Shu::class, 'id_sampel_order', 'id');
     }
 
     public function parameterSampelOrder()

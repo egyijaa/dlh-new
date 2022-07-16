@@ -52,12 +52,19 @@ class AkunController extends Controller
 
         $data = array('name' => $user->name);
 
-        Mail::send('admin.akun.mailpelanggan', $data, function ($message) use ($email) {
-            $message->from('admin@gmail.com', 'UPT Lab Lingkungan');
-            $message->to($email, 'Bapak ibu')->subject('Selamat Akun Anda Sudah Diverifikasi');
-        });
-        toast('Akun Pelanggan Berhasil di Aktivasi','success');
-        return redirect()->back();
+        if($request->get('aktivasi') == 1)
+        {
+            Mail::send('admin.akun.mailpelanggan', $data, function ($message) use ($email) {
+                $message->from('admin@gmail.com', 'UPT Lab Lingkungan');
+                $message->to($email, 'Bapak ibu')->subject('Selamat Akun Anda Sudah Diverifikasi');
+            });
+            toast('Akun Pelanggan Berhasil di Aktivasi','success');
+            return redirect()->back();
+        } else {
+            
+                    toast('Akun Pelanggan Berhasil di Non-Aktifkan','success');
+                    return redirect()->back();
+        }
     }
     public function pelangganDelete(Request $request)
     {

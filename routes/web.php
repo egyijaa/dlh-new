@@ -70,6 +70,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'isAdmin'])->group(f
     Route::prefix('pengujian')->name('pengujian.')->group(function () {
         Route::get('', [PengujianOrderController::class, 'index'])->name('index');
         Route::get('getOrder/{id}', [PengujianOrderController::class, 'getOrder'])->name('getOrder');
+        Route::put('gantiStatus', [PengujianOrderController::class, 'gantiStatus'])->name('gantiStatus');
+        Route::get('cetakLaporanSementara', [PengujianOrderController::class, 'cetakLaporanSementara'])->name('cetakLaporanSementara');
+        Route::get('cetakSertifikat', [PengujianOrderController::class, 'cetakSertifikat'])->name('cetakSertifikat');
         // Route::post('store', [PejabatController::class, 'store'])->name('store');
         // Route::put('update', [PejabatController::class, 'update'])->name('update');
         // Route::delete('delete', [PejabatController::class, 'delete'])->name('delete');
@@ -94,6 +97,7 @@ Route::prefix('pelanggan')->name('pelanggan.')->middleware(['auth', 'isPelanggan
         Route::delete('deleteSampelParameter', [PelangganPengujianController::class, 'deleteSampelParameter'])->name('deleteSampelParameter');
 
         Route::post('sendOrder', [PelangganPengujianController::class, 'sendOrder'])->name('sendOrder');
+        Route::get('tracking/{id}', [PelangganPengujianController::class, 'tracking'])->name('tracking');
 
     });
 });

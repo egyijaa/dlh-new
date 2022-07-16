@@ -14,6 +14,6 @@ class Shu extends Model
 
     public function sampelOrder()
     {
-        return $this->belongsTo(SampelOrder::class);
+        return $this->belongsTo(SampelOrder::class, 'id_sampel_order', 'id');
     }
 }

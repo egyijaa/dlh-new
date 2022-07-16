@@ -49,8 +49,8 @@
                                         <nav class="collapse">
                                             <ul class="nav nav-pills" id="mainNav">
                                                 <li>
-                                                    <a class="nav-link active" href="demo-renewable-energy.html">
-                                                        Berandaaaa
+                                                    <a class="nav-link active" href="/">
+                                                        Beranda
                                                     </a>
                                                 </li>
                                                 <li>
@@ -155,8 +155,8 @@
                 <div class="container-fluid position-relative z-index-3 h-100">
                     <div class="row px-lg-5 mx-lg-3 justify-content-between align-items-center h-100">
                         <div class="col-xl-5 text-center text-xl-end">
-                            <h2 class="font-weight-bold text-color-light line-height-4 text-3 mb-2 text-uppercase appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="800" data-plugin-options="{'minWindowWidth': 0}"><span class="opacity-6">Pemerintah Kota Pontianak</span></h2>
-                            <h1 class="text-color-light font-weight-bold text-8 negative-ls-05 line-height-1 mb-4 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="1100" data-plugin-options="{'minWindowWidth': 0}">Dinas Lingkungan Hidup<br><span class="font-weight-extra-bold custom-highlight-1 ws-nowrap p-1 custom-highlight-anim custom-highlight-anim-delay">UPT Laboratorium Lingkungan</span></h1>
+                            <h2 class="font-weight-bold text-color-light line-height-4 text-3 mb-2 text-uppercase appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="800" data-plugin-options="{'minWindowWidth': 0}"><span class="opacity-6">UPT Laboratorium Lingkungan</span></h2>
+                            <h1 class="text-color-light font-weight-bold text-8 negative-ls-05 line-height-1 mb-4 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="1100" data-plugin-options="{'minWindowWidth': 0}">Pontianak Laboratory Information System<br><span class="font-weight-extra-bold custom-highlight-1 ws-nowrap p-1 custom-highlight-anim custom-highlight-anim-delay">(POLIS)</span></h1>
                             <a href="demo-renewable-energy-login.html" class="btn btn-arrow-effect-1 ws-nowrap text-light text-4 bg-transparent border-0 px-0 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="1300" data-plugin-options="{'minWindowWidth': 0}">Pesan Sekarang <i class="fas fa-arrow-right ms-2 p-relative top-2"></i></a>
                         </div>
                         <div class="col-xl-3 text-xl-end d-none d-xl-block">

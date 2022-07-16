@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\PengujianOrderController;
 
 use App\Http\Controllers\Pelanggan\DashboardController as PelangganDashboardController;
 use App\Http\Controllers\Pelanggan\PengujianController as PelangganPengujianController;
+use App\Http\Controllers\Pelanggan\ProfilController as PelangganProfilController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +100,11 @@ Route::prefix('pelanggan')->name('pelanggan.')->middleware(['auth', 'isPelanggan
         Route::post('sendOrder', [PelangganPengujianController::class, 'sendOrder'])->name('sendOrder');
         Route::get('tracking/{id}', [PelangganPengujianController::class, 'tracking'])->name('tracking');
 
+    });
+
+    Route::prefix('profil')->name('profil.')->group(function () {
+        Route::get('changePassword/{id}', [PelangganProfilController::class, 'changePassword'])->name('changePassword');
+        Route::put('savePassword/{id}', [PelangganProfilController::class, 'savePassword'])->name('savePassword');
     });
 });
 

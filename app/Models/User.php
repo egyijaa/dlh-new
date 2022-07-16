@@ -51,7 +51,7 @@ class User extends Authenticatable
 
     public function tipePelanggan()
     {
-        return $this->belongsTo(TipePelanggan::class);
+        return $this->belongsTo(TipePelanggan::class, 'id_tipe_pelanggan', 'id');
     }
 
     public function notifikasi()

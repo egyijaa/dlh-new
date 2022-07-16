@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>DLH Project | {{ auth()->user()->role == 1 ? 'Admin' : 'Pelanggan' ?? '' }}</title>
+	<title>Pontianak Laboratory Information System | {{ auth()->user()->role == 1 ? 'Admin' : 'Pelanggan' ?? '' }}</title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="{{ url('admin/img/icon.ico' ) }}" type="image/x-icon"/>
 
@@ -66,7 +66,7 @@
 											<div class="avatar-lg"><img src="{{ url('admin/img/user.png') }}" alt="image profile" class="avatar-img rounded"></div>
 											<div class="u-text">
 												<h4>{{ auth()->user()->name }}</h4>
-												<p class="text-muted">{{ auth()->user()->email }}</p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+												<p class="text-muted">{{ auth()->user()->email }}</p><a href="{{ route('pelanggan.profil.changePassword', Auth::user()->id) }}" class="btn btn-xs btn-secondary btn-sm">Profile</a>
 											</div>
 										</div>
 									</li>

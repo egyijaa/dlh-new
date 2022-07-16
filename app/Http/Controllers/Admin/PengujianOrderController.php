@@ -47,12 +47,12 @@ class PengujianOrderController extends Controller
 
 
     public function cetakLaporanSementara(){
-        $pdf = PDF::loadview('admin.pengujian_order.laporan_sementara');
+        $pdf = PDF::loadview('admin.pengujian_order.laporan_sementara')->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 
     public function cetakSertifikat(){
-        $pdf = PDF::loadview('admin.pengujian_order.sertifikat');
+        $pdf = PDF::loadview('admin.pengujian_order.sertifikat')->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 }

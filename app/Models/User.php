@@ -23,7 +23,7 @@ class User extends Authenticatable
         'password',
         'id_tipe_pelanggan',
         'keterangan',
-        'npwp',
+        'nik',
         'no_hp',
         'aktivasi',
         'role',

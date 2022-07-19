@@ -55,4 +55,14 @@ class PengujianOrderController extends Controller
         $pdf = PDF::loadview('admin.pengujian_order.sertifikat')->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
+
+    public function cetakSkr(){
+        $pdf = PDF::loadview('admin.pengujian_order.skr')->setPaper('a4', 'potrait');
+	    return $pdf->stream();
+    }
+
+    public function cetakTbp(){
+        $pdf = PDF::loadview('admin.pengujian_order.tbp')->setPaper('a4', 'potrait');
+	    return $pdf->stream();
+    }
 }

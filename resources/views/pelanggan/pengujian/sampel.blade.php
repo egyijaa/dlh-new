@@ -52,13 +52,12 @@
                                     <td>@currency($s->harga)</td>
                                     <td>
                                         @if ($status == 1)
-                                        <a href="#" data-id="{{ $s->id }}" data-namasampel="{{ $s->id_sampel_uji }}" data-namaparameter="{{ $s->nama_parameter }}" data-harga="{{ $s->harga }}"  data-toggle="modal" data-target="#edit"><button class="btn btn-info btn-sm">Edit Parameter
+                                        <a href="{{ route('pelanggan.pengujian.editSampelParameter', $s->id) }}"><button class="btn btn-info btn-sm">Edit Parameter
                                         </button></a> | 
                                             <a href="#" data-target="#delete" data-toggle="modal" data-id="{{ $s->id }}"><button class="btn btn-danger btn-sm">Hapus
                                             </button></a>
                                         @else
-                                        <a href="#" data-id="{{ $s->id }}" data-namasampel="{{ $s->id_sampel_uji }}" data-namaparameter="{{ $s->nama_parameter }}" data-harga="{{ $s->harga }}"  data-toggle="modal" data-target="#edit"><button class="btn btn-info btn-sm">Lihat Parameter
-                                        </button></a>
+                                      -
                                         @endif
                                     </td>
                                     </tr>

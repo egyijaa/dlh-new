@@ -43,6 +43,7 @@ class PengujianController extends Controller
             'email' => 'required',
             'no_hp' => 'required',
             'alamat' => 'required',
+            'nik' => 'required',
             'file_surat' => 'mimes:pdf|max:3120',
         ]);
 
@@ -57,6 +58,7 @@ class PengujianController extends Controller
         $pengujian->no_hp = $request->get('no_hp');
         $pengujian->alamat = $request->get('alamat');
         $pengujian->keterangan = $request->get('keterangan');
+        $pengujian->nik = $request->get('nik');
         $pengujian->id_status_pengujian = 1;
 
 
@@ -152,6 +154,24 @@ class PengujianController extends Controller
             toast('Gagal menambah data')->autoClose(2000)->hideCloseButton();
             return redirect()->back();
         }
+    }
+
+    public function editSampelParameter($id)
+    {
+        $sampel_order = SampelOrder::with('parameterSampelOrder')->findOrFail($id);
+        $sampel = SampelUji::all();
+        return view('pelanggan.pengujian.edit_sampel', [
+            'sampel_order' => $sampel_order,
+            'sampel' => $sampel
+        ]);
+    }
+
+    public function updateSampelParameter(Request $request)
+    {
+        $sampel_order = SampelOrder::find($request->id);
+        $sampel_order->delete();
+        toast('Data Berhasil Dihapus','success');
+        return redirect()->back();
     }
 
     public function deleteSampelParameter(Request $request)

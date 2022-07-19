@@ -52,7 +52,7 @@
                                                     @endif
                                                     Sampel</button>
                                             </form> 
-                                            <a href="#" class="btn btn-success btn-sm mt-1" data-id="{{ $p->id }}" data-nama="{{ $p->nama_pemesan }}" data-nohp="{{ $p->no_hp }}" data-email="{{ $p->email }}" data-alamat="{{ $p->alamat }}" data-tanggal="{{ $p->tanggal_isi }}" data-nosurat="{{ $p->nomor_surat }}" data-filesurat="{{ $p->file_surat }}" data-toggle="modal" data-target="#info">Info Order</a>
+                                            <a href="#" class="btn btn-success btn-sm mt-1" data-id="{{ $p->id }}" data-nama="{{ $p->nama_pemesan }}" data-nik="{{ $p->nik }}" data-nohp="{{ $p->no_hp }}" data-email="{{ $p->email }}" data-alamat="{{ $p->alamat }}" data-tanggal="{{ $p->tanggal_isi }}" data-nosurat="{{ $p->nomor_surat }}" data-filesurat="{{ $p->file_surat }}" data-toggle="modal" data-target="#info">Info Order</a>
                                             @if ($p->statusPengujian->id != 1)
                                                 
                                             @else
@@ -122,6 +122,17 @@
                                 @enderror
                             </div>
                            </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="nik">NIK*</label>
+                                <input type="number" class="form-control @error('nik') is-invalid @enderror" id="nik" name="nik" required>
+                                @error('nik')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="email">Email*</label>
@@ -229,7 +240,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Apakah Anda yakin ingin mengirim Order ini ?
+                    Apakah Anda yakin ingin mengirim Order ini ? 
+                    <br>
+                    Orderan yang sudah dikirim maka tidak bisa dihapus maupun diedit kembali, pastikan orderan anda <strong>sudah benar</strong>.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
@@ -255,6 +268,12 @@
                             <div class="form-group">
                                 <label for="">Nama</label>
                                 <input type="text" class="form-control" name="nama" readonly>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="">NIK</label>
+                                <input type="text" class="form-control" name="nik" readonly>
                             </div>
                         </div>
                         <div class="col-6">
@@ -317,6 +336,7 @@
     $("#info").on('show.bs.modal', (e) => {
         var id = $(e.relatedTarget).data('id');
         var nama = $(e.relatedTarget).data('nama');
+        var nik = $(e.relatedTarget).data('nik');
         var nohp = $(e.relatedTarget).data('nohp');
         var email = $(e.relatedTarget).data('email');
         var alamat = $(e.relatedTarget).data('alamat');
@@ -326,6 +346,7 @@
         
         $('#info').find('input[name="id"]').val(id);
         $('#info').find('input[name="nama"]').val(nama);
+        $('#info').find('input[name="nik"]').val(nik);
         $('#info').find('input[name="nohp"]').val(nohp);
         $('#info').find('input[name="email"]').val(email);
         $('#info').find('input[name="alamat"]').val(alamat);

@@ -85,7 +85,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 align-self-center p-static order-2 text-center">
-                        <a href="demo-renewable-energy.html"><img alt="Porto" width="100" height="48" data-sticky-width="82" data-sticky-height="40" data-sticky-top="0" src="{{ url('frontend/img/logo-default-slim.png') }}"></a>
+                        <a href="/"><img alt="Porto" width="100" height="90" data-sticky-width="82" data-sticky-height="40" data-sticky-top="0" src="{{ url('frontend/img/demos/logopemkot.png') }}"></a>
                     </div>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                         <div class="row">
                             <div class="form-group col-12">
                                 <label class="form-label text-color-dark text-3">Alamat Email Aktif<span class="text-color-danger">*</span></label>
-                                <input id="email" type="email" class="form-control form-control-lg text-4 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" type="email" class="form-control form-control-lg text-4 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -127,7 +127,7 @@
                         <div class="row">
                             <div class="form-group col-12">
                                 <label class="form-label text-color-dark text-3">Nama Lengkap<span class="text-color-danger">*</span></label>
-                                <input id="name" type="text" class="form-control form-control-lg text-4 @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control form-control-lg text-4 @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name">
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -135,6 +135,31 @@
                                     </span>
                                 @enderror
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col">
+                                <label class="form-label text-color-dark text-3">NIK<span class="text-color-danger">*</span></label>
+                                <input type="number" name="nik" id="nik" value="{{ old('nik') }}" class="form-control @error('nik') is-invalid @enderror form-control-lg text-4" required autocomplete>
+                                @error('nik')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col">
+                                <label class="form-label text-color-dark text-3">Nomor HP<span class="text-color-danger">*</span></label>
+                                <input type="number" name="no_hp" id="no_hp" value="{{ old('no_hp') }}" class="form-control @error('no_hp') is-invalid @enderror form-control-lg text-4" required>
+
+                                @error('no_hp')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="form-group col-4">
                                 <label class="form-label text-color-dark text-3">Tipe Pelanggan <span class="text-color-danger">*</span></label>
                                 <div class="custom-select-1">
@@ -164,33 +189,9 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col">
-                                <label class="form-label text-color-dark text-3">NPWP</label>
-                                <input type="text" name="npwp" value="{{ old('npwp') }}" class="form-control form-control-lg text-4">
-
-                                @error('npwp')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col">
-                                <label class="form-label text-color-dark text-3">Nomor HP<span class="text-color-danger">*</span></label>
-                                <input type="number" name="no_hp" value="{{ old('no_hp') }}" class="form-control form-control-lg text-4" required>
-
-                                @error('no_hp')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="form-group col-12">
                                 <label class="form-label text-color-dark text-3">Alamat<span class="text-color-danger">*</span></label>
-                                <textarea type="text" name="alamat" value="{{ old('alamat') }}" class="form-control form-control-lg text-4" required></textarea>
+                                <textarea type="text" name="alamat" id="alamat" value="{{ old('alamat') }}" class="form-control @error('alamat') is-invalid @enderror form-control-lg text-4" required></textarea>
 
                                 @error('alamat')
                                 <span class="invalid-feedback" role="alert">
@@ -206,11 +207,7 @@
                         </div>
                         <div class="row">
                             <div class="form-group col">
-                                <button type="submit" class="btn btn-success btn-modern w-100 text-uppercase rounded-0 font-weight-bold text-3 py-3">Register</button>
-                                <div class="divider">
-                                    <span class="bg-light px-4 position-absolute left-50pct top-50pct transform3dxy-n50">or</span>
-                                </div>
-                                <a href="demo-renewable-energy-login.html" class="btn btn-dark btn-modern w-100 text-transform-none rounded-0 font-weight-bold align-items-center d-inline-flex justify-content-center text-3 py-3" data-loading-text="Loading..."><i class="fab fa-facebook text-5 me-2"></i>Login</a>
+                                <button type="submit" class="btn btn-primary btn-modern w-100 text-uppercase rounded-0 font-weight-bold text-3 py-3">Register</button>
                             </div>
                         </div>
                     </form>

@@ -13,6 +13,8 @@
                         <h4 class="card-title">Orderan Pengujian</h4>
                         <a href="{{ route('admin.pengujian.cetakLaporanSementara') }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak Laporan Sementara</i></a>
                         <a href="{{ route('admin.pengujian.cetakSertifikat') }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak Sertifikat</i></a>
+                        <a href="{{ route('admin.pengujian.cetakSkr') }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak SKR</i></a>
+                        <a href="{{ route('admin.pengujian.cetakTbp') }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak TBP</i></a>
                       </div>
                     <div class="card-body">
                         <div class="table-responsive">

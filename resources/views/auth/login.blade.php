@@ -80,7 +80,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 align-self-center p-static order-2 text-center">
-                        <a href="demo-renewable-energy.html"><img alt="Porto" width="100" height="48" data-sticky-width="82" data-sticky-height="40" data-sticky-top="0" src="{{ url('frontend/img/logo-default-slim.png') }}"></a>
+                        <a href="/"><img alt="Porto" width="100" height="90" data-sticky-width="82" data-sticky-height="40" data-sticky-top="0" src="{{ url('frontend/img/demos/logopemkot.png') }}"></a>
                     </div>
                 </div>
             </div>
@@ -92,7 +92,7 @@
                 <div class="col-md-9">
                     <div class="featured-box featured-box-dark text-start mt-0">
                         <div class="box-content">
-                            <h4 class="text-color-success font-weight-semibold text-4 text-uppercase mb-3">I'm a Returning Customer</h4>
+                            <h4 class="text-color-primary font-weight-semibold text-4 text-uppercase mb-3">I'm a Returning Customer</h4>
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <div class="row">
@@ -128,7 +128,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group col-lg-6">
-                                        <input type="submit" value="Login" class="btn btn-success btn-modern float-end" data-loading-text="Loading...">
+                                        <input type="submit" value="Login" class="btn btn-primary btn-modern float-end" data-loading-text="Loading...">
                                     </div>
                                 </div>
                                 <div class="row">

@@ -10,7 +10,7 @@
                             <div class="header-row">
                                 <div class="header-logo m-0">
                                     <a href="demo-renewable-energy.html">
-                                        <img alt="Porto" width="111" height="41" src="{{ url('frontend/img/demos/renewable-energy/logo.png') }}">
+                                        <img alt="Porto" width="61" height="51" src="{{ url('frontend/img/demos/logopemkot.png') }}">
                                     </a>
                                 </div>
                             </div>
@@ -268,7 +268,7 @@
                             </div>
                         </div>
                         <div data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 10.0, 'transition': true, 'transitionDuration': 1000}">
-                            <img width="376" height="350" src="{{ url('frontend/img/demos/business-consulting-5/svg/icon-1.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-primary mt-5 pt-5'}" />
+                            <img width="376" height="350" src="{{ url('frontend/img/icons/accounting-auditor-4.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-primary mt-5 pt-5'}" />
                         </div>
                     </div>
                     <div class="col-lg-4 text-center text-lg-start">
@@ -288,7 +288,7 @@
                             </div>
                         </div>
                         <div data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 10.0, 'transition': true, 'transitionDuration': 1000}">
-                            <img width="376" height="350" src="{{ url('frontend/img/demos/business-consulting-5/svg/icon-2.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary mt-5 pt-5'}" />
+                            <img width="376" height="350" src="{{ url('frontend/img/icons/accounting-auditor-3.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-secondary mt-5 pt-5'}" />
                         </div>
                     </div>
                 </div>
@@ -300,7 +300,7 @@
                             </div>
                         </div>
                         <div data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 10.0, 'transition': true, 'transitionDuration': 1000}">
-                            <img width="376" height="350" src="{{ url('frontend/img/demos/business-consulting-5/svg/icon-1.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-primary mt-5 pt-5'}" />
+                            <img width="376" height="350" src="{{ url('frontend/img/icons/accounting-auditor-1.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-primary mt-5 pt-5'}" />
                         </div>
                     </div>
                     <div class="col-lg-4 text-center text-lg-start">

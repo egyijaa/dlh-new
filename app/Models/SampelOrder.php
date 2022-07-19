@@ -14,7 +14,7 @@ class SampelOrder extends Model
 
     public function pengujianOrder()
     {
-        return $this->belongsTo(PengujianOrder::class);
+        return $this->belongsTo(PengujianOrder::class, 'id_pengujian_order', 'id');
     }
 
     public function sampelUji()

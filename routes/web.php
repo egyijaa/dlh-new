@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\SampelUjiController;
 use App\Http\Controllers\Admin\ParameterSampelController;
 use App\Http\Controllers\Admin\PejabatController;
 use App\Http\Controllers\Admin\AkunController;
+use App\Http\Controllers\Admin\ProfilController;
 use App\Http\Controllers\Admin\PengujianOrderController;
 
 
@@ -68,12 +69,19 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'isAdmin'])->group(f
         Route::delete('pelangganDelete', [AkunController::class, 'pelangganDelete'])->name('pelangganDelete');
     });
 
+    Route::prefix('profil')->name('profil.')->group(function () {
+        Route::get('changePassword/{id}', [ProfilController::class, 'changePassword'])->name('changePassword');
+        Route::put('savePassword/{id}', [ProfilController::class, 'savePassword'])->name('savePassword');
+    });
+
     Route::prefix('pengujian')->name('pengujian.')->group(function () {
         Route::get('', [PengujianOrderController::class, 'index'])->name('index');
         Route::get('getOrder/{id}', [PengujianOrderController::class, 'getOrder'])->name('getOrder');
         Route::put('gantiStatus', [PengujianOrderController::class, 'gantiStatus'])->name('gantiStatus');
         Route::get('cetakLaporanSementara', [PengujianOrderController::class, 'cetakLaporanSementara'])->name('cetakLaporanSementara');
         Route::get('cetakSertifikat', [PengujianOrderController::class, 'cetakSertifikat'])->name('cetakSertifikat');
+        Route::get('cetakSkr', [PengujianOrderController::class, 'cetakSkr'])->name('cetakSkr');
+        Route::get('cetakTbp', [PengujianOrderController::class, 'cetakTbp'])->name('cetakTbp');
         // Route::post('store', [PejabatController::class, 'store'])->name('store');
         // Route::put('update', [PejabatController::class, 'update'])->name('update');
         // Route::delete('delete', [PejabatController::class, 'delete'])->name('delete');
@@ -95,6 +103,8 @@ Route::prefix('pelanggan')->name('pelanggan.')->middleware(['auth', 'isPelanggan
         Route::get('getParameter/{id}', [PelangganPengujianController::class, 'getParameter'])->name('getParameter');
        
         Route::post('createSampelParameter', [PelangganPengujianController::class, 'createSampelParameter'])->name('createSampelParameter');
+        Route::get('editSampelParameter/{id}', [PelangganPengujianController::class, 'editSampelParameter'])->name('editSampelParameter');
+        Route::put('updateSampelParameter/{id}', [PelangganPengujianController::class, 'updateSampelParameter'])->name('updateSampelParameter');
         Route::delete('deleteSampelParameter', [PelangganPengujianController::class, 'deleteSampelParameter'])->name('deleteSampelParameter');
 
         Route::post('sendOrder', [PelangganPengujianController::class, 'sendOrder'])->name('sendOrder');

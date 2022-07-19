@@ -68,7 +68,7 @@
                                     <span class="sub-item">Order baru</span>
                                 </a>
                             </li>
-                            <li class="{{ request()->is('admin/akun/pelanggan') ?'active' : '' }}">
+                            <li class="">
                                 <a href="{{ route('admin.akun.pelangganIndex') }}">
                                     <span class="sub-item">Order Lama (Selesai)</span>
                                 </a>
@@ -76,11 +76,10 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a href="widgets.html">
-                        <i class="fas fa-desktop"></i>
-                        <p>Widgets</p>
-                        <span class="badge badge-success">4</span>
+                <li class="nav-item {{ request()->is('admin/profil/changePassword/*') ?'active' : '' }}">
+                    <a href="{{ route('admin.profil.changePassword', Auth::user()->id) }}">
+                        <i class="fas fa-user"></i>
+                        <p>Profile Saya</p>
                     </a>
                 </li>
             </ul>

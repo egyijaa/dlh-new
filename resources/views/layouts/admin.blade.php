@@ -32,7 +32,7 @@
 			<div class="logo-header" data-background-color="blue">
 				
 				<a href="/" class="logo">
-					<img src="{{  url('admin/img/logo.svg')}}" alt="navbar brand" class="navbar-brand">
+					<img src="{{ url('frontend/img/demos/logopemkot.png') }}" style="width: 50px" alt="navbar brand" class="navbar-brand">
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon">
@@ -66,7 +66,14 @@
 											<div class="avatar-lg"><img src="{{ url('admin/img/user.png') }}" alt="image profile" class="avatar-img rounded"></div>
 											<div class="u-text">
 												<h4>{{ auth()->user()->name }}</h4>
-												<p class="text-muted">{{ auth()->user()->email }}</p><a href="{{ route('pelanggan.profil.changePassword', Auth::user()->id) }}" class="btn btn-xs btn-secondary btn-sm">Profile</a>
+												<p class="text-muted">{{ auth()->user()->email }}</p><a 
+												@if (auth()->user()->role == 0)
+												href="{{ route('pelanggan.profil.changePassword', Auth::user()->id) }}"
+												@else
+												href="{{ route('admin.profil.changePassword', Auth::user()->id) }}"
+												@endif
+												
+												class="btn btn-xs btn-secondary btn-sm">Profile</a>
 											</div>
 										</div>
 									</li>

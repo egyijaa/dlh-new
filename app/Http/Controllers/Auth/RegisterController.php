@@ -62,9 +62,13 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'no_hp' => ['required', 'numeric', 'digits_between:11,13', 'unique:users'],
+            'no_hp' => ['required', 'numeric', 'digits_between:10,13', 'unique:users'],
             'id_tipe_pelanggan' => ['required'],
+            'nik' => ['required', 'numeric', 'digits:16', 'unique:users'],
 
+        ], [
+            "nik.digits" => "NIK harus 16 digit angka !",
+            "no_hp.digits_between" => "No Hp minimal 10 digit angka !",
         ]);
     }
 
@@ -93,7 +97,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'role' => 0,
-            'npwp' => $data['npwp'],
+            'nik' => $data['nik'],
             'alamat' => $data['alamat'],
             'no_hp' => $data['no_hp'],
             'aktivasi' => 0,

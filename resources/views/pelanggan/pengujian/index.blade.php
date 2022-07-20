@@ -23,6 +23,7 @@
                                         <th>Nama</th>
                                         <th>Tanggal Order</th>
                                         <th>Status</th>
+                                        <th>Sub Total</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -36,15 +37,16 @@
                                         <td>{{ $p->nomor_pre }}</td>
                                         <td>{{ $p->nama_pemesan }}</td>
                                         <td>{{ date('d M Y', strtotime($p->tanggal_isi)) }}</td>
-                                        <th><span class="badge badge-primary">{{ $p->statusPengujian->status_pelanggan }}</span>
+                                        <td><span class="badge badge-primary">{{ $p->statusPengujian->status_pelanggan }}</span>
                                         <br>
                                         <a href="{{ route('pelanggan.pengujian.tracking', $p->id) }}"><i class="fas fa-angle-double-right" style="font-size: 11px">Tracking</i></a>
-                                        </th>
+                                        </td>
+                                        <td>@currency($p->total_harga)</td>
                                         <td>
                                            <form action="{{ route('pelanggan.pengujian.sampel') }}" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="id_order" value="{{ $p->id }}">
-                                                <button type="submit" class="btn btn-info btn-sm mt-1">
+                                                <button type="submit" class="btn btn-primary btn-sm mt-1">
                                                     @if ($p->statusPengujian->id == 1)
                                                         Pilih
                                                     @else
@@ -52,7 +54,7 @@
                                                     @endif
                                                     Sampel</button>
                                             </form> 
-                                            <a href="#" class="btn btn-success btn-sm mt-1" data-id="{{ $p->id }}" data-nama="{{ $p->nama_pemesan }}" data-nik="{{ $p->nik }}" data-nohp="{{ $p->no_hp }}" data-email="{{ $p->email }}" data-alamat="{{ $p->alamat }}" data-tanggal="{{ $p->tanggal_isi }}" data-nosurat="{{ $p->nomor_surat }}" data-filesurat="{{ $p->file_surat }}" data-toggle="modal" data-target="#info">Info Order</a>
+                                            <a href="#" class="btn btn-info btn-sm mt-1" data-id="{{ $p->id }}" data-nama="{{ $p->nama_pemesan }}" data-nik="{{ $p->nik }}" data-nohp="{{ $p->no_hp }}" data-email="{{ $p->email }}" data-alamat="{{ $p->alamat }}" data-tanggal="{{ $p->tanggal_isi }}" data-nosurat="{{ $p->nomor_surat }}" data-filesurat="{{ $p->file_surat }}" data-toggle="modal" data-target="#info">Info Order</a>
                                             @if ($p->statusPengujian->id != 1)
                                                 
                                             @else

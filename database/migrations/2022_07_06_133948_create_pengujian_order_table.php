@@ -33,6 +33,7 @@ class CreatePengujianOrderTable extends Migration
             $table->date('tanggal_penyelia')->nullable();
             $table->date('tanggal_analis')->nullable();
             $table->string('id_status_pengujian');
+            $table->string('nik');
             $table->timestamps();
         });
     }

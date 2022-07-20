@@ -80,7 +80,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'isAdmin'])->group(f
         Route::put('gantiStatus', [PengujianOrderController::class, 'gantiStatus'])->name('gantiStatus');
         Route::get('cetakLaporanSementara', [PengujianOrderController::class, 'cetakLaporanSementara'])->name('cetakLaporanSementara');
         Route::get('cetakSertifikat', [PengujianOrderController::class, 'cetakSertifikat'])->name('cetakSertifikat');
-        Route::get('cetakSkr', [PengujianOrderController::class, 'cetakSkr'])->name('cetakSkr');
+        Route::get('cetakSkr/{id}', [PengujianOrderController::class, 'cetakSkr'])->name('cetakSkr');
         Route::get('cetakTbp', [PengujianOrderController::class, 'cetakTbp'])->name('cetakTbp');
         // Route::post('store', [PejabatController::class, 'store'])->name('store');
         // Route::put('update', [PejabatController::class, 'update'])->name('update');

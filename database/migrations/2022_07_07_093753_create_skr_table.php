@@ -17,6 +17,7 @@ class CreateSkrTable extends Migration
             $table->bigIncrements('id');
             $table->foreignId('id_pengujian_order')->references('id')->on('pengujian_order')->onDelete('cascade');
             $table->text('file_skr')->nullable();
+            $table->string('no_skr');
             $table->timestamps();
         });
     }

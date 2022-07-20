@@ -26,7 +26,9 @@
                                             </div>
                                             @enderror
                                         </div>
-                                        <input type="hidden" name="id_pengujian_order" value="{{ $sampel_order->id_pengujian_order }}">
+                                        <input type="hidden" name="id_sampel_order" value="{{ $sampel_order->id }}">
+                                        <input type="hidden" name="id_pengujian_order" value="{{ $sampel_order->pengujianOrder->id }}">
+
                                         <div class="col-8">
                                             <label for="catatan_pelanggan">Catatan <i><small>(bila ada)</small></i></label>
                                             <input type="text" name="catatan_pelanggan" class="form-control" value="{{ $sampel_order->catatan_pelanggan }}">
@@ -73,21 +75,20 @@
                                         @php
                                             $getSampel = App\Models\ParameterSampel::with('parameterSampelOrder')->where('id_sampel_uji', $sampel_order->sampelUji->id)->get();
                                         @endphp
-
                                         <div class="col-4">
                                             <div class="form-group border border-color-dark mt-2">
                                                 <label for="sampel">Total Harga</label>
-                                                <p id="harga">{{ $sampel_order->harga }}</p>
+                                                <p id="harga">@currency($sampel_order->harga)</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row" id="cek">
                                         @foreach ($getSampel as $item)
                                             <div class="col-sm-4"><div class="form-group clearfix border border-color-dark"><div class="d-inline">
-                                            
                                                 <input type="checkbox" class="coba" name="parameter[]" data-harga = "{{ $item->harga }}" value="{{ $item->id }}" id="parameter{{ $item->id }}" 
-                                                @foreach ($item->parameterSampelOrder as $parameter)
-                                                {{  ($parameter->id_parameter_sampel == $item->id ? ' checked' : '') }}
+                                                @foreach ($sampel_order->parameterSampelOrder as $parameter_order)
+                                                {{ $parameter_order->parameterSampel->id }}
+                                                {{  ($parameter_order->parameterSampel->id == $item->id ? ' checked' : '') }}
                                                 @endforeach
                                                 >
                                                 <label for="parameter{{ $item->id }}">&nbsp;&nbsp;
@@ -100,8 +101,6 @@
 
                                     </div>
 
-                               
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
                                     <button type="submit" class="btn btn-success">Simpan</button>
                                
                             </form>

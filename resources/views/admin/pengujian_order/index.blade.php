@@ -13,7 +13,6 @@
                         <h4 class="card-title">Orderan Pengujian</h4>
                         <a href="{{ route('admin.pengujian.cetakLaporanSementara') }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak Laporan Sementara</i></a>
                         <a href="{{ route('admin.pengujian.cetakSertifikat') }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak Sertifikat</i></a>
-                        <a href="{{ route('admin.pengujian.cetakSkr') }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak SKR</i></a>
                         <a href="{{ route('admin.pengujian.cetakTbp') }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak TBP</i></a>
                       </div>
                     <div class="card-body">
@@ -26,6 +25,7 @@
                                         <th>Nama</th>
                                         <th>Tanggal Order</th>
                                         <th>Status</th>
+                                        <th>Sub Total</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -39,12 +39,16 @@
                                         <td>{{ $p->nomor_pre }}</td>
                                         <td>{{ $p->nama_pemesan }}</td>
                                         <td>{{ date('d M Y', strtotime($p->tanggal_isi)) }}</td>
-                                        <th><span class="badge badge-primary">{{ $p->statusPengujian->status_admin }}</span></th>
+                                        <td><span class="badge badge-primary">{{ $p->statusPengujian->status_admin }}</span></td>
+                                        <td>@currency($p->total_harga)</td>
                                         <td>
                                             <a href="{{ route('admin.pengujian.getOrder', $p->id) }}" class="btn btn-sm btn-primary shadow-sm my-3">
                                                 <i class="fas fa-pencil fa-sm text-white-50"></i>Lihat Sampel
                                             </a>
                                             <a href="#" class="btn btn-warning btn-sm my-2" data-target="#status" data-toggle="modal" data-id="{{ $p->id }}" data-status="{{ $p->statusPengujian->id }}">Ganti Status</a>
+                                            @if ($p->id_status_pengujian >= 4)
+                                            <a href="{{ route('admin.pengujian.cetakSkr', $p->id) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak SKR</i></a> 
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach
@@ -86,8 +90,10 @@
                         </div>
                         @enderror
                     </div>
-                    <label for="konfirmasi">Anda Yakin?</label><br>
-                    <input type="checkbox" name="konfirmasi" required><label for="konfirmasi">Ya, Saya Yakin</label>
+                    <div class="form-group">
+                        <label for="konfirmasi">Anda Yakin?</label><br>
+                        <input type="checkbox" name="konfirmasi" id="konfirmasi" required> &nbsp;<label for="konfirmasi">Ya, Saya Yakin</label>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>

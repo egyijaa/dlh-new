@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->text('keterangan')->nullable();
             $table->tinyInteger('role')->default('0');
-            $table->string('npwp')->nullable();
+            $table->string('nik')->nullable();
             $table->text('alamat');
             $table->string('no_hp');
             $table->tinyInteger('aktivasi')->default('0');

@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\PengujianOrderController;
 
 use App\Http\Controllers\Pelanggan\DashboardController as PelangganDashboardController;
 use App\Http\Controllers\Pelanggan\PengujianController as PelangganPengujianController;
+use App\Http\Controllers\Pelanggan\PengambilanSampelController as PelangganPengambilanSampelController;
 use App\Http\Controllers\Pelanggan\ProfilController as PelangganProfilController;
 
 /*
@@ -35,6 +36,7 @@ Route::get('/', function () {
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('', [DashboardController::class, 'index'])->name('index');
+        Route::get('apiwithoutkey', [DashboardController::class, 'apiWithoutKey'])->name('apiWithoutKey');
     });
     //master
     Route::prefix('sampel-uji')->name('sampel-uji.')->group(function () {
@@ -101,7 +103,8 @@ Route::prefix('pelanggan')->name('pelanggan.')->middleware(['auth', 'isPelanggan
         Route::post('sampel', [PelangganPengujianController::class, 'sampel'])->name('sampel');
         Route::get('getOrder/{id}', [PelangganPengujianController::class, 'getOrder'])->name('getOrder');
         Route::get('getParameter/{id}', [PelangganPengujianController::class, 'getParameter'])->name('getParameter');
-       
+         
+        Route::get('createSampel/{id}', [PelangganPengujianController::class, 'createSampel'])->name('createSampel');
         Route::post('createSampelParameter', [PelangganPengujianController::class, 'createSampelParameter'])->name('createSampelParameter');
         Route::get('editSampelParameter/{id}', [PelangganPengujianController::class, 'editSampelParameter'])->name('editSampelParameter');
         Route::put('updateSampelParameter/{id}', [PelangganPengujianController::class, 'updateSampelParameter'])->name('updateSampelParameter');
@@ -110,6 +113,12 @@ Route::prefix('pelanggan')->name('pelanggan.')->middleware(['auth', 'isPelanggan
         Route::post('sendOrder', [PelangganPengujianController::class, 'sendOrder'])->name('sendOrder');
         Route::get('tracking/{id}', [PelangganPengujianController::class, 'tracking'])->name('tracking');
 
+    });
+
+    Route::prefix('pengambilanSampel')->name('pengambilanSampel.')->group(function () {
+        Route::get('', [PelangganPengambilanSampelController::class, 'index'])->name('index');
+        Route::get('createOrder', [PelangganPengambilanSampelController::class, 'createOrder'])->name('createOrder');
+        Route::post('storeOrder', [PelangganPengambilanSampelController::class, 'storeOrder'])->name('storeOrder');
     });
 
     Route::prefix('profil')->name('profil.')->group(function () {

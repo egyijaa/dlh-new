@@ -111,7 +111,7 @@
 			@yield('content')
 			<footer class="footer">
 				<div class="container-fluid">
-					<div class="copyright ml-auto">
+					<div class="copyright ml-auto" style="font-size: 80%">
 						2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a>
 					</div>				
 				</div>

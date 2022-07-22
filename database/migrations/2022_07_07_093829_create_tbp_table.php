@@ -15,8 +15,11 @@ class CreateTbpTable extends Migration
     {
         Schema::create('tbp', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('id_pengujian_order')->references('id')->on('pengujian_order')->onDelete('cascade');
+            $table->string('id_pengujian_order');            
+            $table->string('id_pengambilan_sampel_order');
             $table->text('file_tbp')->nullable();
+            $table->string('no_tbp');
+            $table->string('id_tbp');
             $table->timestamps();
         });
     }

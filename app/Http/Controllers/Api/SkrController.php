@@ -7,17 +7,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\SkrResource;
 use App\Models\PengujianOrder;
+use App\Models\SampelOrder;
 
 class SkrController extends Controller
 {
-    public function index()
-    {
-        //get posts
-        $skr = Skr::latest()->paginate(5);
+    // public function index()
+    // {
+    //     //get posts
+    //     $skr = Skr::latest()->paginate(5);
 
-        //return collection of posts as a resource
-        return new SkrResource(true, 'List Data Skr', $skr);
-    }
+    //     //return collection of posts as a resource
+    //     return new SkrResource(true, 'List Data Skr', $skr);
+    // }
 
     // public function show($id)
     // {
@@ -39,7 +40,7 @@ class SkrController extends Controller
             $no_skrd = Skr::where('id_skr', $id_skr)->first()->no_skr;
             $tanggal = Skr::where('id_skr', $id_skr)->first()->created_at;
             $tanggal_jatuh_tempo = Skr::where('id_skr', $id_skr)->first()->created_at->add('30 days');
-            $kode_opd = '';
+            $id_opd = '1011';
             $nik_pemohon = PengujianOrder::where('id', $id_pengujian_order)->first()->nik;
             $nama_pemohon = PengujianOrder::where('id', $id_pengujian_order)->first()->nama_pemesan;
             $alamat_pemohon = PengujianOrder::where('id', $id_pengujian_order)->first()->alamat;
@@ -51,39 +52,32 @@ class SkrController extends Controller
             $pengujian_order = PengujianOrder::with('sampelOrder')->findOrFail($id_pengujian_order);
             $detail = [];
 
-
-            // foreach($outerArray as $key => $array) {
-            //     foreach($array as $key1 => $value) {
-            //        $array[$key1]['sku_id'] = 'XYZ';
-            //     }
-            //  }
-
-            //  foreach ($pengujian_order as $key => $s){
-            //     $detail["sampel"] = $s->sampelUji->nama_sampel;
-
-            //     foreach ($s as $key1 => $parameter){
-            //         $detail[$key1]["parameter"] = $parameter->parameterSampel->nama_parameter;
-            //         $detail[$key1]["sub_harga"] = $parameter->parameterSampel->harga;
-
-            //     }
-            // }
-
             // foreach ($pengujian_order->sampelOrder as $s){
-            //     $detail[]["sampel"] = $s->sampelUji->nama_sampel;
-
             //     foreach ($s->parameterSampelOrder as $parameter){
-            //         $detail[]["parameter"] = $parameter->parameterSampel->nama_parameter;
-            //         $detail[]["sub_harga"] = $parameter->parameterSampel->harga;
-
+            //     $detail[] = [
+            //         "sampel" => $s->sampelUji->nama_sampel,
+            //         "parameter" => $parameter->parameterSampel->nama_parameter,
+            //         "harga" => $parameter->parameterSampel->harga
+            //     ];
             //     }
             // }
 
             foreach ($pengujian_order->sampelOrder as $s){
+                $parameters_tampung = null;
+                $sampel = $s->sampelUji->nama_sampel;
                 foreach ($s->parameterSampelOrder as $parameter){
-                $detail[]["sampel"] = $s->sampelUji->nama_sampel;
-                $detail[]["parameter"] = $parameter->parameterSampel->nama_parameter;
-                $detail[]["sub_harga"] = $parameter->parameterSampel->harga;
+                    $parameters[] = $parameter->parameterSampel->nama_parameter;
                 }
+                $parameters_tampung = $parameters;
+                $parameters = null;
+                $harga = $s->harga;
+
+                $detail[] = [
+                    "sampel" => $sampel,
+                    "parameter" => $parameters_tampung,
+                    "harga" => $harga
+                ];
+
             }
 
             $skr = [
@@ -91,7 +85,7 @@ class SkrController extends Controller
                 "no_skrd" => $no_skrd,
                 "tanggal" => $tanggal,
                 "tanggal_jatuh_tempo" => $tanggal_jatuh_tempo,
-                "kode_opd" => $kode_opd,
+                "id_opd" => $id_opd,
                 "nik_pemohon" => $nik_pemohon,
                 "nama_pemohon" => $nama_pemohon,
                 "alamat_pemohon" => $alamat_pemohon,

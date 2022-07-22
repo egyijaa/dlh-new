@@ -29,10 +29,10 @@ class PengujianController extends Controller
         $pengujian =PengujianOrder::select('nomor_pre')->latest('id')->first();//cek apakah ada data sbelumnya
         if ($pengujian) {
             $nomor_pre = $pengujian->nomor_pre;
-            $removed4char = substr($nomor_pre, 4);
-            $generateNoPre = $stpad = 'POP-' . str_pad($removed4char + 1, 4, "0", STR_PAD_LEFT);
+            $removed4char = substr($nomor_pre, 5);
+            $generateNoPre = $stpad = 'OP-' . str_pad($removed4char + 1, 5, "0", STR_PAD_LEFT);
         } else {
-            $generateNoPre = 'POP-' . str_pad(1, 4, "0", STR_PAD_LEFT);
+            $generateNoPre = 'OP-' . str_pad(1, 5, "0", STR_PAD_LEFT);
         }
         return $generateNoPre;
     }
@@ -100,7 +100,7 @@ class PengujianController extends Controller
 
         $sampel = SampelUji::all();
 
-        $sampel_order = SampelOrder::with('parameterSampelOrder')->where('id_pengujian_order', $id_pengujian_order)->orderBy('kode_sampel', 'DESC')->get();
+        $sampel_order = SampelOrder::with('parameterSampelOrder')->where('id_pengujian_order', $id_pengujian_order)->orderBy('id', 'DESC')->get();
 
         return view('pelanggan.pengujian.sampel', compact('id_pengujian_order', 'nomor_pre', 'sampel', 'status', 'sampel_order'));
     }
@@ -112,6 +112,14 @@ class PengujianController extends Controller
             'message' => 'success',
             'data' => $parameters
         ]);
+    }
+
+    public function createSampel($id){
+        $id_pengujian_order = $id;
+        $nomor_pre = PengujianOrder::where('id', $id_pengujian_order)->first()->nomor_pre;
+
+        $sampel = SampelUji::all();
+        return view('pelanggan.pengujian.create_sampel', compact('id_pengujian_order','nomor_pre','sampel'));
     }
 
     public function createSampelParameter(Request $request){
@@ -129,6 +137,7 @@ class PengujianController extends Controller
                 'id_sampel_uji' =>  $request->sampel,
                 'kode_sampel' =>  $request->kode_sampel,
                 'asal_sampel' =>  $request->asal_sampel,
+                'catatan_pelanggan' => $request->catatan_pelanggan,
                 'harga' => ''
                 
             ]);
@@ -155,7 +164,7 @@ class PengujianController extends Controller
 
             DB::commit();
             toast('Data Sampel dan Parameter Berhasil Disimpan','success');
-            return redirect()->back();
+            return Redirect::route('pelanggan.pengujian.getOrder', $request->id_pengujian_order);
         } catch (\Exception $e) {
             DB::rollback();
             toast('Gagal menambah data')->autoClose(2000)->hideCloseButton();
@@ -194,6 +203,7 @@ class PengujianController extends Controller
                 'id_sampel_uji' =>  $request->sampel,
                 'kode_sampel' =>  $request->kode_sampel,
                 'asal_sampel' =>  $request->asal_sampel,
+                'catatan_pelanggan' =>  $request->catatan_pelanggan,
                 'harga' => ''
                 
             ]);

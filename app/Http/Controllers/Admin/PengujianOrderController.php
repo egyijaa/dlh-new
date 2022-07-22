@@ -71,6 +71,7 @@ class PengujianOrderController extends Controller
             } else {
                 $skr = new Skr();
                 $skr->id_pengujian_order = $pengujian->id;
+                $skr->id_pengambilan_sampel_order = '-';
                 $skr->no_skr = $this->generateNoSkr();
                 $skr->id_skr = $this->generateIdSkr();
                 $skr->save();

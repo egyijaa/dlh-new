@@ -16,4 +16,9 @@ class Tbp extends Model
     {
         return $this->belongsTo(PengujianOrder::class, 'id_pengujian_order', 'id');
     }
+
+    public function pengambilanSampelOrder()
+    {
+        return $this->belongsTo(PengambilanSampelOrder::class, 'id_pengambilan_sampel_order', 'id');
+    }
 }

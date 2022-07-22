@@ -39,7 +39,7 @@
                                         <span class="badge badge-danger">Tidak Aktif</span>
                                         @endif</td>
                                         <td>
-                                            <a href="#" data-id="{{ $p->id }}" data-name="{{ $p->name }}" data-email="{{ $p->email }}" data-keterangan="{{ $p->keterangan }}" data-idtipepelanggan="{{ $p->idtipepelanggan }}" data-npwp="{{ $p->npwp }}" data-alamat="{{ $p->alamat }}" data-nohp="{{ $p->nohp }}" data-aktivasi="{{ $p->aktivasi }}" data-toggle="modal" data-target="#verifikasi"><i class="fas fa-edit"></i></a> | 
+                                            <a href="#" data-id="{{ $p->id }}" data-name="{{ $p->name }}" data-email="{{ $p->email }}" data-keterangan="{{ $p->keterangan }}" data-idtipepelanggan="{{ $p->idtipepelanggan }}" data-nik="{{ $p->nik }}" data-alamat="{{ $p->alamat }}" data-nohp="{{ $p->no_hp }}" data-aktivasi="{{ $p->aktivasi }}" data-toggle="modal" data-target="#verifikasi"><i class="fas fa-edit"></i></a> | 
                                             <a href="#" data-target="#delete" data-toggle="modal" data-id="{{ $p->id }}"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
@@ -108,9 +108,9 @@
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="npwp">NPWP</label>
-                                <input type="text" class="form-control @error('npwp') is-invalid @enderror" id="npwp" name="npwp" readonly>
-                                @error('npwp')
+                                <label for="nik">NIK</label>
+                                <input type="text" class="form-control @error('nik') is-invalid @enderror" id="nik" name="nik" readonly>
+                                @error('nik')
                                 <div class="invalid-feedback">
                                     {{$message}}
                                 </div>
@@ -158,7 +158,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="keterangan">No Hp</label>
-                                <input type="text" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" name="nohp" readonly>
+                                <input type="text" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" name="no_hp" readonly>
                                 @error('keterangan')
                                 <div class="invalid-feedback">
                                     {{$message}}
@@ -213,7 +213,7 @@
         var email = $(e.relatedTarget).data('email');
         var keterangan = $(e.relatedTarget).data('keterangan');
         var idtipepelanggan = $(e.relatedTarget).data('idtipepelanggan');
-        var npwp = $(e.relatedTarget).data('npwp');
+        var nik = $(e.relatedTarget).data('nik');
         var alamat = $(e.relatedTarget).data('alamat');
         var nohp = $(e.relatedTarget).data('nohp');
         var aktivasi = $(e.relatedTarget).data('aktivasi');
@@ -223,9 +223,9 @@
         $('#verifikasi').find('input[name="email"]').val(email);
         $('#verifikasi').find('input[name="keterangan"]').val(keterangan);
         $('#verifikasi').find('input[name="idtipepelanggan"]').val(idtipepelanggan);
-        $('#verifikasi').find('input[name="npwp"]').val(npwp);
+        $('#verifikasi').find('input[name="nik"]').val(nik);
         $('#verifikasi').find('input[name="alamat"]').val(alamat);
-        $('#verifikasi').find('input[name="nohp"]').val(nohp);
+        $('#verifikasi').find('input[name="no_hp"]').val(nohp);
         $('#verifikasi').find('select[name="aktivasi"]').val(aktivasi);
     });
     

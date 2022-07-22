@@ -15,9 +15,11 @@ class CreateSkrTable extends Migration
     {
         Schema::create('skr', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('id_pengujian_order')->references('id')->on('pengujian_order')->onDelete('cascade');
+            $table->string('id_pengujian_order');            
+            $table->string('id_pengambilan_sampel_order');
             $table->text('file_skr')->nullable();
             $table->string('no_skr');
+            $table->string('id_skr');
             $table->timestamps();
         });
     }

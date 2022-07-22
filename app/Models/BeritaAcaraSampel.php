@@ -5,17 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Skr extends Model
+class BeritaAcaraSampel extends Model
 {
     use HasFactory;
 
-    protected $table = 'skr';
+    protected $table = 'berita_acara_sampel';
     protected $guarded = [];
-
-    public function pengujianOrder()
-    {
-        return $this->belongsTo(PengujianOrder::class, 'id_pengujian_order', 'id');
-    }
 
     public function pengambilanSampelOrder()
     {

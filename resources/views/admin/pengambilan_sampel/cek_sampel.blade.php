@@ -23,9 +23,6 @@
                                         <th>Parameter</th>
                                         <th>Harga</th>
                                         <th>Catatan Pelanggan</th>
-                                        @if ($status >= 5)
-                                        <th>Detail</th>
-                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -48,14 +45,6 @@
                                         @else
                                         ---
                                     @endif</td>
-                                    @if ($status >= 5)
-                                    <td><a href="{{ route('admin.pengujian.hasilUji', ['order'=>$nomor_pre, 'id'=>$s->id]) }}" class="btn btn-info btn-sm mt-1">Lihat</a>
-                                    <br>
-                                    <a href="{{ route('admin.pengujian.cetakLaporanSementara', ['order'=>$id_pengujian_order, 'sampel'=>$s->id] ) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm my-1">Cetak Laporan Sementara</i></a>
-                                    
-                                    <a href="{{ route('admin.pengujian.cetakSertifikat', ['order'=>$id_pengujian_order, 'sampel'=>$s->id]) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm mb-1">Cetak Sertifikat</i></a> 
-                                    </td>
-                                    @endif
                                     </tr>
                                     @endforeach
                                 </tbody>

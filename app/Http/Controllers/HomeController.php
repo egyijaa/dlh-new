@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ParameterSampel;
+use App\Models\SampelUji;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -34,5 +36,11 @@ class HomeController extends Controller
         return view('frontend.index');
 
 
+    }
+
+    public function biaya(){
+        $parameter = ParameterSampel::all();
+
+        return view('frontend.biaya', compact('parameter'));
     }
 }

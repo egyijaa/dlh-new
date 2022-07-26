@@ -52,7 +52,7 @@
                                 </a>
                             </li>
                             <li class="">
-                                <a href="">
+                                <a href="{{ route('pelanggan.pengujianSelesai.index') }}">
                                     <span class="sub-item">Pengujian</span>
                                 </a>
                             </li>

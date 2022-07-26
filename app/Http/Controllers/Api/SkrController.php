@@ -6,6 +6,7 @@ use App\Models\Skr;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\SkrResource;
+use App\Models\PengambilanSampelOrder;
 use App\Models\PengujianOrder;
 use App\Models\SampelOrder;
 
@@ -35,50 +36,72 @@ class SkrController extends Controller
     public function show($id_skr)
     {
         if (Skr::where('id_skr', $id_skr)->exists()) {
-            $id_pengujian_order = Skr::where('id_skr', $id_skr)->first()->id_pengujian_order; 
-            $no_order = PengujianOrder::where('id', $id_pengujian_order)->first()->nomor_pre;
-            $no_skrd = Skr::where('id_skr', $id_skr)->first()->no_skr;
-            $tanggal = Skr::where('id_skr', $id_skr)->first()->created_at;
-            $tanggal_jatuh_tempo = Skr::where('id_skr', $id_skr)->first()->created_at->add('30 days');
-            $id_opd = '1011';
-            $nik_pemohon = PengujianOrder::where('id', $id_pengujian_order)->first()->nik;
-            $nama_pemohon = PengujianOrder::where('id', $id_pengujian_order)->first()->nama_pemesan;
-            $alamat_pemohon = PengujianOrder::where('id', $id_pengujian_order)->first()->alamat;
-            $email_pemohon = PengujianOrder::where('id', $id_pengujian_order)->first()->email;
-            $nilai_pokok = PengujianOrder::where('id', $id_pengujian_order)->first()->total_harga;
-            $nilai_denda = '';
-            $nilai_total = '';
+             
+            $cek_pengujian = Skr::where('id_skr', $id_skr)->first()->id_pengujian_order;
+            
+            //cek apakah isi skr itu pake order pengujian?
+                if ($cek_pengujian != '-') {
+                    $id_pengujian_order = Skr::where('id_skr', $id_skr)->first()->id_pengujian_order; 
+                    $no_order = PengujianOrder::where('id', $id_pengujian_order)->first()->nomor_pre;
+                    $no_skrd = Skr::where('id_skr', $id_skr)->first()->no_skr;
+                    $tanggal = Skr::where('id_skr', $id_skr)->first()->created_at;
+                    $tanggal_jatuh_tempo = Skr::where('id_skr', $id_skr)->first()->created_at->add('30 days');
+                    $id_opd = '1011';
+                    $nik_pemohon = PengujianOrder::where('id', $id_pengujian_order)->first()->nik;
+                    $nama_pemohon = PengujianOrder::where('id', $id_pengujian_order)->first()->nama_pemesan;
+                    $alamat_pemohon = PengujianOrder::where('id', $id_pengujian_order)->first()->alamat;
+                    $email_pemohon = PengujianOrder::where('id', $id_pengujian_order)->first()->email;
+                    $nilai_pokok = PengujianOrder::where('id', $id_pengujian_order)->first()->total_harga;
+                    $nilai_denda = '';
+                    $nilai_total = '';
+        
+                    $pengujian_order = PengujianOrder::with('sampelOrder')->findOrFail($id_pengujian_order);
+                    $detail = [];
+        
+                    foreach ($pengujian_order->sampelOrder as $s){
+                        $parameters_tampung = null;
+                        $sampel = $s->sampelUji->nama_sampel;
+                        foreach ($s->parameterSampelOrder as $parameter){
+                            $parameters[] = $parameter->parameterSampel->nama_parameter;
+                        }
+                        $parameters_tampung = $parameters;
+                        $parameters = null;
+                        $harga = $s->harga;
+        
+                        $detail[] = [
+                            "sampel" => $sampel,
+                            "parameter" => $parameters_tampung,
+                            "harga" => $harga
+                        ];
+        
+                    }
+                } else {
+                    $id_pengambilan_sampel_order = Skr::where('id_skr', $id_skr)->first()->id_pengambilan_sampel_order; 
+                    $no_order = PengambilanSampelOrder::where('id', $id_pengambilan_sampel_order)->first()->nomor_pre;
+                    $no_skrd = Skr::where('id_skr', $id_skr)->first()->no_skr;
+                    $tanggal = Skr::where('id_skr', $id_skr)->first()->created_at;
+                    $tanggal_jatuh_tempo = Skr::where('id_skr', $id_skr)->first()->created_at->add('30 days');
+                    $id_opd = '1011';
+                    $nik_pemohon = PengambilanSampelOrder::where('id', $id_pengambilan_sampel_order)->first()->nik;
+                    $nama_pemohon = PengambilanSampelOrder::where('id', $id_pengambilan_sampel_order)->first()->nama_pemesan;
+                    $alamat_pemohon = PengambilanSampelOrder::where('id', $id_pengambilan_sampel_order)->first()->alamat;
+                    $email_pemohon = PengambilanSampelOrder::where('id', $id_pengambilan_sampel_order)->first()->email;
+                    $nilai_pokok = PengambilanSampelOrder::where('id', $id_pengambilan_sampel_order)->first()->total_harga;
+                    $nilai_denda = '';
+                    $nilai_total = '';
+        
+                    $pengambilan_order = PengambilanSampelOrder::findOrFail($id_pengambilan_sampel_order);
+                    $titik = $pengambilan_order->jumlah_titik_sampling;
+                    $parameter[] = $titik . ' titik sampling';
 
-            $pengujian_order = PengujianOrder::with('sampelOrder')->findOrFail($id_pengujian_order);
-            $detail = [];
-
-            // foreach ($pengujian_order->sampelOrder as $s){
-            //     foreach ($s->parameterSampelOrder as $parameter){
-            //     $detail[] = [
-            //         "sampel" => $s->sampelUji->nama_sampel,
-            //         "parameter" => $parameter->parameterSampel->nama_parameter,
-            //         "harga" => $parameter->parameterSampel->harga
-            //     ];
-            //     }
-            // }
-
-            foreach ($pengujian_order->sampelOrder as $s){
-                $parameters_tampung = null;
-                $sampel = $s->sampelUji->nama_sampel;
-                foreach ($s->parameterSampelOrder as $parameter){
-                    $parameters[] = $parameter->parameterSampel->nama_parameter;
+                    $detail[] = [
+                        "sampel" => $pengambilan_order->sampelUji->nama_sampel,
+                        "parameter" => $parameter,
+                        "harga" => $pengambilan_order->total_harga,
+                    ];
+                    
                 }
-                $parameters_tampung = $parameters;
-                $parameters = null;
-                $harga = $s->harga;
-
-                $detail[] = [
-                    "sampel" => $sampel,
-                    "parameter" => $parameters_tampung,
-                    "harga" => $harga
-                ];
-
-            }
+                
 
             $skr = [
                 "no_order" => $no_order, 

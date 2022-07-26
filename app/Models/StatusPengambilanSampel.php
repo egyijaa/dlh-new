@@ -19,6 +19,6 @@ class StatusPengambilanSampel extends Model
 
     public function pengambilanSampelOrder()
     {
-        return $this->hasOne(PengujianOrder::class, 'id_status_pengambilan_sampel', 'id');
+        return $this->hasOne(PengambilanSampelOrder::class, 'id_status_pengambilan_sampel', 'id');
     }
 }

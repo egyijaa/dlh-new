@@ -4,13 +4,13 @@
 <div class="content">
     <div class="page-inner">
         <div class="page-header">
-            <h4 class="page-title">Orderan Pengujian</h4>
+            <h4 class="page-title">Orderan Pengambilan Sampel</h4>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header justify-content-between d-flex d-inline">
-                        <h4 class="card-title">Orderan Pengujian</h4>
+                        <h4 class="card-title">Orderan Pengambilan Sampel</h4>
                       </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -30,26 +30,22 @@
                                     @php
                                         $i = 1;
                                     @endphp
-                                    @foreach($pengujian as $p)
+                                    @foreach($pengambilan as $p)
                                     <tr>
                                         <td>{{ $i++ }}</td>
                                         <td>{{ $p->nomor_pre }}</td>
                                         <td>{{ $p->nama_pemesan }}</td>
                                         <td>{{ date('d M Y', strtotime($p->tanggal_isi)) }}</td>
-                                        <td><span class="badge badge-primary">{{ $p->statusPengujian->status_admin }}</span></td>
+                                        <td><span class="badge badge-primary">{{ $p->statusPengambilanSampel->status_admin }}</span></td>
                                         <td>@currency($p->total_harga)</td>
                                         <td>
                                             <a href="{{ route('admin.pengujian.getOrder', $p->id) }}" class="btn btn-sm btn-primary shadow-sm my-3">
-                                                <i class="fas fa-pencil fa-sm text-white-50"></i>Lihat Sampel
+                                                <i class="fas fa-pencil fa-sm text-white-50"></i>Lihat Order
                                             </a>
-                                            <a href="#" class="btn btn-warning btn-sm my-2" data-target="#status" data-toggle="modal" data-id="{{ $p->id }}" data-status="{{ $p->statusPengujian->id }}">Ganti Status</a>
-                                            @if ($p->id_status_pengujian >= 4)
-                                            <a href="{{ route('admin.pengujian.cetakSkr', $p->id) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak SKR</i></a> 
+                                            <a href="#" class="btn btn-warning btn-sm my-2" data-target="#status" data-toggle="modal" data-id="{{ $p->id }}" data-status="{{ $p->statusPengambilanSampel->id }}">Ganti Status</a>
+                                            @if ($p->id_status_pengambilan_sampel >= 4)
+                                            <a href="{{ route('admin.pengambilanSampel.cetakSkr', $p->id) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak SKR</i></a> 
                                             @endif
-                                            @if ($p->id_status_pengujian >= 5)
-                                            <a href="{{ route('admin.pengujian.cetakTbp', $p->id) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak TBP</i></a> 
-                                            @endif
-
                                         </td>
                                     </tr>
                                     @endforeach
@@ -66,7 +62,7 @@
 <div class="modal fade" id="status" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="{{ route('admin.pengujian.gantiStatus') }}" method="POST">
+            <form action="{{ route('admin.pengambilanSampel.gantiStatus') }}" method="POST">
                 @csrf
                 @method('PUT')
                 <input type="hidden" name="id">

@@ -22,6 +22,7 @@ class CreateSampelOrder extends Migration
             $table->tinyInteger('asal_sampel');
             $table->string('nomor_uji')->nullable()->unique();
             $table->string('harga')->nullable();
+            $table->string('nomor_sertifikat')->nullable();
             $table->timestamps();
         });
     }

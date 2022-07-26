@@ -37,6 +37,12 @@
 		<link rel="stylesheet" href="{{ url('frontend/css/theme-blog.css') }}">
 		<link rel="stylesheet" href="{{ url('frontend/css/theme-shop.css') }}">
 
+		{{-- databale --}}
+		<link rel="stylesheet" href="{{ url('frontend/vendor/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+        <link rel="stylesheet" href="{{ url('frontend/vendor/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+        <link rel="stylesheet" href="{{ url('frontend/vendor/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+
+
 		<!-- Demo CSS -->
 		<link rel="stylesheet" href="{{ url('frontend/css/demos/demo-renewable-energy.css') }}">
 
@@ -70,6 +76,14 @@
 		<script src="{{ url('frontend/vendor/vide/jquery.vide.min.js') }}"></script>
 		<script src="{{ url('frontend/vendor/vivus/vivus.min.js') }}"></script>
 
+
+		<script src="{{ url('frontend/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ url('frontend/vendor/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+        <script src="{{ url('frontend/vendor/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+        <script src="{{ url('frontend/vendor/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+        <script src="{{ url('frontend/vendor/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+        <script src="{{ url('frontend/vendor/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+
 		<!-- Theme Base, Components and Settings -->
 		<script src="{{ url('frontend/js/theme.js') }}"></script>
 
@@ -82,5 +96,14 @@
 
 		<!-- Theme Initialization Files -->
 		<script src="{{ url('frontend/js/theme.init.js') }}"></script>
+
+		<script>
+            $(function () {
+              $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+              }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            });
+          </script>
 	</body>
 </html>

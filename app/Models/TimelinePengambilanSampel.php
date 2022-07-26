@@ -19,6 +19,6 @@ class TimelinePengambilanSampel extends Model
 
     public function statusPengambilanSampel()
     {
-        return $this->belongsTo(StatusPengujian::class, 'id_status_pengambilan_sampel', 'id');
+        return $this->belongsTo(StatusPengambilanSampel::class, 'id_status_pengambilan_sampel', 'id');
     }
 }

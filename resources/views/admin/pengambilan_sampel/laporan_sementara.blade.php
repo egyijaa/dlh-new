@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Laporan Sementara | DLH | {{ $sampel_order->nomor_uji }}</title>
+    <title>Document</title>
     <style>
         .center {
             margin: auto;
@@ -33,7 +33,7 @@
             border-collapse: collapse;
         }
         .tdBG {
-           background-color: #74b72d;
+           background-color: #74CD53;
         }
     </style>
 </head>
@@ -45,11 +45,11 @@
     <table>
         <tr>
             <td>Nama Contoh Uji</td>
-            <td>: {{ $sampel_order->nomor_uji }}</td>
+            <td>: a-123-B567</td>
         </tr>
         <tr>
             <td>Jenis Contoh Uji</td>
-            <td>: {{ $sampel_order->sampelUji->nama_sampel }}</td>
+            <td>: Air Permukaan</td>
         </tr>
         <tr>
             <td>Tanggal Penerimaan Contoh Uji</td>
@@ -73,18 +73,20 @@
             <th class="th" style="width:15%">Hasil Pengujian</th>
             <th class="th" style="width:30%">Metode</th>
         </tr>
-        @php
-        $i = 1;
-        @endphp
-        @foreach ($sampel_order->parameterSampelOrder as $parameter)
         <tr>
-            <td class="td" align="center">{{ $i++ }}</td>
-            <td class="td">{{ $parameter->parameterSampel->nama_parameter }}</td>
-            <td class="td" align="center">{{ $parameter->satuan }}</td>
-            <td class="td tdBG" align="center">{{ $parameter->hasil_pengujian }}</td>
-            <td class="td" align="center">{{ $parameter->metode_uji }}</td>
+            <td class="td" align="center">1</td>
+            <td class="td">Kebutuhan Oksigen Biokimiawi (<i>BOD</i>)</td>
+            <td class="td" align="center">mg/L</td>
+            <td class="td tdBG" align="center">87</td>
+            <td class="td" align="center">HACH <i>Methode</i></td>
         </tr>
-        @endforeach
+        <tr>
+            <td class="td" align="center">2</td>
+            <td class="td">Kebutuhan Oksigen Kimiawi (<i>COD</i>)</td>
+            <td class="td" align="center">mg/L</td>
+            <td class="td tdBG" align="center">35.488</td>
+            <td class="td" align="center">SNI 6989.2:2019</td>
+        </tr>
     </table>
 
     <div class="parent">

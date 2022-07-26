@@ -4,7 +4,7 @@
 <div class="content">
     <div class="page-inner">
         <div class="page-header">
-            <a href="{{ route('pelanggan.pengujian.index') }}"><i class="fas fa-arrow-left"> Kembali</i></a>
+            <a href="{{ route('pelanggan.pengambilanSampel.index') }}"><i class="fas fa-arrow-left"> Kembali</i></a>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -30,7 +30,7 @@
                                     <div class="timeline-badge info"><i class="flaticon-success"></i></div>
                                         <div class="timeline-panel">
                                             <div class="timeline-heading">
-                                                <h4 class="timeline-title">{{ $t->statusPengujian->status_pelanggan }}</h4>
+                                                <h4 class="timeline-title">{{ $t->statusPengambilanSampel->status_pelanggan }}</h4>
                                                 <p><small class="text-muted"><i class="flaticon-time"></i>{{ \Carbon\Carbon::parse($t->tanggal)->format('d-M-Y , H:i:s') }}</small></p>
                                             </div>
                                         </div>

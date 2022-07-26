@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>SERTIFIKAT | DLH | {{ $sampel_order->nomor_sertifikat }}</title>
+    <title>Document</title>
     <style>
         body {
             font-family: 'Calibri', Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
@@ -90,16 +90,16 @@
                     echo $now;
                     @endphp
                 </td>
-                <td><u>Nomor Sertifikat</u><br><i style="color: #FF4900">Certificate Number</i></td>
-                <td>: {{ $sampel_order->nomor_sertifikat }}</td>
+                <td><u>Nomor Laporan</u><br><i style="color: #FF4900">Lab reference</i></td>
+                <td>: 919/LP-BRS.PTK/IV/2021</td>
             </tr>
             <br>
             <tr>
                 <td style="width:15%;"><u>Kepada</u><br><i style="color: #FF4900">To client</i></td>
-                <td style="width:35%;">: {{ $sampel_order->pengujianOrder->nama_pemesan }} <br> di- <br> Pontianak
+                <td style="width:35%;">: Dinas Lingkungan Hidup Kota Pontianak <br> di- <br> Pontianak
                 </td>
                 <td><u>Nomor Analisis</u><br><i style="color: #FF4900">Analysis Number</i></td>
-                <td>: {{ $sampel_order->nomor_uji }}</td>
+                <td>: P.00796-2021</td>
             </tr>
             <br>
             <tr>
@@ -116,7 +116,7 @@
             <br>
             <tr>
                 <td colspan="2"><u>Dari Contoh</u><br><i style="color: #FF4900">Of the sample(s)</i></td>
-                <td colspan="2">: {{ $sampel_order->sampelUji->nama_sampel }}</td>
+                <td colspan="2">: Air Permukaan</td>
             </tr>
             <br>
             <tr>
@@ -136,12 +136,18 @@
             <br>
             <tr>
                 <td colspan="2"><u>Tanggal Terima</u><br><i style="color: #FF4900">Received on</i></td>
-                <td colspan="2">: {{ $sampel_order->pengujianOrder->tanggal_penyelia }}</td>
+                <td colspan="2">: @php
+                    $now = \Carbon\Carbon::now('Asia/Jakarta')->format('d F Y');
+                    echo $now;
+                    @endphp</td>
             </tr>
             <br>
             <tr>
                 <td colspan="2"><u>Tanggal Analisis</u><br><i style="color: #FF4900">Date tested</i></td>
-                <td colspan="2">: {{ $sampel_order->pengujianOrder->tanggal_analis }}</td>
+                <td colspan="2">: @php
+                    $now = \Carbon\Carbon::now('Asia/Jakarta')->format('d F Y');
+                    echo $now;
+                    @endphp</td>
             </tr>
             <br>
             <tr>
@@ -150,7 +156,7 @@
             <br>
             <tr>
                 <td colspan="2"><p style="font-size: 11.5px; border: 1px solid #FF4900; padding: 5px; color: #FF4900">Hasil pengujian ini berlaku untuk contoh-contoh tersebut diatas.<br>Pengambil contoh bertanggung jawab atas keterwakilan contoh</p></td>
-                <td colspan="2" align="center">Penanggungjawab Teknis<br><br><br><br><u><b>DINA ANGELINA, S.Si</b></u></td>
+                <td colspan="2" align="center">Pit.Kepala Seksi Standarisasi dan Sertifikasi<br><br><br><br>Zuhwary</td>
             </tr>
         </table>
     </div>
@@ -182,19 +188,19 @@
         <table style="width: 100%; font-size: 14px; padding-left: 27px; padding-right: 27px;">
             <tr>
                 <td>Nama Laporan</td>
-                <td>: {{ $sampel_order->nomor_sertifikat }}</td>
+                <td>: 919/LP-BRS.PTK/IV/2021</td>
             </tr>
             <tr>
                 <td>Nomor analisis</td>
-                <td>: {{ $sampel_order->nomor_uji }}</td>
+                <td>: P.00796-2021</td>
             </tr>
             <tr>
                 <td>Nama perusahaan</td>
-                <td>: {{ $sampel_order->pengujianOrder->nama_pemesan }}</td>
+                <td>: Dinas Lingkungan Hidup Kota Pontianak</td>
             </tr>
             <tr>
                 <td>Jenis Contoh</td>
-                <td>: {{ $sampel_order->sampelUji->nama_sampel }}</td>
+                <td>: Air Permukaan; Kode/Lokasi: Tky 1</td>
             </tr>
         </table>
         <br>
@@ -207,19 +213,46 @@
                 <th class="th2">Baku Mutu</th>
                 <th class="th2">Metode</th>
             </tr>
-            @php
-            $i = 1;
-            @endphp
-            @foreach ($sampel_order->parameterSampelOrder as $parameter)
             <tr>
-                <td class="td2" align="center">{{ $i++ }}</td>
-                <td class="td2">{{ $parameter->parameterSampel->nama_parameter }}</td>
-                <td class="td2" align="center">{{ $parameter->satuan }}</td>
-                <td class="td2" align="center">{{ $parameter->hasil_pengujian }}</td>
-                <td class="td2" align="center">{{ $parameter->baku_mutu }}</td>
-                <td class="td2" align="center">{{ $parameter->metode_uji }}</td>
+                <td class="td2" align="center">1</td>
+                <td class="td2">Temperatur</td>
+                <td class="td2" align="center">*C</td>
+                <td class="td2" align="center">28 (Dev 2)</td>
+                <td class="td2" align="center">Def 3</td>
+                <td class="td2" align="center">SNI 06-6989-23-2005</td>
             </tr>
-            @endforeach
+            <tr>
+                <td class="td2" align="center">2</td>
+                <td class="td2">Padatan Terlarut Total (<i>TDS</i>)</td>
+                <td class="td2" align="center">mg/L</td>
+                <td class="td2" align="center">73</td>
+                <td class="td2" align="center">1.000</td>
+                <td class="td2" align="center">HACH <i>Methode</i></td>
+            </tr>
+            <tr>
+                <td class="td2" align="center">3</td>
+                <td class="td2">Padatan Tersuspensi Total (<i>TSS</i>)</td>
+                <td class="td2" align="center">mg/L</td>
+                <td class="td2" align="center">20</td>
+                <td class="td2" align="center">50</td>
+                <td class="td2" align="center">SNI 6989.3:2019</td>
+            </tr>
+            <tr>
+                <td class="td2" align="center">4</td>
+                <td class="td2">pH</td>
+                <td class="td2" align="center">-</td>
+                <td class="td2" align="center">6</td>
+                <td class="td2" align="center">6-9</td>
+                <td class="td2" align="center">SNI 6989.11:2019</td>
+            </tr>
+            <tr>
+                <td class="td2" align="center">5</td>
+                <td class="td2">Kebutuhan Oksigen Kimiawi (<i>COD</i>)</td>
+                <td class="td2" align="center">mg/L</td>
+                <td class="td2" align="center">27</td>
+                <td class="td2" align="center">25</td>
+                <td class="td2" align="center">SNI 6989.2:2019</td>
+            </tr>
         </table>
         <br>
     </div>
@@ -227,7 +260,7 @@
         <table style="width:100%; font-size: 14px; padding-left: 8px; padding-bottom: 8px;">
             <tr>
                 <td colspan="2"><p style="font-size: 11.5px; border: 1px solid #FF4900; padding: 5px; color: #FF4900">Hasil pengujian ini berlaku untuk contoh-contoh tersebut diatas.<br>Pengambil contoh bertanggung jawab atas keterwakilan contoh</p></td>
-                <td colspan="2" align="center">Penanggungjawab Teknis<br><br><br><br><u><b>DINA ANGELINA, S.Si</b></u></td>
+                <td colspan="2" align="center">Pit.Kepala Seksi Standarisasi dan Sertifikasi<br><br><br><br>Zuhwary</td>
             </tr>
         </table>
         <p align="center" style="font-size: 7.5px;"><u>Tidak dibenarkan mengutip/memperbanyak dan/atau mempublikasikan sebagian isi sertifikat ini tanpa izin LP-BRS_PTK. Sertifikat ini sah telah dibubuhi cap dan ditandatangani oleh pejabat yang bersangkutan</u><br><i>This certificate shall not be reproduced except in full exists permission for the reproduction of an approved abstract has been obtained in writing from LP-BRS-PTK</i></p>

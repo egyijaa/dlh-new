@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ParameterSampelOrder;
 use Illuminate\Http\Request;
 use App\Models\PengujianOrder;
 use App\Models\SampelOrder;
+use App\Models\SampelUji;
 use App\Models\Skr;
 use App\Models\StatusPengujian;
+use App\Models\Tbp;
 use App\Models\TimelinePengujian;
 use Carbon\Carbon;
 use PDF;
@@ -24,10 +27,11 @@ class PengujianOrderController extends Controller
     public function getOrder(Request $request, $id){
         $id_pengujian_order = $id;
         $nomor_pre = PengujianOrder::where('id', $id_pengujian_order)->first()->nomor_pre;
+        $status = PengujianOrder::where('id', $id_pengujian_order)->first()->id_status_pengujian;
 
         $sampel_order = SampelOrder::with('parameterSampelOrder')->where('id_pengujian_order', $id_pengujian_order)->orderBy('id', 'DESC')->get();
 
-        return view('admin.pengujian_order.cek_sampel', compact('id_pengujian_order', 'nomor_pre', 'sampel_order'));
+        return view('admin.pengujian_order.cek_sampel', compact('id_pengujian_order', 'nomor_pre', 'status', 'sampel_order'));
     }
 
     public function generateNoSkr(){
@@ -57,15 +61,48 @@ class PengujianOrderController extends Controller
         return $generateIdSkr;
     }
 
+    public function generateNoTbp(){
+   
+        $cek_tbp = Tbp::select('no_tbp')->latest('id')->first();
+        $year_now = date("Y");
+        if($cek_tbp){
+            $latestTbp = Tbp::orderBy('created_at','DESC')->first();
+            $generateNoTbp = str_pad($latestTbp->id + 1, 4, "0", STR_PAD_LEFT) . '/TBP/UPT-LAB/DLH/' . $year_now;    
+        } else{
+            $generateNoTbp = '0001' . '/TBP/UPT-LAB/DLH/' . $year_now;  
+        }
+   
+        return $generateNoTbp;
+    }
+
+    public function generateIdTbp(){
+   
+        $cek_tbp = Tbp::select('no_tbp')->latest('id')->first();
+        if($cek_tbp){
+            $latestTbp = Tbp::orderBy('created_at','DESC')->first();
+            $generateIdTbp = str_pad($latestTbp->id + 1, 4, "0", STR_PAD_LEFT);    
+        } else{
+            $generateIdTbp = '0001';  
+        }
+   
+        return $generateIdTbp;
+    }
+
     public function gantiStatus(Request $request)
     {
         $pengujian = PengujianOrder::find($request->id);
         $pengujian->id_status_pengujian = $request->get('status');
+        if ($request->status == 7) {
+        $pengujian->tanggal_penyelia = Carbon::now('Asia/Jakarta');
+        }
+        if ($request->status == 8) {
+            $pengujian->tanggal_analis = Carbon::now('Asia/Jakarta');
+        }
         $pengujian->save();
 
         //buat SKR jika orderan diterima
         if($request->status == 4 ){
-            //cek apakah udh ada skr sbllumnya udh order pengujian yang sama
+            //cek apakah udh ada skr sbllumnya utk order pengujian yang sama
             if (Skr::where('id_pengujian_order', $request->id)->exists()){
 
             } else {
@@ -77,6 +114,21 @@ class PengujianOrderController extends Controller
                 $skr->save();
             }
     
+        }
+
+           //buat TBP jika sudah bayar
+        if($request->status == 5 ){
+            //cek apakah udh ada tbp sbllumnya utk order pengujian yang sama
+            if (Tbp::where('id_pengujian_order', $request->id)->exists()){
+
+            } else {
+                $tbp = new Tbp();
+                $tbp->id_pengujian_order = $pengujian->id;
+                $tbp->id_pengambilan_sampel_order = '-';
+                $tbp->no_tbp = $this->generateNoTbp();
+                $tbp->id_tbp = $this->generateIdTbp();
+                $tbp->save();
+            }
         }
 
         $timeline = new TimelinePengujian();
@@ -98,21 +150,60 @@ class PengujianOrderController extends Controller
 	    return $pdf->stream();
     }
 
-
-    public function cetakLaporanSementara(){
-        $pdf = PDF::loadview('admin.pengujian_order.laporan_sementara')->setPaper('a4', 'potrait');
+    public function cetakTbp($id){
+        $pengujian_order = PengujianOrder::with('sampelOrder')->findOrFail($id);
+        $id_tbp = Tbp::where('id_pengujian_order', $id)->first()->id;
+        $tbp = Tbp::findOrFail($id_tbp);
+        $no_skr = Skr::where('id_pengujian_order', $id)->first()->no_skr;
+        $pdf = PDF::loadview('admin.pengujian_order.tbp', compact('pengujian_order', 'tbp', 'no_skr'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 
-    public function cetakSertifikat(){
-        $pdf = PDF::loadview('admin.pengujian_order.sertifikat')->setPaper('a4', 'potrait');
+    public function hasilUji($order ,$id){
+        $parameter_order = ParameterSampelOrder::where('id_sampel_order', $id)->get();
+        $nomor_order = $order;
+        $id_sampel_order = $id;
+        $sampel = SampelOrder::where('id', $id)->first()->id_sampel_uji;
+        $kode_sampel = SampelOrder::where('id', $id)->first()->kode_sampel;
+        $nama_sampel = SampelUji::where('id', $sampel)->first()->nama_sampel;
+        $id_pengujian_order = SampelOrder::where('id', $id)->first()->id_pengujian_order;
+
+        return view('admin.pengujian_order.hasil_uji', compact('parameter_order', 'nomor_order', 'nama_sampel', 'kode_sampel', 'id_pengujian_order', 'id_sampel_order'));
+    }
+
+    public function updateHasil(Request $request){
+        $parameter_order = ParameterSampelOrder::find($request->id);
+
+        $parameter_order->metode_uji = $request->get('metode_uji');
+        $parameter_order->satuan = $request->get('satuan');
+        $parameter_order->hasil_pengujian = $request->get('hasil_pengujian');
+        $parameter_order->baku_mutu = $request->get('baku_mutu');
+        $parameter_order->update();
+        toast('Data Berhasil Dibuat','success');
+        return redirect()->back();
+    }
+
+    public function cetakLaporanSementara($order, $sampel){
+        $id_order_pengujian = $order;
+        $id_sampel_order = $sampel;
+
+        $sampel_order = SampelOrder::with('parameterSampelOrder')->findOrFail($id_sampel_order);
+
+        $pdf = PDF::loadview('admin.pengujian_order.laporan_sementara', compact('sampel_order'))->setPaper('a4', 'potrait');
+	    return $pdf->stream();
+    }
+
+    public function cetakSertifikat($order, $sampel){
+        $id_order_pengujian = $order;
+        $id_sampel_order = $sampel;
+
+        $sampel_order = SampelOrder::with('parameterSampelOrder')->findOrFail($id_sampel_order);
+
+        $pdf = PDF::loadview('admin.pengujian_order.sertifikat', compact('sampel_order'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 
 
 
-    public function cetakTbp(){
-        $pdf = PDF::loadview('admin.pengujian_order.tbp')->setPaper('a4', 'potrait');
-	    return $pdf->stream();
-    }
+ 
 }

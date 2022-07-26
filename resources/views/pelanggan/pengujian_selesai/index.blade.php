@@ -4,14 +4,14 @@
 <div class="content">
     <div class="page-inner">
         <div class="page-header">
-            <h4 class="page-title">Order Pengambilan Sampel</h4>
+            <h4 class="page-title">Order Pengujian</h4>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header justify-content-between d-flex d-inline">
-                        <h4 class="card-title">Order Pengambilan Sampel</h4>
-                        <a href="{{ route('pelanggan.pengambilanSampel.createOrder') }}"><i class="btn btn-sm btn-primary shadow-sm">+ Tambah Order</i></a>
+                        <h4 class="card-title">Order Pengujian</h4>
+                        <a href="#" data-toggle="modal" data-target="#tambah"><i class="btn btn-sm btn-primary shadow-sm">+ Tambah Order</i></a>
                       </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -31,24 +31,34 @@
                                     @php
                                         $i = 1;
                                     @endphp
-                                    @foreach($pengambilan as $p)
+                                    @foreach($pengujian as $p)
                                     <tr>
                                         <td>{{ $i++ }}</td>
                                         <td>{{ $p->nomor_pre }}</td>
                                         <td>{{ $p->nama_pemesan }}</td>
                                         <td>{{ date('d M Y', strtotime($p->tanggal_isi)) }}</td>
-                                        <td><span class="badge badge-primary">{{ $p->statusPengambilanSampel->status_pelanggan }}</span>
+                                        <td><span class="badge badge-primary">{{ $p->statusPengujian->status_pelanggan }}</span>
                                         <br>
-                                        <a href="{{ route('pelanggan.pengambilanSampel.tracking', $p->id) }}"><i class="fas fa-angle-double-right" style="font-size: 11px">Tracking</i></a>
+                                        <a href="{{ route('pelanggan.pengujian.tracking', $p->id) }}"><i class="fas fa-angle-double-right" style="font-size: 11px">Tracking</i></a>
                                         </td>
                                         <td>@currency($p->total_harga)</td>
                                         <td>
+                                           <form action="{{ route('pelanggan.pengujian.sampel') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="id_order" value="{{ $p->id }}">
+                                                <button type="submit" class="btn btn-primary btn-sm mt-1">
+                                                    @if ($p->statusPengujian->id == 1)
+                                                        Pilih
+                                                    @else
+                                                        Lihat
+                                                    @endif
+                                                    Sampel</button>
+                                            </form> 
                                             <a href="#" class="btn btn-info btn-sm mt-1" data-id="{{ $p->id }}" data-nama="{{ $p->nama_pemesan }}" data-nik="{{ $p->nik }}" data-nohp="{{ $p->no_hp }}" data-email="{{ $p->email }}" data-alamat="{{ $p->alamat }}" data-tanggal="{{ $p->tanggal_isi }}" data-nosurat="{{ $p->nomor_surat }}" data-filesurat="{{ $p->file_surat }}" data-toggle="modal" data-target="#info">Info Order</a>
-                                            @if ($p->statusPengambilanSampel->id != 1)
+                                            @if ($p->statusPengujian->id != 1)
                                                 
                                             @else
                                             <a href="#" class="btn btn-secondary btn-sm mt-1" data-target="#kirim" data-toggle="modal" data-id="{{ $p->id }}">Kirim Order</a>
-                                            <a href="{{ route('pelanggan.pengambilanSampel.editOrder', $p->id) }}" class="btn btn-warning btn-sm mt-1">Edit Order</a>
                                             <a href="#" class="btn btn-danger btn-sm mt-1" data-target="#delete" data-toggle="modal" data-id="{{ $p->id }}">Hapus Order</a>
                                             @endif
                                         </td>
@@ -64,15 +74,144 @@
     </div>
 </div>
 
+<div class="modal fade bd-example-modal-lg" id="tambah" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form action="{{ route('pelanggan.pengujian.createOrder') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title"><span>Tambah</span> Order Pengujian</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="tanggal_isi">Tanggal order</label>
+                                @php
+                                    $now = \Carbon\Carbon::now('Asia/Jakarta')->format('Y-m-d');
+                                @endphp
+                                <input type="date" readonly value="{{ $now }}" class="form-control @error('tanggal_isi') is-invalid @enderror" id="tanggal_isi" name="tanggal_isi">
+                                @error('tanggal_isi')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="nomor_surat">Nomor Surat <i><small>bila ada</small></i></label>
+                                <input type="text" class="form-control @error('nomor_surat') is-invalid @enderror" id="nomor_surat" name="nomor_surat">
+                                <input type="file" name="file_surat">
+                                @error('nomor_surat')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="nama_pemesan">Nama*</label>
+                                <input type="text" class="form-control @error('nama_pemesan') is-invalid @enderror" id="nama_pemesan" name="nama_pemesan" required>
+                                @error('nama_pemesan')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                                @enderror
+                            </div>
+                           </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="nik">NIK*</label>
+                                <input type="number" class="form-control @error('nik') is-invalid @enderror" id="nik" name="nik" required>
+                                @error('nik')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="email">Email*</label>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required>
+                                @error('email')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="id_tipe_pelanggan">Tipe Pelanggan*</label>
+                                <select name="id_tipe_pelanggan" id="id_tipe_pelanggan" class="custom-select @error('id_tipe_pelanggan') is-invalid @enderror" required>
+                                    <option value="">~ Pilih Asal ~</option>
+                                    @foreach($tipe_pelanggan as $tp)
+                                        <option value="{{ $tp->id }}">{{ $tp->tipe }}</option>
+                                    @endforeach
+                                </select>
+                                @error('id_tipe_pelanggan')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                                @enderror
+
+                                <label for="keterangan">Keterangan Asal*</label>
+                                <input type="text" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" name="keterangan" required>
+                                @error('keterangan')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="no_hp">No Hp (WhatsApp)*</label>
+                                <input type="number" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp" name="no_hp" required>
+                                @error('no_hp')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="alamat">Alamat Lengkap*</label>
+                                <textarea name="alamat" class="form-control" id="alamat" cols="5" rows="5" required></textarea>
+                                @error('alamat')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-success">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="{{ route('pelanggan.pengambilanSampel.deleteOrder') }}" method="POST">
+            <form action="{{ route('pelanggan.pengujian.deleteOrder') }}" method="POST">
                 @csrf
                 @method('delete')
                 <input type="hidden" name="id">
                 <div class="modal-header">
-                    <h5 class="modal-title"><span>Hapus</span> Order</h5>
+                    <h5 class="modal-title"><span>Hapus</span> Sampel</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -92,7 +231,7 @@
 <div class="modal fade" id="kirim" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="{{ route('pelanggan.pengambilanSampel.sendOrder') }}" method="POST">
+            <form action="{{ route('pelanggan.pengujian.sendOrder') }}" method="POST">
                 @csrf
                 @method('POST')
                 <input type="hidden" name="id">

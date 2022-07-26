@@ -76,6 +76,27 @@
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item {{ request()->is('admin/pengambilanSampel') ?'active' : '' }} submenu">
+                    <a data-toggle="collapse" href="#pengambilansampel" class="collapsed" aria-expanded="false">
+                        <i class="fas fa-fill-drip"></i>
+                        <p>Pengambilan Sampel</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse {{ request()->is('admin/pengambilanSampel') ?'show' : '' }}" id="pengambilansampel">
+                        <ul class="nav nav-collapse">
+                            <li class="{{ request()->is('admin/pengambilanSampel') ?'active' : '' }}">
+                                <a href="{{ route('admin.pengambilanSampel.index') }}">
+                                    <span class="sub-item">Order baru</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="">
+                                    <span class="sub-item">Order Lama (Selesai)</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
                 <li class="nav-item {{ request()->is('admin/profil/changePassword/*') ?'active' : '' }}">
                     <a href="{{ route('admin.profil.changePassword', Auth::user()->id) }}">
                         <i class="fas fa-user"></i>

@@ -16,13 +16,13 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class PengujianController extends Controller
+class PengujianSelesaiController extends Controller
 {
     public function index(){
-        $pengujian = PengujianOrder::with('timelinePengujian')->where('id_user', auth()->user()->id)->where('id_status_pengujian', '!=', 13 )->orderBy('id', 'DESC')->get();
+        $pengujian = PengujianOrder::with('timelinePengujian')->where('id_user', auth()->user()->id)->where('id_status_pengujian', '=', 13 )->orderBy('id', 'DESC')->get();
         $tipe_pelanggan = TipePelanggan::all();
 
-        return view('pelanggan.pengujian.index', compact('pengujian', 'tipe_pelanggan'));
+        return view('pelanggan.pengujian_selesai.index', compact('pengujian', 'tipe_pelanggan'));
     }
 
     public function generateNoPre(){

@@ -27,7 +27,17 @@
                                     @else
                                     timeline-inverted
                                     @endif" >
-                                    <div class="timeline-badge info"><i class="flaticon-success"></i></div>
+                                    <div class="
+                                    @if ($t->id_status_pengujian == 1 || $t->id_status_pengujian == 2 || $t->id_status_pengujian == 6 || $t->id_status_pengujian == 7 || $t->id_status_pengujian == 8 || $t->id_status_pengujian == 9 || $t->id_status_pengujian == 10)
+                                    timeline-badge info
+                                    @elseif($t->id_status_pengujian == 3)
+                                    timeline-badge danger
+                                    @elseif($t->id_status_pengujian == 13)
+                                    timeline-badge success
+                                    @else 
+                                    timeline-badge secondary
+                                    @endif
+                                    "><i class="flaticon-success"></i></div>
                                         <div class="timeline-panel">
                                             <div class="timeline-heading">
                                                 <h4 class="timeline-title">{{ $t->statusPengujian->status_pelanggan }}</h4>

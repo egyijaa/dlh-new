@@ -130,6 +130,7 @@
 
 	<!-- jQuery Scrollbar -->
 	<script src="{{ url('admin/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
+	<script src="{{ url('admin/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
 
 
 	<!-- Chart JS

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SKR</title>
+    <title>SKR | {{ $pengujian_order->nomor_pre }}</title>
     <style>
         .calibri {
             font-family: 'Calibri', Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
@@ -27,12 +27,12 @@
             <tr>
                 <td style="width: 80%;"></td>
                 <td style="width: 10%;">Masa</td>
-                <td style="width: 10%;">:  {{ $skr->created_at->format('M-d') }}   </td>
+                <td style="width: 10%;">:  {{ date('M-d', strtotime($tanggal_skr)) }}   </td>
             </tr>
             <tr>
                 <td style="width: 80%;"></td>
                 <td style="width: 10%;">Tahun</td>
-                <td style="width: 10%;">: {{ $skr->created_at->format('Y') }} </td>
+                <td style="width: 10%;">: {{ date('Y', strtotime($tanggal_skr)) }}  </td>
             </tr>
         </table>
         <br>
@@ -47,7 +47,13 @@
             </tr>
             <tr>
                 <td style="width: 30%">Tanggal Jatuh Tempo</td>
-                <td>: {{  $pengujian_order->created_at->add('3 day')->format('d M Y') }} </td>
+                @php
+                    $jatuh_tempo = \Carbon\Carbon::parse($tanggal_skr)->addDays(30);
+                @endphp
+                <td>: {{  $jatuh_tempo->format('d M Y') }}
+                    
+                
+                </td>
             </tr>
         </table>
         <br>
@@ -84,13 +90,13 @@
                     @endforeach
                     
                 </td>
-                <td style="border: 1px solid black;" align="right">@currency($s->harga)</td>
+                <td style="border: 1px solid black;" align="center">@currency($s->harga)</td>
             </tr>
             @endforeach
             <tr>
                 <td style="border: 1px solid black;"></td>
                 <td style="border: 1px solid black;" colspan="4" align="center">Jumlah Total</td>
-                <td style="border: 1px solid black;" align="right">@currency($pengujian_order->total_harga)</td>
+                <td style="border: 1px solid black;" align="center"><b>@currency($pengujian_order->total_harga)</b></td>
             </tr>
         </table>
         <br>
@@ -149,7 +155,7 @@
               @endphp RUPIAH</b></i></td>
           </tr>
           <br>
-          {{-- <tr>
+          <tr>
             <td><u><b>PERHATIAN</b></u></td>
             <td colspan="3">:</td>
           </tr>
@@ -159,13 +165,13 @@
               setelah SKR diterima (tanggal jatuh tempo) dikenakan administrasi berupa
               bunga sebesar 2% perbulan
               </td>
-          </tr> --}}
+          </tr>
           <br>
           <tr>
             <td></td>
             <td></td>
             <td></td>
-            <td>Pontianak, {{ $skr->created_at->format('d M Y') }}  <br>
+            <td>Pontianak,  {{ date('d M Y', strtotime($tanggal_skr)) }} <br>
               Kepala Dinas Lingkungan Hidup<br>
               Kota Pontianak<br>
               ( Penggena Anggaran)

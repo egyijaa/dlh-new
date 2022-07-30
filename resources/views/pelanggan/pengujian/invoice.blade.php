@@ -68,14 +68,11 @@
         </tr>
         <tr style="font-size: 12px;">
             <td class="th2" colspan="3" style="border-bottom: 1px solid rgba(0,0,0,0);"><b>{{ $pengujian_order->nama_pemesan }}</b><br>{{ $pengujian_order->alamat }}<br>{{ $pengujian_order->no_hp }}<br>{{ $pengujian_order->email }}</td>
-            <td class="th2" style="width:31%; border-bottom: 1px solid rgba(0,0,0,0);"><b>Tanggal Order:</b> {{ date('d M Y', strtotime($pengujian_order->tanggal_isi)) }}<br><br><b>Status Order:</b><span style="font-size: 13px; color:#808080">&nbsp;
-                @if ($pengujian_order->statusPengujian->id <= 4)
+            <td class="th2" style="width:31%; border-bottom: 1px solid rgba(0,0,0,0);"><b>Tanggal Order:</b> {{ date('d M Y', strtotime($pengujian_order->tanggal_isi)) }}<br><br><b>Status Order:</b><span style="font-size: 13px; color:#808080">&nbsp;   @if ($pengujian_order->statusPengujian->id <= 4)
                 Belum Bayar
             @else
                 Sudah Bayar
-            @endif
-            
-            </span></td>
+            @endif</span></td>
         </tr>
     </table>
 

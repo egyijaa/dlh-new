@@ -20,6 +20,7 @@
                                         <th>No</th>
                                         <th>Jenis Sampel</th>
                                         <th>Parameter</th>
+                                        <th>Tersedia?</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -32,10 +33,15 @@
                                         <td>{{ $p->nama_sampel }}</td>
                                         <td>
                                         @foreach ($p->parameterSampel as $item)
-                                            {{ $item->nama_parameter }} - {{ $item->harga }}
+                                            <li>{{ $item->nama_parameter }} - @currency($item->harga)</li>
                                         @endforeach
                                         
                                         </td>
+                                        <td>@if ($p->status == 1)
+                                            Tersedia
+                                        @else
+                                            Tidak Tersedia
+                                        @endif</td>
                                     </tr>
                                     @endforeach
                                 </tbody>

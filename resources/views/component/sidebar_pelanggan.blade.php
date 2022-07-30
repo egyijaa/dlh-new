@@ -59,6 +59,27 @@
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item {{ request()->is('pelanggan/daftarHarga/pengujian') || request()->is('pelanggan/daftarHarga/pengambilanSampel') ? 'active' : '' }} submenu">
+                    <a data-toggle="collapse" href="#daftarharga" class="collapsed" aria-expanded="false">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <p>Daftar Harga</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse {{ request()->is('pelanggan/daftarHarga/pengujian') || request()->is('pelanggan/daftarHarga/pengambilanSampel') ? 'show' : '' }}" id="daftarharga">
+                        <ul class="nav nav-collapse">
+                            <li class="{{ request()->is('pelanggan/daftarHarga/pengambilanSampel') ? 'active' : '' }}">
+                                <a href="{{ route('pelanggan.daftarHarga.pengambilanSampel') }}">
+                                    <span class="sub-item">Pengambilan Sampel</span>
+                                </a>
+                            </li>
+                            <li class="{{ request()->is('pelanggan/daftarHarga/pengujian') ? 'active' : '' }}">
+                                <a href="{{ route('pelanggan.daftarHarga.pengujian') }}">
+                                    <span class="sub-item">Pengujian</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
                 <li class="nav-item {{ request()->is('pelanggan/profil/changePassword/*') ?'active' : '' }}">
                     <a href="{{ route('pelanggan.profil.changePassword', Auth::user()->id) }}">
                         <i class="fas fa-user"></i>

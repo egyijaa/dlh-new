@@ -40,6 +40,9 @@ class CreatePengambilanSampelOrderTable extends Migration
             $table->text('bukti_bayar')->nullable();
             $table->string('id_status_pengambilan_sampel');
             $table->string('nik');
+            $table->string('no_ba');
+            $table->text('foto_ba1')->nullable();
+            $table->text('foto_ba2')->nullable();
             $table->timestamps();
         });
     }

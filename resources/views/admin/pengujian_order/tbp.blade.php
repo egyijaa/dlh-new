@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>TBP | {{ $pengujian_order->nomor_pre }}</title>
     <style>
         body {
             font-family: 'Calibri', Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
@@ -190,7 +190,7 @@ function terbilang($nilai) {
             <tr>
                 <td>f. </td>
                 <td style="width: 20%">Tanggal diterima uang</td>
-                <td style="width: 76%">: {{ $pengujian_order->tanggal_bayar }}</td>
+                <td style="width: 76%">: {{ date('d M Y', strtotime($pengujian_order->tanggal_bayar)) }}</td>
             </tr>
             <tr>
                 <td>g. </td>

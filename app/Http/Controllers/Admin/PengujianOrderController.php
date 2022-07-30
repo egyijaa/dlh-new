@@ -34,6 +34,15 @@ class PengujianOrderController extends Controller
         return view('admin.pengujian_order.cek_sampel', compact('id_pengujian_order', 'nomor_pre', 'status', 'sampel_order'));
     }
 
+    public function editSampel(Request $request){
+        $sampel = SampelOrder::find($request->id);
+        $sampel->diambil_dari = $request->get('diambil_dari');
+  
+        $sampel->update();
+        toast('Data Berhasil Diubah','success');
+        return redirect()->back();
+    }
+
     public function generateNoSkr(){
    
         $cek_skr = Skr::select('no_skr')->latest('id')->first();
@@ -141,12 +150,20 @@ class PengujianOrderController extends Controller
         return redirect()->back();
     }
 
+    public function cetakInvoice($id){
+
+        $pengujian_order = PengujianOrder::with('sampelOrder')->findOrFail($id);
+        $pdf = PDF::loadview('admin.pengujian_order.invoice', compact('pengujian_order'))->setPaper('a4', 'potrait');
+	    return $pdf->stream();
+    }
+
     public function cetakSkr($id){
 
         $pengujian_order = PengujianOrder::with('sampelOrder')->findOrFail($id);
         $id_skr = Skr::where('id_pengujian_order', $id)->first()->id;
+        $tanggal_skr = TimelinePengujian::where('id_pengujian_order', $id)->where('id_status_pengujian', 4)->latest()->first()->tanggal;
         $skr = Skr::findOrFail($id_skr);
-        $pdf = PDF::loadview('admin.pengujian_order.skr', compact('pengujian_order', 'skr'))->setPaper('a4', 'potrait');
+        $pdf = PDF::loadview('admin.pengujian_order.skr', compact('pengujian_order', 'skr', 'tanggal_skr'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 
@@ -186,10 +203,10 @@ class PengujianOrderController extends Controller
     public function cetakLaporanSementara($order, $sampel){
         $id_order_pengujian = $order;
         $id_sampel_order = $sampel;
-
+        $tanggal_diterima_sampel = TimelinePengujian::where('id_pengujian_order', $id_order_pengujian)->where('id_status_pengujian', 6)->latest()->first()->tanggal;
         $sampel_order = SampelOrder::with('parameterSampelOrder')->findOrFail($id_sampel_order);
 
-        $pdf = PDF::loadview('admin.pengujian_order.laporan_sementara', compact('sampel_order'))->setPaper('a4', 'potrait');
+        $pdf = PDF::loadview('admin.pengujian_order.laporan_sementara', compact('sampel_order', 'tanggal_diterima_sampel'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 
@@ -199,9 +216,75 @@ class PengujianOrderController extends Controller
 
         $sampel_order = SampelOrder::with('parameterSampelOrder')->findOrFail($id_sampel_order);
 
-        $pdf = PDF::loadview('admin.pengujian_order.sertifikat', compact('sampel_order'))->setPaper('a4', 'potrait');
+        $tanggal_diterima_sampel = TimelinePengujian::where('id_pengujian_order', $id_order_pengujian)->where('id_status_pengujian', 6)->latest()->first()->tanggal;
+        $tanggal_terbit_shu = TimelinePengujian::where('id_pengujian_order', $id_order_pengujian)->where('id_status_pengujian', 11)->latest()->first()->tanggal;
+
+        $tanggal_selesai_analisis =  TimelinePengujian::where('id_pengujian_order', $id_order_pengujian)->where('id_status_pengujian', 9)->latest()->first()->tanggal;
+
+        $pdf = PDF::loadview('admin.pengujian_order.sertifikat', compact('sampel_order', 'tanggal_diterima_sampel', 'tanggal_terbit_shu', 'tanggal_selesai_analisis'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
+
+    public function showBuktiPembayaran($id){
+        $pengujian = PengujianOrder::findOrFail($id);
+        return view('admin.pengujian_order.bukti_pembayaran', compact('pengujian'));
+    }
+
+    public function updateBuktiPembayaran(Request $request ,$id){
+
+        $pengujian = PengujianOrder::find($id);
+        $pengujian->tanggal_bayar = $request->get('tanggal_bayar');
+
+        $pengujian->update();
+
+        toast('Tanggal Pembayaran Berhasil di update','success');
+        return redirect()->back();
+        
+    }
+
+    public function editShuPelanggan($id){
+        $sampel = SampelOrder::findOrFail($id);
+        return view('admin.pengujian_order.edit_shu_pelanggan', compact('sampel'));
+    }
+
+    public function updateShuPelanggan(Request $request ,$id){
+        $validatedData = $request->validate([
+            'foto_shu1' => 'mimes:JPG,jpeg,png,jpg|max:2048',
+            'foto_shu2' => 'mimes:JPG,jpeg,png,jpg|max:2048',
+        ]);
+
+        $sampel = SampelOrder::find($id);
+
+        if ($request->file('foto_shu1')) {
+            if ($sampel->foto_shu1 && file_exists(storage_path('app/public/' . $sampel->foto_shu1))) {
+                \Storage::delete('public/' . $sampel->foto_shu1);
+            }
+            $file = $request->file('foto_shu1')->store('pengujian/fotoSHU1Pelanggan', 'public');
+            $sampel->foto_shu1 = $file;
+        }
+
+        if ($request->file('foto_shu2')) {
+            if ($sampel->foto_shu2 && file_exists(storage_path('app/public/' . $sampel->foto_shu2))) {
+                \Storage::delete('public/' . $sampel->foto_shu2);
+            }
+            $file2 = $request->file('foto_shu2')->store('pengujian/fotoSHU2Pelanggan', 'public');
+            $sampel->foto_shu2 = $file2;
+        }
+
+        $sampel->update();
+
+        toast('Foto Scan SHU Berhasil disimpan','success');
+        return redirect()->back();
+    }
+
+
+    public function cetakShuPelanggan($id){
+        $sampel_order = SampelOrder::findOrFail($id);
+
+        $pdf = PDF::loadview('admin.pengujian_order.sertifikat_pelanggan', compact('sampel_order'))->setPaper('a4', 'potrait');
+	    return $pdf->stream();
+    }
+
 
 
 

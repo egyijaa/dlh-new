@@ -23,6 +23,9 @@ class CreateSampelOrder extends Migration
             $table->string('nomor_uji')->nullable()->unique();
             $table->string('harga')->nullable();
             $table->string('nomor_sertifikat')->nullable();
+            $table->text('foto_shu1')->nullable();
+            $table->text('foto_shu2')->nullable();
+            $table->string('diambil_dari')->nullable();
             $table->timestamps();
         });
     }

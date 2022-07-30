@@ -31,7 +31,7 @@
                                     <tr>
                                         <td>{{ $i++ }}</td>
                                         <td>{{ $p->nama_sampel }}</td>
-                                        <td>{{ $p->harga }}</td>
+                                        <td>@currency($p->harga) x titik sampling</td>
                                         <td>@if ($p->status == 1)
                                             Tersedia
                                         @else

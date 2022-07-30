@@ -82,16 +82,20 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'isAdmin'])->group(f
     Route::prefix('pengujian')->name('pengujian.')->group(function () {
         Route::get('', [PengujianOrderController::class, 'index'])->name('index');
         Route::get('getOrder/{id}', [PengujianOrderController::class, 'getOrder'])->name('getOrder');
+        Route::put('editSampel', [PengujianOrderController::class, 'editSampel'])->name('editSampel');
         Route::put('gantiStatus', [PengujianOrderController::class, 'gantiStatus'])->name('gantiStatus');
+        Route::get('cetakInvoice/{id}', [PengujianOrderController::class, 'cetakInvoice'])->name('cetakInvoice');
         Route::get('cetakSkr/{id}', [PengujianOrderController::class, 'cetakSkr'])->name('cetakSkr');
         Route::get('cetakTbp/{id}', [PengujianOrderController::class, 'cetakTbp'])->name('cetakTbp');
         Route::get('hasilUji/{order}/sampel/{id}', [PengujianOrderController::class, 'hasilUji'])->name('hasilUji');
         Route::put('updateHasil', [PengujianOrderController::class, 'updateHasil'])->name('updateHasil');
         Route::get('cetakLaporanSementara/{order}/{sampel}', [PengujianOrderController::class, 'cetakLaporanSementara'])->name('cetakLaporanSementara');
         Route::get('cetakSertifikat/{order}/{sampel}', [PengujianOrderController::class, 'cetakSertifikat'])->name('cetakSertifikat');
-        // Route::post('store', [PejabatController::class, 'store'])->name('store');
-        // Route::put('update', [PejabatController::class, 'update'])->name('update');
-        // Route::delete('delete', [PejabatController::class, 'delete'])->name('delete');
+        Route::get('showBuktiPembayaran/{id}', [PengujianOrderController::class, 'showBuktiPembayaran'])->name('showBuktiPembayaran');
+        Route::put('updateBuktiPembayaran/{id}', [PengujianOrderController::class, 'updateBuktiPembayaran'])->name('updateBuktiPembayaran');
+        Route::get('editShuPelanggan/{id}', [PengujianOrderController::class, 'editShuPelanggan'])->name('editShuPelanggan');
+        Route::put('updateShuPelanggan/{id}', [PengujianOrderController::class, 'updateShuPelanggan'])->name('updateShuPelanggan');
+        Route::get('cetakShuPelanggan/{id}', [PengujianOrderController::class, 'cetakShuPelanggan'])->name('cetakShuPelanggan');
     });
 
     Route::prefix('pengambilanSampel')->name('pengambilanSampel.')->group(function () {
@@ -130,14 +134,21 @@ Route::prefix('pelanggan')->name('pelanggan.')->middleware(['auth', 'isPelanggan
 
         Route::post('sendOrder', [PelangganPengujianController::class, 'sendOrder'])->name('sendOrder');
         Route::get('tracking/{id}', [PelangganPengujianController::class, 'tracking'])->name('tracking');
+        Route::get('showInvoice/{id}', [PelangganPengujianController::class, 'showInvoice'])->name('showInvoice');
+        Route::put('buktiPembayaran', [PelangganPengujianController::class, 'buktiPembayaran'])->name('buktiPembayaran');
+        Route::get('cetakInvoice/{id}', [PelangganPengujianController::class, 'cetakInvoice'])->name('cetakInvoice');
 
     });
+
+    // ========================================================================
 
     //pengujian selesai (pelanggan)
     Route::prefix('pengujianSelesai')->name('pengujianSelesai.')->group(function () {
         Route::get('', [PelangganPengujianSelesaiController::class, 'index'])->name('index');
 
     });
+
+    // ========================================================================
 
     Route::prefix('pengambilanSampel')->name('pengambilanSampel.')->group(function () {
         Route::get('', [PelangganPengambilanSampelController::class, 'index'])->name('index');
@@ -162,12 +173,6 @@ Route::prefix('pelanggan')->name('pelanggan.')->middleware(['auth', 'isPelanggan
     });
 });
 
-
-// innovation-report.store0/{id}
-
-// Route::post('api/fetch-states', [DropdownController::class, 'fetchState']);
-// Route::get('dropdownlist','DataController@getCountries');
-// Route::get('dropdownlist/getstates/{id}','DataController@getStates');
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

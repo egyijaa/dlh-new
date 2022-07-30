@@ -55,6 +55,27 @@
 		<!-- Head Libs -->
 		<script src="{{ url('frontend/vendor/modernizr/modernizr.min.js') }}"></script>
 
+		<style>
+			.float{
+			position:fixed;
+			width:60px;
+			height:60px;
+			bottom:50px;
+			right:15px;
+			background-color:#25d366;
+			color:#FFF;
+			border-radius:50px;
+			text-align:center;
+		  font-size:30px;
+			box-shadow: 2px 2px 3px #999;
+		  z-index:100;
+		}
+		
+		.my-float{
+			margin-top:16px;
+		}
+		  </style>
+
 	</head>
 	<body class="alternative-font-7">
         @yield('content')

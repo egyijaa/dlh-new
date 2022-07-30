@@ -37,7 +37,15 @@
                                         <td>{{ $p->nomor_pre }}</td>
                                         <td>{{ $p->nama_pemesan }}</td>
                                         <td>{{ date('d M Y', strtotime($p->tanggal_isi)) }}</td>
-                                        <td><span class="badge badge-primary">{{ $p->statusPengujian->status_pelanggan }}</span>
+                                        <td><span class="
+                                            @if($p->statusPengujian->id == 4)
+                                            badge badge-warning
+                                            @else
+                                            badge badge-primary
+                                            @endif
+                                            
+                                            
+                                            ">{{ $p->statusPengujian->status_pelanggan }}</span>
                                         <br>
                                         <a href="{{ route('pelanggan.pengujian.tracking', $p->id) }}"><i class="fas fa-angle-double-right" style="font-size: 11px">Tracking</i></a>
                                         </td>
@@ -60,6 +68,11 @@
                                             @else
                                             <a href="#" class="btn btn-secondary btn-sm mt-1" data-target="#kirim" data-toggle="modal" data-id="{{ $p->id }}">Kirim Order</a>
                                             <a href="#" class="btn btn-danger btn-sm mt-1" data-target="#delete" data-toggle="modal" data-id="{{ $p->id }}">Hapus Order</a>
+                                            @endif
+
+                                            @if ($p->statusPengujian->id >= 4)
+                                            {{-- <a href="{{ route('pelanggan.pengujian.cetakInvoice', $p->id) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak Invoice</i></a>  --}}
+                                            <a href="{{ route('pelanggan.pengujian.showInvoice', $p->id) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Lihat Invoice</i></a> 
                                             @endif
                                         </td>
                                     </tr>

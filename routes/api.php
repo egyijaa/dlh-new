@@ -18,4 +18,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('/dlh/meowmeow/skr', App\Http\Controllers\Api\SkrController::class);
+// Route::apiResource('/dlh/meowmeow/skr', App\Http\Controllers\Api\SkrController::class);

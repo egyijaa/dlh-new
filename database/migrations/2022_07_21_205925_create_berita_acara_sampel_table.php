@@ -16,6 +16,7 @@ class CreateBeritaAcaraSampelTable extends Migration
         Schema::create('berita_acara_sampel', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('id_pengambilan_sampel_order')->references('id')->on('pengambilan_sampel_order')->onDelete('cascade');
+            $table->string('titik_sampling');
             $table->string('lu');
             $table->string('ls');
             $table->string('kode_sampel');

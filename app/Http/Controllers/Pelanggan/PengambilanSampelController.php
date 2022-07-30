@@ -55,6 +55,8 @@ class PengambilanSampelController extends Controller
             'alamat_sampling' => 'required'
         ]);
 
+        $year_now = date("Y");
+
         $pengambilan = new PengambilanSampelOrder();
         $pengambilan->id_user = auth()->user()->id;
         $pengambilan->id_tipe_pelanggan = $request->get('id_tipe_pelanggan');
@@ -77,6 +79,7 @@ class PengambilanSampelController extends Controller
         $pengambilan->jumlah_lokasi_sampling = $request->get('jumlah_lokasi_sampling');
         $pengambilan->jumlah_titik_sampling = $request->get('jumlah_titik_sampling');
         $pengambilan->id_volume_sampel = $request->get('volume_sampel');
+        $pengambilan->no_ba = $this->generateNoPre() . '/BAS/' . $year_now;
 
         $harga_sampel = SampelUji::where('id', $request->get('jenis_sampel'))->first()->harga;
 
@@ -96,7 +99,7 @@ class PengambilanSampelController extends Controller
         $timeline->save();
 
         toast('Data Order Berhasil Disimpan','success');
-        return redirect()->back();
+        return redirect()->route('pelanggan.pengambilanSampel.index');
     }
 
     public function editOrder($id)
@@ -114,7 +117,6 @@ class PengambilanSampelController extends Controller
         $pengambilan = PengambilanSampelOrder::findOrFail($id);
 
         $pengambilan->id_tipe_pelanggan = $request->get('id_tipe_pelanggan');
-        $pengambilan->nomor_pre = $this->generateNoPre();
         $pengambilan->nama_pemesan = $request->get('nama_pemesan');
         $pengambilan->tanggal_isi = $request->get('tanggal_isi');
         $pengambilan->nomor_surat = $request->get('nomor_surat');

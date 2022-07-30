@@ -53,7 +53,8 @@
         }
         footer {
         width: 100%;
-        position: absolute;
+        /* position: absolute; */
+        margin-top: 50px;
         right: 0;
         bottom: 100px;
         height: 6.5%;
@@ -85,10 +86,7 @@
         <table style="width:100%; font-size: 14px; padding-left: 8px; padding-bottom: 8px;">
             <tr>
                 <td style="width:15%;"><u>Tanggal terbit</u><br><i style="color: #FF4900">Date of issued</i></td>
-                <td style="width:35%;">: @php
-                    $now = \Carbon\Carbon::now('Asia/Jakarta')->format('d F Y');
-                    echo $now;
-                    @endphp
+                <td style="width:35%;">: {{ date('d M Y', strtotime($tanggal_terbit_shu)) }}
                 </td>
                 <td><u>Nomor Sertifikat</u><br><i style="color: #FF4900">Certificate Number</i></td>
                 <td>: {{ $sampel_order->nomor_sertifikat }}</td>
@@ -121,27 +119,37 @@
             <br>
             <tr>
                 <td colspan="2"><u>Merk/keterangan contoh</u><br><i style="color: #FF4900">Marking/description of sample</i></td>
-                <td colspan="2">: Terlampir</td>
+                <td colspan="2">: {{ $sampel_order->kode_sampel }}</td>
             </tr>
             <br>
             <tr>
-                <td colspan="2"><u>Diambil di</u><br><i style="color: #FF4900">Taken in</i></td>
-                <td colspan="2">: -</td>
+                <td colspan="2"><u>Diambil dari</u><br><i style="color: #FF4900">Taken in</i></td>
+                <td colspan="2">: {{ $sampel_order->diambil_dari }}</td>
             </tr>
             <br>
             <tr>
                 <td colspan="2"><u>Pengambil Contoh</u><br><i style="color: #FF4900">Sampler</i></td>
-                <td colspan="2">: -</td>
+                <td colspan="2">: @if ($sampel_order->asal_sampel == 1)
+                    PPC UPT Laboratorium Lingkungan DLH Kota Pontianak
+                @else
+                    -
+                @endif</td>
             </tr>
             <br>
             <tr>
                 <td colspan="2"><u>Tanggal Terima</u><br><i style="color: #FF4900">Received on</i></td>
-                <td colspan="2">: {{ $sampel_order->pengujianOrder->tanggal_penyelia }}</td>
+                <td colspan="2">: {{ date('d M Y', strtotime($tanggal_diterima_sampel)) }} </td>
             </tr>
             <br>
             <tr>
                 <td colspan="2"><u>Tanggal Analisis</u><br><i style="color: #FF4900">Date tested</i></td>
-                <td colspan="2">: {{ $sampel_order->pengujianOrder->tanggal_analis }}</td>
+                <td colspan="2">: 
+                    @if (date('M', strtotime($tanggal_diterima_sampel)) != date('M', strtotime($tanggal_diterima_sampel)) )
+                    {{ date('d M', strtotime($tanggal_diterima_sampel)) }} - {{ date('d M Y', strtotime($tanggal_selesai_analisis)) }}
+                    @else 
+                    {{ date('d', strtotime($tanggal_diterima_sampel)) }} - {{ date('d M Y', strtotime($tanggal_selesai_analisis)) }}
+                    @endif
+                    </td>
             </tr>
             <br>
             <tr>
@@ -154,7 +162,7 @@
             </tr>
         </table>
     </div>
-    <p align="center" style="font-size: 7.5px;"><u>Tidak dibenarkan mengutip/memperbanyak dan/atau mempublikasikan sebagian isi sertifikat ini tanpa izin LP-BRS_PTK. Sertifikat ini sah telah dibubuhi cap dan ditandatangani oleh pejabat yang bersangkutan</u><br><i>This certificate shall not be reproduced except in full exists permission for the reproduction of an approved abstract has been obtained in writing from LP-BRS-PTK</i></p>
+    <p align="center" style="font-size: 7.5px;"><u><i>Sertifikat Hasil Uji tidak boleh digandakan kecuali keseluruhan tanpa persetujuan tertulis dari Laboratorium Lingkungan DLH Kota Pontianak</i></u><br><i>The Test Result Certificate may not be duplicated except in its entirety without written approval from the Pontianak City DLH Environmental Laboratory</i></p>
     
 
 
@@ -189,7 +197,7 @@
                 <td>: {{ $sampel_order->nomor_uji }}</td>
             </tr>
             <tr>
-                <td>Nama perusahaan</td>
+                <td>Nama perusahaan/pelaku</td>
                 <td>: {{ $sampel_order->pengujianOrder->nama_pemesan }}</td>
             </tr>
             <tr>
@@ -230,7 +238,7 @@
                 <td colspan="2" align="center">Penanggungjawab Teknis<br><br><br><br><u><b>DINA ANGELINA, S.Si</b></u></td>
             </tr>
         </table>
-        <p align="center" style="font-size: 7.5px;"><u>Tidak dibenarkan mengutip/memperbanyak dan/atau mempublikasikan sebagian isi sertifikat ini tanpa izin LP-BRS_PTK. Sertifikat ini sah telah dibubuhi cap dan ditandatangani oleh pejabat yang bersangkutan</u><br><i>This certificate shall not be reproduced except in full exists permission for the reproduction of an approved abstract has been obtained in writing from LP-BRS-PTK</i></p>
+        <p align="center" style="font-size: 7.5px;"><u><i>Sertifikat Hasil Uji tidak boleh digandakan kecuali keseluruhan tanpa persetujuan tertulis dari Laboratorium Lingkungan DLH Kota Pontianak</i></u><br><i>The Test Result Certificate may not be duplicated except in its entirety without written approval from the Pontianak City DLH Environmental Laboratory</i></p>
     </footer>
 </body>
 

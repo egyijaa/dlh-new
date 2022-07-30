@@ -26,7 +26,6 @@ class CreatePengujianOrderTable extends Migration
             $table->string('nomor_surat')->nullable();
             $table->text('file_surat')->nullable();
             $table->text('alamat');
-            $table->string('nomor_after')->nullable();
             $table->string('total_harga')->nullable();
             $table->dateTime('tanggal_bayar')->nullable();
             $table->text('bukti_bayar')->nullable();

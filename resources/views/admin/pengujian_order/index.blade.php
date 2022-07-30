@@ -36,7 +36,15 @@
                                         <td>{{ $p->nomor_pre }}</td>
                                         <td>{{ $p->nama_pemesan }}</td>
                                         <td>{{ date('d M Y', strtotime($p->tanggal_isi)) }}</td>
-                                        <td><span class="badge badge-primary">{{ $p->statusPengujian->status_admin }}</span></td>
+                                        <td><span class="badge badge-primary mt-2">{{ $p->statusPengujian->status_admin }}</span>
+                                        @if ($p->bukti_bayar)
+                                        <hr>
+                                        @if ($p->id_status_pengujian >= 5)
+                                        <span class="badge badge-success mb-1">Sudah Bayar</span>
+                                        @endif
+                                        <a href="{{ route('admin.pengujian.showBuktiPembayaran', $p->id) }}" class="btn btn-primary btn-sm mb-2">Lihat Bukti Pembayaran</a>
+                                        @endif
+                                        </td>
                                         <td>@currency($p->total_harga)</td>
                                         <td>
                                             <a href="{{ route('admin.pengujian.getOrder', $p->id) }}" class="btn btn-sm btn-primary shadow-sm my-3">
@@ -44,10 +52,11 @@
                                             </a>
                                             <a href="#" class="btn btn-warning btn-sm my-2" data-target="#status" data-toggle="modal" data-id="{{ $p->id }}" data-status="{{ $p->statusPengujian->id }}">Ganti Status</a>
                                             @if ($p->id_status_pengujian >= 4)
+                                            <a href="{{ route('admin.pengujian.cetakInvoice', $p->id) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak Invoice</i></a> 
                                             <a href="{{ route('admin.pengujian.cetakSkr', $p->id) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak SKR</i></a> 
                                             @endif
                                             @if ($p->id_status_pengujian >= 5)
-                                            <a href="{{ route('admin.pengujian.cetakTbp', $p->id) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak TBP</i></a> 
+                                            <a href="{{ route('admin.pengujian.cetakTbp', $p->id) }}" target="_blank"><i class="btn btn-sm btn-primary my-1 shadow-sm">Cetak TBP</i></a> 
                                             @endif
 
                                         </td>

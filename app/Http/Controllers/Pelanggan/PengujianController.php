@@ -15,6 +15,7 @@ use App\Models\TipePelanggan;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use PDF;
 
 class PengujianController extends Controller
 {
@@ -311,6 +312,43 @@ class PengujianController extends Controller
         $nomor_order = PengujianOrder::where('id', $id)->first()->nomor_pre;
 
         return view('pelanggan.pengujian.tracking', compact('timeline', 'nomor_order'));
+    }
+
+    public function showInvoice($id){
+
+        $pengujian_order = PengujianOrder::with('sampelOrder')->findOrFail($id);
+        return view('pelanggan.pengujian.show_invoice', compact('pengujian_order'));
+    }
+
+    public function buktiPembayaran(Request $request){
+
+        $validatedData = $request->validate([
+            'tanggal_bayar' => 'required',
+            'bukti_bayar' => 'mimes:pdf,JPG,jpeg,png,jpg|max:2048',
+        ]);
+
+        $pengujian = PengujianOrder::find($request->id);
+        $pengujian->tanggal_bayar = $request->get('tanggal_bayar');
+
+        if ($request->file('bukti_bayar')) {
+            if ($pengujian->bukti_bayar && file_exists(storage_path('app/public/' . $pengujian->bukti_bayar))) {
+                \Storage::delete('public/' . $pengujian->bukti_bayar);
+            }
+            $file = $request->file('bukti_bayar')->store('pengujian/buktiPembayaran', 'public');
+            $pengujian->bukti_bayar = $file;
+        }
+
+        $pengujian->update();
+
+        toast('Bukti Pembayaran Berhasil di Simpan','success');
+        return redirect()->back();
+    }
+
+    public function cetakInvoice($id){
+
+        $pengujian_order = PengujianOrder::with('sampelOrder')->findOrFail($id);
+        $pdf = PDF::loadview('pelanggan.pengujian.invoice', compact('pengujian_order'))->setPaper('a4', 'potrait');
+	    return $pdf->stream();
     }
 
 

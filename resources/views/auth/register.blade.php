@@ -200,11 +200,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="form-group col">
-                                <p class="text-2 mb-2">Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <a href="#" class="text-decoration-none">privacy policy.</a></p>
-                            </div>
-                        </div>
+                
                         <div class="row">
                             <div class="form-group col">
                                 <button type="submit" class="btn btn-primary btn-modern w-100 text-uppercase rounded-0 font-weight-bold text-3 py-3">Register</button>

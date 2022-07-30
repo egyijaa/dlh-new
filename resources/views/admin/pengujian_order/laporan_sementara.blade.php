@@ -53,10 +53,7 @@
         </tr>
         <tr>
             <td>Tanggal Penerimaan Contoh Uji</td>
-            <td>: @php
-                $now = \Carbon\Carbon::now('Asia/Jakarta')->format('d F Y');
-                echo $now;
-                @endphp
+            <td>: {{ date('d M Y', strtotime($tanggal_diterima_sampel)) }} 
             </td>
         </tr>
         <tr>
@@ -90,7 +87,7 @@
     <div class="parent">
         <div class="left"></div>
         <div class="center2"></div>
-        <div class="right" align="center">Penyedia,
+        <div class="right" align="center">Penyelia,
         <br>
         <br>
         <br>

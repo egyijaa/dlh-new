@@ -218,7 +218,7 @@
                         <div class="card border-0 bg-color-light box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
                             <div class="card-body text-center text-lg-start m-2 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="100" data-plugin-options="{'minWindowWidth': 0}">
                                 <img height="90" src="{{ url('frontend/img/demos/event/icons/successfull-stories.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-stroke-color-primary mb-4'}" />
-                                <h4 class="font-weight-bold mt-4">Kebijakan Mutu</h4>
+                                <h4 class="font-weight-bold mt-4">Visi & Misi</h4>
                                 <p class="text-3">Lorem ipsum dolor sit amet, consec tetur adipiscing elit. Proin mauris erat, accumsan quis ullamcorper.</p>
                                 <!-- <a href="#" class="btn btn-arrow-effect-1 ws-nowrap text-primary text-2 bg-transparent border-0 px-0 text-uppercase">More Details <i class="fas fa-arrow-right ms-2"></i></a> -->
                             </div>
@@ -239,7 +239,7 @@
                         <div class="card border-0 bg-color-light box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
                             <div class="card-body text-center text-lg-start m-2 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="1200" data-plugin-options="{'minWindowWidth': 0}">
                                 <img height="90" src="{{ url('frontend/img/demos/renewable-energy/icons/icon-5.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-stroke-color-primary mb-4'}" />
-                                <h4 class="font-weight-bold mt-4">Ramah Lingkungan</h4>
+                                <h4 class="font-weight-bold mt-4">Motto</h4>
                                 <p class="text-3">Lorem ipsum dolor sit amet, consec tetur adipiscing elit. Proin mauris erat, accumsan quis ullamcorper.</p>
                                 <!-- <a href="#" class="btn btn-arrow-effect-1 ws-nowrap text-primary text-2 bg-transparent border-0 px-0 text-uppercase">More Details <i class="fas fa-arrow-right ms-2"></i></a> -->
                             </div>
@@ -418,7 +418,7 @@
             </div>
         </section>
 
-        <section class="section my-0 py-5 border-0 bg-transparent">
+        <section class="section my-0 py-3 border-0 bg-transparent">
             <div id="tentang" class="container container-xl-custom pt-4 pb-5">
                 <div class="row py-5">
                     <div class="col-lg-6">
@@ -518,29 +518,6 @@
                 </div>
             </div>
         </section>
-
-        <div class="container container-xl-custom p-relative z-index-1 custom-el-pos-1">
-            <div class="row py-5 align-items-center text-center">
-                <div class="col-sm-4 col-lg-2 mb-5 mb-lg-0">
-                    <img src="{{ url('frontend/img/logos/logo-8.png') }}" alt="" class="img-fluid" style="max-width: 90px;">
-                </div>
-                <div class="col-sm-4 col-lg-2 mb-5 mb-lg-0">
-                    <img src="{{ url('frontend/img/logos/logo-9.png') }}" alt="" class="img-fluid" style="max-width: 140px;">
-                </div>
-                <div class="col-sm-4 col-lg-2 mb-5 mb-lg-0">
-                    <img src="{{ url('frontend/img/logos/logo-10.png') }}" alt="" class="img-fluid" style="max-width: 140px;">
-                </div>
-                <div class="col-sm-4 col-lg-2 mb-5 mb-sm-0">
-                    <img src="{{ url('frontend/img/logos/logo-11.png') }}" alt="" class="img-fluid" style="max-width: 140px;">
-                </div>
-                <div class="col-sm-4 col-lg-2 mb-5 mb-sm-0">
-                    <img src="{{ url('frontend/img/logos/logo-12.png') }}" alt="" class="img-fluid" style="max-width: 100px;">
-                </div>
-                <div class="col-sm-4 col-lg-2">
-                    <img src="{{ url('frontend/img/logos/logo-13.png') }}" alt="" class="img-fluid" style="max-width: 100px;">
-                </div>
-            </div>
-        </div>
         
         <section class="border-0 p-relative">
 
@@ -574,6 +551,12 @@
         </section>
 
     </div>
+
+       <!-- WA float button -->
+       <a href="https://api.whatsapp.com/send?phone=6281522862759&text=Assalamualaikum%21%20Saya%20mau%20berinfaq." class="float" target="_blank">
+        <i class="fab fa-whatsapp my-float"></i>
+      </a>
+
     <footer id="footer" class="position-relative bg-quaternary mt-0 border-top-0">		
         <div class="container container-xl-custom pt-5 pb-3">
             <div class="row pt-5">

@@ -17,20 +17,20 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item {{ request()->is('pelanggan/sampel-uji') || request()->is('pelanggan/pengujian')|| request()->is('pelanggan/pengujian/getOrder/*') || request()->is('pelanggan/pengujian/tracking/*') || request()->is('pelanggan/pengujian/updateSampelParameter/*') || request()->is('pelanggan/pengujian/editSampelParameter/*') || request()->is('pelanggan/pengujian/createSampel/*') || request()->is('pelanggan/pengambilanSampel') || request()->is('pelanggan/pengambilanSampel/createOrder') ? 'active' : '' }} submenu">
+                <li class="nav-item {{ request()->is('pelanggan/sampel-uji') || request()->is('pelanggan/pengujian')|| request()->is('pelanggan/pengujian/getOrder/*') || request()->is('pelanggan/pengujian/detailOrder/*') || request()->is('pelanggan/pengujian/tracking/*') || request()->is('pelanggan/pengujian/updateSampelParameter/*') || request()->is('pelanggan/pengujian/editSampelParameter/*') || request()->is('pelanggan/pengujian/createSampel/*') || request()->is('pelanggan/pengujian/showInvoice/*') || request()->is('pelanggan/pengambilanSampel') || request()->is('pelanggan/pengambilanSampel/createOrder') ? 'active' : '' }} submenu">
                     <a data-toggle="collapse" href="#orderbaru" class="collapsed" aria-expanded="false">
                         <i class="fas fa-clipboard-list"></i>
                         <p>Order Baru</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse {{ request()->is('pelanggan/sampel-uji') || request()->is('pelanggan/pengujian') || request()->is('pelanggan/pengujian/getOrder/*') || request()->is('pelanggan/pengujian/tracking/*') || request()->is('pelanggan/pengujian/updateSampelParameter/*') || request()->is('pelanggan/pengujian/editSampelParameter/*') || request()->is('pelanggan/pengujian/createSampel/*') || request()->is('pelanggan/pengambilanSampel') || request()->is('pelanggan/pengambilanSampel/createOrder')  ?'show' : '' }}" id="orderbaru">
+                    <div class="collapse {{ request()->is('pelanggan/sampel-uji') || request()->is('pelanggan/pengujian') || request()->is('pelanggan/pengujian/getOrder/*') || request()->is('pelanggan/pengujian/detailOrder/*') || request()->is('pelanggan/pengujian/tracking/*') || request()->is('pelanggan/pengujian/updateSampelParameter/*') || request()->is('pelanggan/pengujian/editSampelParameter/*') || request()->is('pelanggan/pengujian/createSampel/*') || request()->is('pelanggan/pengujian/showInvoice/*') || request()->is('pelanggan/pengambilanSampel') || request()->is('pelanggan/pengambilanSampel/createOrder')  ?'show' : '' }}" id="orderbaru">
                         <ul class="nav nav-collapse">
                             <li class="{{ request()->is('pelanggan/pengambilanSampel') || request()->is('pelanggan/pengambilanSampel/createOrder') ?'active' : '' }}">
                                 <a href="{{ route('pelanggan.pengambilanSampel.index') }}">
                                     <span class="sub-item">Pengambilan Sampel</span>
                                 </a>
                             </li>
-                            <li class="{{ request()->is('pelanggan/pengujian') ||  request()->is('pelanggan/pengujian/getOrder/*') || request()->is('pelanggan/pengujian/tracking/*') || request()->is('pelanggan/pengujian/updateSampelParameter/*') || request()->is('pelanggan/pengujian/createSampel/*') || request()->is('pelanggan/pengujian/editSampelParameter/*') ?'active' : '' }}">
+                            <li class="{{ request()->is('pelanggan/pengujian') || request()->is('pelanggan/pengujian/getOrder/*') || request()->is('pelanggan/pengujian/detailOrder/*') || request()->is('pelanggan/pengujian/tracking/*') || request()->is('pelanggan/pengujian/updateSampelParameter/*') || request()->is('pelanggan/pengujian/showInvoice/*') || request()->is('pelanggan/pengujian/createSampel/*') || request()->is('pelanggan/pengujian/editSampelParameter/*') ?'active' : '' }}">
                                 <a href="{{ route('pelanggan.pengujian.index') }}">
                                     <span class="sub-item">Pengujian</span>
                                 </a>
@@ -38,20 +38,20 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item submenu">
+                <li class="nav-item {{ request()->is('pelanggan/pengujianSelesai')|| request()->is('pelanggan/pengujianSelesai/getOrder/*') || request()->is('pelanggan/pengujianSelesai/detailOrder/*') || request()->is('pelanggan/pengujianSelesai/tracking/*') || request()->is('pelanggan/pengujianSelesai/updateSampelParameter/*') || request()->is('pelanggan/pengujianSelesai/editSampelParameter/*') || request()->is('pelanggan/pengujianSelesai/createSampel/*') || request()->is('pelanggan/pengujianSelesai/showInvoice/*') ? 'active' : '' }} submenu">
                     <a data-toggle="collapse" href="#orderlama" class="collapsed" aria-expanded="false">
                         <i class="fas fa-clipboard-check"></i>
                         <p>Order Lama (Selesai)</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse" id="orderlama">
+                    <div class="collapse {{ request()->is('pelanggan/pengujianSelesai')|| request()->is('pelanggan/pengujianSelesai/getOrder/*') || request()->is('pelanggan/pengujianSelesai/detailOrder/*') || request()->is('pelanggan/pengujianSelesai/tracking/*') || request()->is('pelanggan/pengujianSelesai/updateSampelParameter/*') || request()->is('pelanggan/pengujianSelesai/editSampelParameter/*') || request()->is('pelanggan/pengujianSelesai/createSampel/*') || request()->is('pelanggan/pengujianSelesai/showInvoice/*') ? 'show' : '' }}" id="orderlama">
                         <ul class="nav nav-collapse">
                             <li class="">
                                 <a href="">
                                     <span class="sub-item">Pengambilan Sampel</span>
                                 </a>
                             </li>
-                            <li class="">
+                            <li class="{{ request()->is('pelanggan/pengujianSelesai')|| request()->is('pelanggan/pengujianSelesai/getOrder/*') || request()->is('pelanggan/pengujianSelesai/detailOrder/*') || request()->is('pelanggan/pengujianSelesai/tracking/*') || request()->is('pelanggan/pengujianSelesai/updateSampelParameter/*') || request()->is('pelanggan/pengujianSelesai/editSampelParameter/*') || request()->is('pelanggan/pengujianSelesai/createSampel/*') || request()->is('pelanggan/pengujianSelesai/showInvoice/*') ? 'active' : '' }}">
                                 <a href="{{ route('pelanggan.pengujianSelesai.index') }}">
                                     <span class="sub-item">Pengujian</span>
                                 </a>

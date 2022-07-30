@@ -15,13 +15,13 @@ use App\Models\TimelinePengujian;
 use Carbon\Carbon;
 use PDF;
 
-class PengujianOrderController extends Controller
+class PengujianSelesaiOrderController extends Controller
 {
     public function index(){
-        $pengujian = PengujianOrder::where('id_status_pengujian', '!=', 1)->where('id_status_pengujian', '!=', 13)->orderBy('id', 'DESC')->get();
+        $pengujian = PengujianOrder::where('id_status_pengujian', 13)->orderBy('id', 'DESC')->get();
         $status = StatusPengujian::all();
 
-        return view('admin.pengujian_order.index', compact('pengujian', 'status'));
+        return view('admin.pengujian_selesai_order.index', compact('pengujian', 'status'));
     }
 
     public function getOrder(Request $request, $id){
@@ -31,14 +31,14 @@ class PengujianOrderController extends Controller
 
         $sampel_order = SampelOrder::with('parameterSampelOrder')->where('id_pengujian_order', $id_pengujian_order)->orderBy('id', 'DESC')->get();
 
-        return view('admin.pengujian_order.cek_sampel', compact('id_pengujian_order', 'nomor_pre', 'status', 'sampel_order'));
+        return view('admin.pengujian_selesai_order.cek_sampel', compact('id_pengujian_order', 'nomor_pre', 'status', 'sampel_order'));
     }
 
     public function detailOrder($id){
         $id_pengujian_order = $id;
         $pengujian_order = PengujianOrder::findOrFail($id);
 
-        return view('admin.pengujian_order.detail_order', compact('id_pengujian_order', 'pengujian_order'));
+        return view('admin.pengujian_selesai_order.detail_order', compact('id_pengujian_order', 'pengujian_order'));
     }
 
     public function editSampel(Request $request){
@@ -160,7 +160,7 @@ class PengujianOrderController extends Controller
     public function cetakInvoice($id){
 
         $pengujian_order = PengujianOrder::with('sampelOrder')->findOrFail($id);
-        $pdf = PDF::loadview('admin.pengujian_order.invoice', compact('pengujian_order'))->setPaper('a4', 'potrait');
+        $pdf = PDF::loadview('admin.pengujian_selesai_order.invoice', compact('pengujian_order'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 
@@ -170,7 +170,7 @@ class PengujianOrderController extends Controller
         $id_skr = Skr::where('id_pengujian_order', $id)->first()->id;
         $tanggal_skr = TimelinePengujian::where('id_pengujian_order', $id)->where('id_status_pengujian', 4)->latest()->first()->tanggal;
         $skr = Skr::findOrFail($id_skr);
-        $pdf = PDF::loadview('admin.pengujian_order.skr', compact('pengujian_order', 'skr', 'tanggal_skr'))->setPaper('a4', 'potrait');
+        $pdf = PDF::loadview('admin.pengujian_selesai_order.skr', compact('pengujian_order', 'skr', 'tanggal_skr'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 
@@ -179,7 +179,7 @@ class PengujianOrderController extends Controller
         $id_tbp = Tbp::where('id_pengujian_order', $id)->first()->id;
         $tbp = Tbp::findOrFail($id_tbp);
         $no_skr = Skr::where('id_pengujian_order', $id)->first()->no_skr;
-        $pdf = PDF::loadview('admin.pengujian_order.tbp', compact('pengujian_order', 'tbp', 'no_skr'))->setPaper('a4', 'potrait');
+        $pdf = PDF::loadview('admin.pengujian_selesai_order.tbp', compact('pengujian_order', 'tbp', 'no_skr'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 
@@ -192,7 +192,7 @@ class PengujianOrderController extends Controller
         $nama_sampel = SampelUji::where('id', $sampel)->first()->nama_sampel;
         $id_pengujian_order = SampelOrder::where('id', $id)->first()->id_pengujian_order;
 
-        return view('admin.pengujian_order.hasil_uji', compact('parameter_order', 'nomor_order', 'nama_sampel', 'kode_sampel', 'id_pengujian_order', 'id_sampel_order'));
+        return view('admin.pengujian_selesai_order.hasil_uji', compact('parameter_order', 'nomor_order', 'nama_sampel', 'kode_sampel', 'id_pengujian_order', 'id_sampel_order'));
     }
 
     public function updateHasil(Request $request){
@@ -213,7 +213,7 @@ class PengujianOrderController extends Controller
         $tanggal_diterima_sampel = TimelinePengujian::where('id_pengujian_order', $id_order_pengujian)->where('id_status_pengujian', 6)->latest()->first()->tanggal;
         $sampel_order = SampelOrder::with('parameterSampelOrder')->findOrFail($id_sampel_order);
 
-        $pdf = PDF::loadview('admin.pengujian_order.laporan_sementara', compact('sampel_order', 'tanggal_diterima_sampel'))->setPaper('a4', 'potrait');
+        $pdf = PDF::loadview('admin.pengujian_selesai_order.laporan_sementara', compact('sampel_order', 'tanggal_diterima_sampel'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 
@@ -228,13 +228,13 @@ class PengujianOrderController extends Controller
 
         $tanggal_selesai_analisis =  TimelinePengujian::where('id_pengujian_order', $id_order_pengujian)->where('id_status_pengujian', 9)->latest()->first()->tanggal;
 
-        $pdf = PDF::loadview('admin.pengujian_order.sertifikat', compact('sampel_order', 'tanggal_diterima_sampel', 'tanggal_terbit_shu', 'tanggal_selesai_analisis'))->setPaper('a4', 'potrait');
+        $pdf = PDF::loadview('admin.pengujian_selesai_order.sertifikat', compact('sampel_order', 'tanggal_diterima_sampel', 'tanggal_terbit_shu', 'tanggal_selesai_analisis'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 
     public function showBuktiPembayaran($id){
         $pengujian = PengujianOrder::findOrFail($id);
-        return view('admin.pengujian_order.bukti_pembayaran', compact('pengujian'));
+        return view('admin.pengujian_selesai_order.bukti_pembayaran', compact('pengujian'));
     }
 
     public function updateBuktiPembayaran(Request $request ,$id){
@@ -251,7 +251,7 @@ class PengujianOrderController extends Controller
 
     public function editShuPelanggan($id){
         $sampel = SampelOrder::findOrFail($id);
-        return view('admin.pengujian_order.edit_shu_pelanggan', compact('sampel'));
+        return view('admin.pengujian_selesai_order.edit_shu_pelanggan', compact('sampel'));
     }
 
     public function updateShuPelanggan(Request $request ,$id){
@@ -288,7 +288,7 @@ class PengujianOrderController extends Controller
     public function cetakShuPelanggan($id){
         $sampel_order = SampelOrder::findOrFail($id);
 
-        $pdf = PDF::loadview('admin.pengujian_order.sertifikat_pelanggan', compact('sampel_order'))->setPaper('a4', 'potrait');
+        $pdf = PDF::loadview('admin.pengujian_selesai_order.sertifikat_pelanggan', compact('sampel_order'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 

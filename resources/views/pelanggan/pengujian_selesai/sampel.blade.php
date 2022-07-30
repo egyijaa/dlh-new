@@ -4,7 +4,7 @@
 <div class="content">
     <div class="page-inner">
         <div class="page-header">
-            <a href="{{ route('pelanggan.pengujian.index') }}"><i class="fas fa-arrow-left"> Kembali</i></a>
+            <a href="{{ route('pelanggan.pengujianSelesai.index') }}"><i class="fas fa-arrow-left"> Kembali</i></a>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -12,7 +12,7 @@
                     <div class="card-header justify-content-between d-flex d-inline">
                         <h4 class="card-title">List Orderan {{ $nomor_pre }}</h4>
                         @if ($status == 1)
-                        <a href="{{ route('pelanggan.pengujian.createSampel', $id_pengujian_order) }}"><i class="btn btn-sm btn-primary shadow-sm">+ Tambah Sampel</i></a>
+                        <a href="{{ route('pelanggan.pengujianSelesai.createSampel', $id_pengujian_order) }}"><i class="btn btn-sm btn-primary shadow-sm">+ Tambah Sampel</i></a>
                         @endif
                     </div>
                     <div class="card-body">
@@ -50,14 +50,11 @@
                                     @endif</td>
                                     <td>@currency($s->harga)</td>
                                     <td>
-                                        @if ($status == 1)
-                                        <a href="{{ route('pelanggan.pengujian.editSampelParameter', $s->id) }}"><button class="btn btn-info btn-sm">Edit Parameter
-                                        </button></a> | 
-                                            <a href="#" data-target="#delete" data-toggle="modal" data-id="{{ $s->id }}"><button class="btn btn-danger btn-sm">Hapus
-                                            </button></a>
-                                        @endif
                                         @if ($status >= 10)
-                                        <a href="{{ route('pelanggan.pengujian.hasilUji', ['order'=>$nomor_pre, 'id'=>$s->id]) }}" class="btn btn-info btn-sm mt-1">Lihat Hasil</a>
+                                        <a href="{{ route('pelanggan.pengujianSelesai.hasilUji', ['order'=>$nomor_pre, 'id'=>$s->id]) }}" class="btn btn-info btn-sm mt-1">Lihat Hasil</a>
+                                        @endif
+                                        @if ($s->foto_shu1 && $s->foto_shu2)
+                                        <a href="{{ route('pelanggan.pengujianSelesai.cetakShuPelanggan', $s->id) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm my-2">Lihat PDF Sertifikat</i></a> 
                                         @endif
                                     </td>
                                     </tr>
@@ -76,7 +73,7 @@
     aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog mw-100 w-75" role="document">
         <div class="modal-content">
-            <form action="{{ route('pelanggan.pengujian.createSampelParameter') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('pelanggan.pengujianSelesai.createSampelParameter') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title"><span>Tambah</span> Sampel</h5>
@@ -161,7 +158,7 @@
 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="{{ route('pelanggan.pengujian.deleteSampelParameter') }}" method="POST">
+            <form action="{{ route('pelanggan.pengujianSelesai.deleteSampelParameter') }}" method="POST">
                 @csrf
                 @method('delete')
                 <input type="hidden" name="id">

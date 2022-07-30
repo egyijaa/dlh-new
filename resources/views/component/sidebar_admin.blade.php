@@ -55,21 +55,21 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item {{ request()->is('admin/pengujian') ?'active' : '' }} submenu">
+                <li class="nav-item {{ request()->is('admin/pengujian') || request()->is('admin/pengujian/detailOrder/*') || request()->is('admin/pengujian/showBuktiPembayaran/*') || request()->is('admin/pengujian/getOrder/*') || request()->is('admin/pengujian/getOrder/hasilUji/*/sampel/*') || request()->is('admin/pengujian/editShuPelanggan/*') || request()->is('admin/pengujianSelesai') || request()->is('admin/pengujianSelesai/detailOrder/*') || request()->is('admin/pengujianSelesai/showBuktiPembayaran/*') || request()->is('admin/pengujianSelesai/getOrder/*') || request()->is('admin/pengujianSelesai/getOrder/hasilUji/*/sampel/*') || request()->is('admin/pengujianSelesai/editShuPelanggan/*') ? 'active' : '' }} submenu">
                     <a data-toggle="collapse" href="#pengujian" class="collapsed" aria-expanded="false">
                         <i class="fas fa-clipboard-list"></i>
                         <p>Pengujian</p>
                         <span class="caret"></span>
-                    </a>
-                    <div class="collapse {{ request()->is('admin/pengujian') ?'show' : '' }}" id="pengujian">
+                    </a> 
+                    <div class="collapse {{ request()->is('admin/pengujian') || request()->is('admin/pengujian/detailOrder/*') || request()->is('admin/pengujian/showBuktiPembayaran/*') || request()->is('admin/pengujian/getOrder/*') || request()->is('admin/pengujian/getOrder/hasilUji/*/sampel/*') || request()->is('admin/pengujian/editShuPelanggan/*') || request()->is('admin/pengujianSelesai') ||  request()->is('admin/pengujianSelesai/detailOrder/*') || request()->is('admin/pengujianSelesai/showBuktiPembayaran/*') || request()->is('admin/pengujianSelesai/getOrder/*') || request()->is('admin/pengujianSelesai/getOrder/hasilUji/*/sampel/*') || request()->is('admin/pengujianSelesai/editShuPelanggan/*') ?'show' : '' }}" id="pengujian">
                         <ul class="nav nav-collapse">
-                            <li class="{{ request()->is('admin/pengujian') ?'active' : '' }}">
+                            <li class="{{ request()->is('admin/pengujian') || request()->is('admin/pengujian/detailOrder/*') || request()->is('admin/pengujian/showBuktiPembayaran/*') || request()->is('admin/pengujian/getOrder/*') || request()->is('admin/pengujian/getOrder/hasilUji/*/sampel/*') || request()->is('admin/pengujian/editShuPelanggan/*') ?'active' : '' }}">
                                 <a href="{{ route('admin.pengujian.index') }}">
                                     <span class="sub-item">Order baru</span>
                                 </a>
                             </li>
-                            <li class="">
-                                <a href="{{ route('admin.akun.pelangganIndex') }}">
+                            <li class="{{ request()->is('admin/pengujianSelesai') || request()->is('admin/pengujianSelesai/detailOrder/*') || request()->is('admin/pengujianSelesai/showBuktiPembayaran/*') || request()->is('admin/pengujianSelesai/getOrder/*') || request()->is('admin/pengujianSelesai/getOrder/hasilUji/*/sampel/*') || request()->is('admin/pengujianSelesai/editShuPelanggan/*') ?'active' : '' }}">
+                                <a href="{{ route('admin.pengujianSelesai.index') }}">
                                     <span class="sub-item">Order Lama (Selesai)</span>
                                 </a>
                             </li>

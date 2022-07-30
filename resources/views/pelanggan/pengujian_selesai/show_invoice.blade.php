@@ -4,14 +4,14 @@
 <div class="content">
     <div class="page-inner">
         <div class="page-header">
-            <a href="{{ route('pelanggan.pengujian.index') }}"><i class="fas fa-arrow-left"> Kembali</i></a>
+            <a href="{{ route('pelanggan.pengujianSelesai.index') }}"><i class="fas fa-arrow-left"> Kembali</i></a>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header justify-content-between d-flex d-inline">
                         <h4 class="card-title">{{ $pengujian_order->nomor_pre }}</h4>
-                        <a href="{{ route('pelanggan.pengujian.cetakInvoice', $pengujian_order->id) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak Invoice</i></a> 
+                        <a href="{{ route('pelanggan.pengujianSelesai.cetakInvoice', $pengujian_order->id) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak Invoice</i></a> 
                     </div>
                
                         <div class="col-md-2 mr-auto mt-2">
@@ -101,7 +101,7 @@
 <div class="modal fade" id="bukti" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="{{ route('pelanggan.pengujian.buktiPembayaran') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('pelanggan.pengujianSelesai.buktiPembayaran') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <input type="hidden" name="id">

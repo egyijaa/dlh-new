@@ -80,6 +80,13 @@ class PengujianController extends Controller
 
     }
 
+    public function detailOrder($id){
+        $id_pengujian_order = $id;
+        $pengujian_order = PengujianOrder::findOrFail($id);
+
+        return view('pelanggan.pengujian.detail_order', compact('id_pengujian_order', 'pengujian_order'));
+    }
+
     public function deleteOrder(Request $request)
     {
         $order = PengujianOrder::find($request->id);
@@ -349,6 +356,18 @@ class PengujianController extends Controller
         $pengujian_order = PengujianOrder::with('sampelOrder')->findOrFail($id);
         $pdf = PDF::loadview('pelanggan.pengujian.invoice', compact('pengujian_order'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
+    }
+
+    public function hasilUji($order ,$id){
+        $parameter_order = ParameterSampelOrder::where('id_sampel_order', $id)->get();
+        $nomor_order = $order;
+        $id_sampel_order = $id;
+        $sampel = SampelOrder::where('id', $id)->first()->id_sampel_uji;
+        $kode_sampel = SampelOrder::where('id', $id)->first()->kode_sampel;
+        $nama_sampel = SampelUji::where('id', $sampel)->first()->nama_sampel;
+        $id_pengujian_order = SampelOrder::where('id', $id)->first()->id_pengujian_order;
+
+        return view('pelanggan.pengujian.hasil_uji', compact('parameter_order', 'nomor_order', 'nama_sampel', 'kode_sampel', 'id_pengujian_order', 'id_sampel_order'));
     }
 
 

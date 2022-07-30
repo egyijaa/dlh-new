@@ -4,7 +4,7 @@
 <div class="content">
     <div class="page-inner">
         <div class="page-header">
-            <a href="{{ route('admin.pengujian.index') }}"><i class="fas fa-arrow-left"> Kembali</i></a>
+            <a href="{{ route('admin.pengujianSelesai.index') }}"><i class="fas fa-arrow-left"> Kembali</i></a>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -26,7 +26,7 @@
                                         <th>Diambil Dari</th>
                                         <th>Catatan Pelanggan</th>
                                         @if ($status >= 5)
-                                        <th>Detail</th>
+                                        <th>Aksi</th>
                                         @endif
                                     </tr>
                                 </thead>
@@ -46,12 +46,7 @@
                                             @endforeach
                                     </td>
                                     <td>@currency($s->harga)</td>
-                                    <td>{{ $s->diambil_dari }}
-                                        @if ($status >= 5)
-                                        <br>
-                                        <a href="#" class="badge badge-warning mt-1" data-id="{{ $s->id }}" data-diambil="{{ $s->diambil_dari }}" data-toggle="modal" data-target="#edit">Edit</a>
-                                        @endif
-                                    </td>
+                                    <td>{{ $s->diambil_dari }}</td>
                                     <td>@if ($s->catatan_pelanggan)
                                         {{ $s->catatan_pelanggan }}
                                         @else
@@ -60,21 +55,21 @@
                                     <td>
                                     @if ($status >= 5)
                                         
-                                    <a href="{{ route('admin.pengujian.hasilUji', ['order'=>$nomor_pre, 'id'=>$s->id]) }}" class="btn btn-info btn-sm mt-1">Lihat</a>
+                                    <a href="{{ route('admin.pengujianSelesai.hasilUji', ['order'=>$nomor_pre, 'id'=>$s->id]) }}" class="btn btn-info btn-sm mt-1">Lihat</a>
                                     <br>
                                     @endif
                                     
                                     @if ($status >= 9)
-                                    <a href="{{ route('admin.pengujian.cetakLaporanSementara', ['order'=>$id_pengujian_order, 'sampel'=>$s->id] ) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm my-1">Cetak Laporan Sementara</i></a>
+                                    <a href="{{ route('admin.pengujianSelesai.cetakLaporanSementara', ['order'=>$id_pengujian_order, 'sampel'=>$s->id] ) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm my-1">Cetak Laporan Sementara</i></a>
                                     @endif
 
 
                                     @if ($status >= 11)
-                                    <a href="{{ route('admin.pengujian.cetakSertifikat', ['order'=>$id_pengujian_order, 'sampel'=>$s->id]) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm mb-1">Cetak Sertifikat (SHU)</i></a> 
+                                    <a href="{{ route('admin.pengujianSelesai.cetakSertifikat', ['order'=>$id_pengujian_order, 'sampel'=>$s->id]) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm mb-1">Cetak Sertifikat (SHU)</i></a> 
                                     @endif
 
-                                    @if ($status >= 13)
-                                    <a href="{{ route('admin.pengujian.editShuPelanggan', $s->id) }}" target="_blank" class="btn btn-info btn-sm mb-1">Upload SHU Pelanggan</a>
+                                    @if ($s->foto_shu1 && $s->foto_shu2)
+                                    <a href="{{ route('admin.pengujianSelesai.cetakShuPelanggan', $s->id) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm my-2">Lihat PDF SHU Pelanggan</i></a> 
                                     @endif
                                     
                                     </td>
@@ -91,54 +86,8 @@
 </div>
 
 
-<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form action="{{ route('admin.pengujian.editSampel') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
-                <div class="modal-header">
-                    <h5 class="modal-title"><span>Edit</span></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <input type="hidden" name="id">
-                        <div class="col-12">
-                            <label for="diambil_dari">Diambil Dari</label>
-                            <input type="text" name="diambil_dari" class="form-control">
-                            @error('diambil_dari')
-                            <div class="invalid-feedback">
-                                {{$message}}
-                            </div>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
 @endsection
 
 @push('scripts')
-<script>
-
-     $("#edit").on('show.bs.modal', (e) => {
-        var id = $(e.relatedTarget).data('id');
-        var diambil = $(e.relatedTarget).data('diambil');
-        
-        $('#edit').find('input[name="id"]').val(id);
-        $('#edit').find('input[name="diambil_dari"]').val(diambil);
-    });
-</script>
 
 @endpush

@@ -47,13 +47,18 @@
                                         </td>
                                         <td>@currency($p->total_harga)</td>
                                         <td>
+                                            <a href="{{ route('admin.pengujian.detailOrder', $p->id) }}" class="btn btn-sm btn-info shadow-sm my-3">
+                                                <i class="fas fa-pencil fa-sm text-white-50"></i>Detail order
+                                            </a>
                                             <a href="{{ route('admin.pengujian.getOrder', $p->id) }}" class="btn btn-sm btn-primary shadow-sm my-3">
                                                 <i class="fas fa-pencil fa-sm text-white-50"></i>Lihat Sampel
                                             </a>
+                                            @if ($p->id_status_pengujian != 3)
                                             <a href="#" class="btn btn-warning btn-sm my-2" data-target="#status" data-toggle="modal" data-id="{{ $p->id }}" data-status="{{ $p->statusPengujian->id }}">Ganti Status</a>
+                                            @endif
                                             @if ($p->id_status_pengujian >= 4)
                                             <a href="{{ route('admin.pengujian.cetakInvoice', $p->id) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak Invoice</i></a> 
-                                            <a href="{{ route('admin.pengujian.cetakSkr', $p->id) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak SKR</i></a> 
+                                            <a href="{{ route('admin.pengujian.cetakSkr', $p->id) }}" target="_blank"><i class="btn btn-sm btn-primary mb-1 shadow-sm">Cetak SKR</i></a> 
                                             @endif
                                             @if ($p->id_status_pengujian >= 5)
                                             <a href="{{ route('admin.pengujian.cetakTbp', $p->id) }}" target="_blank"><i class="btn btn-sm btn-primary my-1 shadow-sm">Cetak TBP</i></a> 

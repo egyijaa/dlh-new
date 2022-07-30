@@ -15,11 +15,12 @@ use App\Models\TipePelanggan;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use PDF;
 
 class PengujianSelesaiController extends Controller
 {
     public function index(){
-        $pengujian = PengujianOrder::with('timelinePengujian')->where('id_user', auth()->user()->id)->where('id_status_pengujian', '=', 13 )->orderBy('id', 'DESC')->get();
+        $pengujian = PengujianOrder::with('timelinePengujian')->where('id_user', auth()->user()->id)->where('id_status_pengujian', 13 )->orderBy('id', 'DESC')->get();
         $tipe_pelanggan = TipePelanggan::all();
 
         return view('pelanggan.pengujian_selesai.index', compact('pengujian', 'tipe_pelanggan'));
@@ -79,6 +80,13 @@ class PengujianSelesaiController extends Controller
 
     }
 
+    public function detailOrder($id){
+        $id_pengujian_order = $id;
+        $pengujian_order = PengujianOrder::findOrFail($id);
+
+        return view('pelanggan.pengujian_selesai.detail_order', compact('id_pengujian_order', 'pengujian_order'));
+    }
+
     public function deleteOrder(Request $request)
     {
         $order = PengujianOrder::find($request->id);
@@ -89,7 +97,7 @@ class PengujianSelesaiController extends Controller
 
     public function sampel(Request $request){
         $id_order = $request->get('id_order');
-        return Redirect::route('pelanggan.pengujian.getOrder', $id_order);
+        return Redirect::route('pelanggan.pengujianSelesai.getOrder', $id_order);
     }
 
     public function getOrder(Request $request, $id){
@@ -102,7 +110,7 @@ class PengujianSelesaiController extends Controller
 
         $sampel_order = SampelOrder::with('parameterSampelOrder')->where('id_pengujian_order', $id_pengujian_order)->orderBy('id', 'DESC')->get();
 
-        return view('pelanggan.pengujian.sampel', compact('id_pengujian_order', 'nomor_pre', 'sampel', 'status', 'sampel_order'));
+        return view('pelanggan.pengujian_selesai.sampel', compact('id_pengujian_order', 'nomor_pre', 'sampel', 'status', 'sampel_order'));
     }
 
     public function getParameter(Request $request, $id)
@@ -119,7 +127,7 @@ class PengujianSelesaiController extends Controller
         $nomor_pre = PengujianOrder::where('id', $id_pengujian_order)->first()->nomor_pre;
 
         $sampel = SampelUji::all();
-        return view('pelanggan.pengujian.create_sampel', compact('id_pengujian_order','nomor_pre','sampel'));
+        return view('pelanggan.pengujian_selesai.create_sampel', compact('id_pengujian_order','nomor_pre','sampel'));
     }
 
     // public function generateNoUji(){
@@ -189,7 +197,7 @@ class PengujianSelesaiController extends Controller
 
             DB::commit();
             toast('Data Sampel dan Parameter Berhasil Disimpan','success');
-            return Redirect::route('pelanggan.pengujian.getOrder', $request->id_pengujian_order);
+            return Redirect::route('pelanggan.pengujian_selesai.getOrder', $request->id_pengujian_order);
         } catch (\Exception $e) {
             DB::rollback();
             toast('Gagal menambah data')->autoClose(2000)->hideCloseButton();
@@ -201,7 +209,7 @@ class PengujianSelesaiController extends Controller
     {
         $sampel_order = SampelOrder::with('parameterSampelOrder')->findOrFail($id);
         $sampel = SampelUji::all();
-        return view('pelanggan.pengujian.edit_sampel', [
+        return view('pelanggan.pengujian_selesai.edit_sampel', [
             'sampel_order' => $sampel_order,
             'sampel' => $sampel
         ]);
@@ -266,7 +274,7 @@ class PengujianSelesaiController extends Controller
             $sampel_order = SampelOrder::with('parameterSampelOrder')->where('id_pengujian_order', $id_pengujian_order)->orderBy('kode_sampel', 'DESC')->get();
     
             toast('Data Sampel dan Parameter Berhasil Diubah','success');
-            return view('pelanggan.pengujian.sampel', compact('id_pengujian_order', 'nomor_pre', 'sampel', 'status', 'sampel_order'));
+            return view('pelanggan.pengujian_selesai.sampel', compact('id_pengujian_order', 'nomor_pre', 'sampel', 'status', 'sampel_order'));
         } catch (\Exception $e) {
             DB::rollback();
             toast('Gagal mengubah data')->autoClose(2000)->hideCloseButton();
@@ -310,7 +318,63 @@ class PengujianSelesaiController extends Controller
     
         $nomor_order = PengujianOrder::where('id', $id)->first()->nomor_pre;
 
-        return view('pelanggan.pengujian.tracking', compact('timeline', 'nomor_order'));
+        return view('pelanggan.pengujian_selesai.tracking', compact('timeline', 'nomor_order'));
+    }
+
+    public function showInvoice($id){
+
+        $pengujian_order = PengujianOrder::with('sampelOrder')->findOrFail($id);
+        return view('pelanggan.pengujian_selesai.show_invoice', compact('pengujian_order'));
+    }
+
+    public function buktiPembayaran(Request $request){
+
+        $validatedData = $request->validate([
+            'tanggal_bayar' => 'required',
+            'bukti_bayar' => 'mimes:pdf,JPG,jpeg,png,jpg|max:2048',
+        ]);
+
+        $pengujian = PengujianOrder::find($request->id);
+        $pengujian->tanggal_bayar = $request->get('tanggal_bayar');
+
+        if ($request->file('bukti_bayar')) {
+            if ($pengujian->bukti_bayar && file_exists(storage_path('app/public/' . $pengujian->bukti_bayar))) {
+                \Storage::delete('public/' . $pengujian->bukti_bayar);
+            }
+            $file = $request->file('bukti_bayar')->store('pengujian/buktiPembayaran', 'public');
+            $pengujian->bukti_bayar = $file;
+        }
+
+        $pengujian->update();
+
+        toast('Bukti Pembayaran Berhasil di Simpan','success');
+        return redirect()->back();
+    }
+
+    public function cetakInvoice($id){
+
+        $pengujian_order = PengujianOrder::with('sampelOrder')->findOrFail($id);
+        $pdf = PDF::loadview('pelanggan.pengujian_selesai.invoice', compact('pengujian_order'))->setPaper('a4', 'potrait');
+	    return $pdf->stream();
+    }
+
+    public function hasilUji($order ,$id){
+        $parameter_order = ParameterSampelOrder::where('id_sampel_order', $id)->get();
+        $nomor_order = $order;
+        $id_sampel_order = $id;
+        $sampel = SampelOrder::where('id', $id)->first()->id_sampel_uji;
+        $kode_sampel = SampelOrder::where('id', $id)->first()->kode_sampel;
+        $nama_sampel = SampelUji::where('id', $sampel)->first()->nama_sampel;
+        $id_pengujian_order = SampelOrder::where('id', $id)->first()->id_pengujian_order;
+
+        return view('pelanggan.pengujian_selesai.hasil_uji', compact('parameter_order', 'nomor_order', 'nama_sampel', 'kode_sampel', 'id_pengujian_order', 'id_sampel_order'));
+    }
+
+    public function cetakShuPelanggan($id){
+        $sampel_order = SampelOrder::findOrFail($id);
+
+        $pdf = PDF::loadview('pelanggan.pengujian_selesai.sertifikat_pelanggan', compact('sampel_order'))->setPaper('a4', 'potrait');
+	    return $pdf->stream();
     }
 
 

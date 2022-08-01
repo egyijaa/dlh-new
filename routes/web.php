@@ -12,12 +12,14 @@ use App\Http\Controllers\Admin\ProfilController;
 use App\Http\Controllers\Admin\PengujianOrderController;
 use App\Http\Controllers\Admin\PengujianSelesaiOrderController;
 use App\Http\Controllers\Admin\PengambilanSampelOrderController;
+use App\Http\Controllers\Admin\PengambilanSampelSelesaiController;
 
 
 use App\Http\Controllers\Pelanggan\DashboardController as PelangganDashboardController;
 use App\Http\Controllers\Pelanggan\PengujianController as PelangganPengujianController;
 use App\Http\Controllers\Pelanggan\PengujianSelesaiController as PelangganPengujianSelesaiController;
 use App\Http\Controllers\Pelanggan\PengambilanSampelController as PelangganPengambilanSampelController;
+use App\Http\Controllers\Pelanggan\PengambilanSampelSelesaiController as PelangganPengambilanSampelSelesaiController;
 use App\Http\Controllers\Pelanggan\ProfilController as PelangganProfilController;
 use App\Http\Controllers\Pelanggan\DaftarHargaController as PelangganDaftarHargaController;
 
@@ -123,17 +125,52 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'isAdmin'])->group(f
     });
     // ==========================================================
 
+
+    //pengambilan sampel order admin
     Route::prefix('pengambilanSampel')->name('pengambilanSampel.')->group(function () {
         Route::get('', [PengambilanSampelOrderController::class, 'index'])->name('index');
+        Route::get('detailOrder/{id}', [PengambilanSampelOrderController::class, 'detailOrder'])->name('detailOrder');
         Route::get('getOrder/{id}', [PengambilanSampelOrderController::class, 'getOrder'])->name('getOrder');
         Route::put('gantiStatus', [PengambilanSampelOrderController::class, 'gantiStatus'])->name('gantiStatus');
-        Route::get('cetakLaporanSementara', [PengambilanSampelOrderController::class, 'cetakLaporanSementara'])->name('cetakLaporanSementara');
-        Route::get('cetakSertifikat', [PengambilanSampelOrderController::class, 'cetakSertifikat'])->name('cetakSertifikat');
+        Route::get('cetakInvoice/{id}', [PengambilanSampelOrderController::class, 'cetakInvoice'])->name('cetakInvoice');
         Route::get('cetakSkr/{id}', [PengambilanSampelOrderController::class, 'cetakSkr'])->name('cetakSkr');
-        Route::get('cetakTbp', [PengambilanSampelOrderController::class, 'cetakTbp'])->name('cetakTbp');
-        // Route::post('store', [PejabatController::class, 'store'])->name('store');
-        // Route::put('update', [PejabatController::class, 'update'])->name('update');
-        // Route::delete('delete', [PejabatController::class, 'delete'])->name('delete');
+        Route::get('cetakTbp/{id}', [PengambilanSampelOrderController::class, 'cetakTbp'])->name('cetakTbp');
+
+        Route::get('showBuktiPembayaran/{id}', [PengambilanSampelOrderController::class, 'showBuktiPembayaran'])->name('showBuktiPembayaran');
+        Route::put('updateBuktiPembayaran/{id}', [PengambilanSampelOrderController::class, 'updateBuktiPembayaran'])->name('updateBuktiPembayaran');
+
+        Route::get('beritaAcara/{id}', [PengambilanSampelOrderController::class, 'beritaAcara'])->name('beritaAcara');
+        Route::post('storeBeritaAcara', [PengambilanSampelOrderController::class, 'storeBeritaAcara'])->name('storeBeritaAcara');
+        Route::put('updateBeritaAcara', [PengambilanSampelOrderController::class, 'updateBeritaAcara'])->name('updateBeritaAcara');
+        Route::get('cetakBa/{id}', [PengambilanSampelOrderController::class, 'cetakBa'])->name('cetakBa');
+        
+        Route::get('editBaPelanggan/{id}', [PengambilanSampelOrderController::class, 'editBaPelanggan'])->name('editBaPelanggan');
+        Route::put('updateBaPelanggan/{id}', [PengambilanSampelOrderController::class, 'updateBaPelanggan'])->name('updateBaPelanggan');
+        Route::get('cetakBaPelanggan/{id}', [PengambilanSampelOrderController::class, 'cetakBaPelanggan'])->name('cetakBaPelanggan');
+    });
+
+
+    //pengambilan sampel order admin SELESAIIII
+    Route::prefix('pengambilanSampelSelesai')->name('pengambilanSampelSelesai.')->group(function () {
+        Route::get('', [PengambilanSampelSelesaiController::class, 'index'])->name('index');
+        Route::get('detailOrder/{id}', [PengambilanSampelSelesaiController::class, 'detailOrder'])->name('detailOrder');
+        Route::get('getOrder/{id}', [PengambilanSampelSelesaiController::class, 'getOrder'])->name('getOrder');
+        Route::put('gantiStatus', [PengambilanSampelSelesaiController::class, 'gantiStatus'])->name('gantiStatus');
+        Route::get('cetakInvoice/{id}', [PengambilanSampelSelesaiController::class, 'cetakInvoice'])->name('cetakInvoice');
+        Route::get('cetakSkr/{id}', [PengambilanSampelSelesaiController::class, 'cetakSkr'])->name('cetakSkr');
+        Route::get('cetakTbp/{id}', [PengambilanSampelSelesaiController::class, 'cetakTbp'])->name('cetakTbp');
+
+        Route::get('showBuktiPembayaran/{id}', [PengambilanSampelSelesaiController::class, 'showBuktiPembayaran'])->name('showBuktiPembayaran');
+        Route::put('updateBuktiPembayaran/{id}', [PengambilanSampelSelesaiController::class, 'updateBuktiPembayaran'])->name('updateBuktiPembayaran');
+
+        Route::get('beritaAcara/{id}', [PengambilanSampelSelesaiController::class, 'beritaAcara'])->name('beritaAcara');
+        Route::post('storeBeritaAcara', [PengambilanSampelSelesaiController::class, 'storeBeritaAcara'])->name('storeBeritaAcara');
+        Route::put('updateBeritaAcara', [PengambilanSampelSelesaiController::class, 'updateBeritaAcara'])->name('updateBeritaAcara');
+        Route::get('cetakBa/{id}', [PengambilanSampelSelesaiController::class, 'cetakBa'])->name('cetakBa');
+        
+        Route::get('editBaPelanggan/{id}', [PengambilanSampelSelesaiController::class, 'editBaPelanggan'])->name('editBaPelanggan');
+        Route::put('updateBaPelanggan/{id}', [PengambilanSampelSelesaiController::class, 'updateBaPelanggan'])->name('updateBaPelanggan');
+        Route::get('cetakBaPelanggan/{id}', [PengambilanSampelSelesaiController::class, 'cetakBaPelanggan'])->name('cetakBaPelanggan');
     });
 });
 
@@ -196,10 +233,11 @@ Route::prefix('pelanggan')->name('pelanggan.')->middleware(['auth', 'isPelanggan
     });
 
     // ========================================================================
-
+    //pengambilan sampel order
     Route::prefix('pengambilanSampel')->name('pengambilanSampel.')->group(function () {
         Route::get('', [PelangganPengambilanSampelController::class, 'index'])->name('index');
         Route::get('createOrder', [PelangganPengambilanSampelController::class, 'createOrder'])->name('createOrder');
+        Route::get('detailOrder/{id}', [PelangganPengambilanSampelController::class, 'detailOrder'])->name('detailOrder');
         Route::post('storeOrder', [PelangganPengambilanSampelController::class, 'storeOrder'])->name('storeOrder');
         Route::get('editOrder/{id}', [PelangganPengambilanSampelController::class, 'editOrder'])->name('editOrder');
         Route::put('updateOrder/{id}', [PelangganPengambilanSampelController::class, 'updateOrder'])->name('updateOrder');
@@ -207,6 +245,29 @@ Route::prefix('pelanggan')->name('pelanggan.')->middleware(['auth', 'isPelanggan
 
         Route::post('sendOrder', [PelangganPengambilanSampelController::class, 'sendOrder'])->name('sendOrder');
         Route::get('tracking/{id}', [PelangganPengambilanSampelController::class, 'tracking'])->name('tracking');
+        Route::get('showInvoice/{id}', [PelangganPengambilanSampelController::class, 'showInvoice'])->name('showInvoice');
+        Route::put('buktiPembayaran', [PelangganPengambilanSampelController::class, 'buktiPembayaran'])->name('buktiPembayaran');
+        Route::get('cetakInvoice/{id}', [PelangganPengambilanSampelController::class, 'cetakInvoice'])->name('cetakInvoice');
+        Route::get('cetakBaPelanggan/{id}', [PelangganPengambilanSampelController::class, 'cetakBaPelanggan'])->name('cetakBaPelanggan');
+    });
+
+        // ========================================================================
+    //pengambilan sampel selesai Pelanggan
+    Route::prefix('pengambilanSampelSelesai')->name('pengambilanSampelSelesai.')->group(function () {
+        Route::get('', [PelangganPengambilanSampelSelesaiController::class, 'index'])->name('index');
+        Route::get('createOrder', [PelangganPengambilanSampelSelesaiController::class, 'createOrder'])->name('createOrder');
+        Route::get('detailOrder/{id}', [PelangganPengambilanSampelSelesaiController::class, 'detailOrder'])->name('detailOrder');
+        Route::post('storeOrder', [PelangganPengambilanSampelSelesaiController::class, 'storeOrder'])->name('storeOrder');
+        Route::get('editOrder/{id}', [PelangganPengambilanSampelSelesaiController::class, 'editOrder'])->name('editOrder');
+        Route::put('updateOrder/{id}', [PelangganPengambilanSampelSelesaiController::class, 'updateOrder'])->name('updateOrder');
+        Route::delete('deleteOrder', [PelangganPengambilanSampelSelesaiController::class, 'deleteOrder'])->name('deleteOrder');
+
+        Route::post('sendOrder', [PelangganPengambilanSampelSelesaiController::class, 'sendOrder'])->name('sendOrder');
+        Route::get('tracking/{id}', [PelangganPengambilanSampelSelesaiController::class, 'tracking'])->name('tracking');
+        Route::get('showInvoice/{id}', [PelangganPengambilanSampelSelesaiController::class, 'showInvoice'])->name('showInvoice');
+        Route::put('buktiPembayaran', [PelangganPengambilanSampelSelesaiController::class, 'buktiPembayaran'])->name('buktiPembayaran');
+        Route::get('cetakInvoice/{id}', [PelangganPengambilanSampelSelesaiController::class, 'cetakInvoice'])->name('cetakInvoice');
+        Route::get('cetakBaPelanggan/{id}', [PelangganPengambilanSampelSelesaiController::class, 'cetakBaPelanggan'])->name('cetakBaPelanggan');
     });
 
     Route::prefix('profil')->name('profil.')->group(function () {

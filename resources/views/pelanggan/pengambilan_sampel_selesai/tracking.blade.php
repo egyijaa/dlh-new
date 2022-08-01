@@ -4,7 +4,7 @@
 <div class="content">
     <div class="page-inner">
         <div class="page-header">
-            <a href="{{ route('pelanggan.pengambilanSampel.index') }}"><i class="fas fa-arrow-left"> Kembali</i></a>
+            <a href="{{ route('pelanggan.pengambilanSampelSelesai.index') }}"><i class="fas fa-arrow-left"> Kembali</i></a>
         </div>
         <div class="row">
             <div class="col-md-12">

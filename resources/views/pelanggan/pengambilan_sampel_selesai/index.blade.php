@@ -4,13 +4,13 @@
 <div class="content">
     <div class="page-inner">
         <div class="page-header">
-            <h4 class="page-title">Order Pengujian (Selesai)</h4>
+            <h4 class="page-title">Order Pengambilan Sampel (Selesai)</h4>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header justify-content-between d-flex d-inline">
-                        <h4 class="card-title">Order Pengujian (Selesai)</h4>
+                        <h4 class="card-title">Order Pengambilan Sampel (Selesai)</h4>
                       </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -30,52 +30,39 @@
                                     @php
                                         $i = 1;
                                     @endphp
-                                    @foreach($pengujian as $p)
+                                    @foreach($pengambilan as $p)
                                     <tr>
                                         <td>{{ $i++ }}</td>
                                         <td>{{ $p->nomor_pre }}</td>
                                         <td>{{ $p->nama_pemesan }}</td>
                                         <td>{{ date('d M Y', strtotime($p->tanggal_isi)) }}</td>
                                         <td><span class="
-                                            @if($p->id_status_pengujian == 1 || $p->id_status_pengujian == 5 || $p->id_status_pengujian == 5 || $p->id_status_pengujian == 6 || $p->id_status_pengujian == 7 || $p->id_status_pengujian == 8 || $p->id_status_pengujian == 9 || $p->id_status_pengujian == 10 || $p->id_status_pengujian == 11 || $p->id_status_pengujian == 12 || $p->id_status_pengujian == 13)
+                                            @if($p->id_status_pengambilan_sampel == 1 || $p->id_status_pengambilan_sampel == 5 || $p->id_status_pengambilan_sampel == 5 || $p->id_status_pengambilan_sampel == 6 || $p->id_status_pengambilan_sampel == 7 || $p->id_status_pengambilan_sampel == 8)
                                             badge badge-primary
-                                            @elseif ($p->id_status_pengujian == 4)
+                                            @elseif ($p->id_status_pengambilan_sampel == 4 || $p->id_status_pengambilan_sampel == 9)
                                             badge badge-success
-                                            @elseif ($p->id_status_pengujian == 3)
+                                            @elseif ($p->id_status_pengambilan_sampel == 3)
                                             badge badge-danger
                                             @else 
                                             badge badge-warning
                                             @endif
-                                            ">{{ $p->statusPengujian->status_pelanggan }}</span>
+                                            ">{{ $p->statusPengambilanSampel->status_pelanggan }}</span>
                                         
-                                        @if ($p->id_status_pengujian >= 5)
+                                        @if ($p->id_status_pengambilan_sampel >= 5)
                                         <span class="badge badge-success my-1">Sudah Bayar</span>
                                         @endif
                                         <br>
-                                        <a href="{{ route('pelanggan.pengujianSelesai.tracking', $p->id) }}"><i class="fas fa-angle-double-right" style="font-size: 11px">Tracking</i></a>
+                                        <a href="{{ route('pelanggan.pengambilanSampelSelesai.tracking', $p->id) }}"><i class="fas fa-angle-double-right" style="font-size: 11px">Tracking</i></a>
                                         </td>
                                         <td>@currency($p->total_harga)</td>
                                         <td>
-                                            <a href="{{ route('pelanggan.pengujianSelesai.detailOrder', $p->id) }}" class="btn btn-info btn-sm mt-1">Detail Order</a>
-                                           <form action="{{ route('pelanggan.pengujianSelesai.sampel') }}" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="id_order" value="{{ $p->id }}">
-                                                <button type="submit" class="btn btn-primary btn-sm mt-1">
-                                                    @if ($p->statusPengujian->id == 1)
-                                                        Pilih
-                                                    @else
-                                                        Lihat
-                                                    @endif
-                                                    Sampel</button>
-                                            </form> 
-                                            @if ($p->statusPengujian->id != 1)
-                                                
-                                            @else
-                                       
+                                            <a href="{{ route('pelanggan.pengambilanSampelSelesai.detailOrder', $p->id) }}" class="btn btn-info btn-sm mt-1">Detail Order</a>
+                                    
+                                            @if ($p->statusPengambilanSampel->id >= 4)
+                                            <a href="{{ route('pelanggan.pengambilanSampelSelesai.showInvoice', $p->id) }}"><i class="btn btn-sm btn-primary shadow-sm my-1">Lihat Invoice</i></a> 
                                             @endif
-
-                                            @if ($p->statusPengujian->id >= 4)
-                                            <a href="{{ route('pelanggan.pengujianSelesai.showInvoice', $p->id) }}"><i class="btn btn-sm btn-primary shadow-sm my-1">Lihat Invoice</i></a> 
+                                            @if ($p->foto_ba1 && $p->foto_ba2)
+                                            <a href="{{ route('pelanggan.pengambilanSampelSelesai.cetakBaPelanggan', $p->id) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm my-2">PDF Berita Acara</i></a> 
                                             @endif
                                         </td>
                                     </tr>
@@ -92,9 +79,7 @@
 
 
 
-
 @endsection
 
 @push('scripts')
-
 @endpush

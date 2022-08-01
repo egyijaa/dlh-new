@@ -73,7 +73,7 @@
                                     <a href="{{ route('admin.pengujian.cetakSertifikat', ['order'=>$id_pengujian_order, 'sampel'=>$s->id]) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm mb-1">Cetak Sertifikat (SHU)</i></a> 
                                     @endif
 
-                                    @if ($status >= 13)
+                                    @if ($status >= 12)
                                     <a href="{{ route('admin.pengujian.editShuPelanggan', $s->id) }}" target="_blank" class="btn btn-info btn-sm mb-1">Upload SHU Pelanggan</a>
                                     @endif
                                     

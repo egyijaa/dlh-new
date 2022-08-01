@@ -36,7 +36,18 @@
                                         <td>{{ $p->nomor_pre }}</td>
                                         <td>{{ $p->nama_pemesan }}</td>
                                         <td>{{ date('d M Y', strtotime($p->tanggal_isi)) }}</td>
-                                        <td><span class="badge badge-primary mt-2">{{ $p->statusPengujian->status_admin }}</span>
+                                        <td>
+                                            <span class="
+                                            @if($p->id_status_pengujian == 1 || $p->id_status_pengujian == 5 || $p->id_status_pengujian == 5 || $p->id_status_pengujian == 6 || $p->id_status_pengujian == 7 || $p->id_status_pengujian == 8 || $p->id_status_pengujian == 9 || $p->id_status_pengujian == 10 || $p->id_status_pengujian == 11 || $p->id_status_pengujian == 12)
+                                            badge badge-primary mt-2
+                                            @elseif ($p->id_status_pengujian == 4 || $p->id_status_pengujian == 13)
+                                            badge badge-success mt-2
+                                            @elseif ($p->id_status_pengujian == 3)
+                                            badge badge-danger mt-2
+                                            @else 
+                                            badge badge-warning mt-2
+                                            @endif
+                                            ">{{ $p->statusPengujian->status_admin }}</span>
                                         @if ($p->bukti_bayar)
                                         <hr>
                                         @if ($p->id_status_pengujian >= 5)

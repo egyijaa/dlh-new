@@ -14,20 +14,20 @@ use Carbon\Carbon;
 use PDF;
 use Illuminate\Support\Facades\DB;
 
-class PengambilanSampelOrderController extends Controller
+class PengambilanSampelSelesaiController extends Controller
 {
     public function index(){
-        $pengambilan = PengambilanSampelOrder::where('id_status_pengambilan_sampel', '!=', 1)->where('id_status_pengambilan_sampel', '!=', 9)->orderBy('id', 'DESC')->get();
+        $pengambilan = PengambilanSampelOrder::where('id_status_pengambilan_sampel', 9)->orderBy('id', 'DESC')->get();
         $status = StatusPengambilanSampel::all();
 
-        return view('admin.pengambilan_sampel.index', compact('pengambilan', 'status'));
+        return view('admin.pengambilan_sampel_selesai.index', compact('pengambilan', 'status'));
     }
 
     public function detailOrder($id){
         $id_pengambilan_sampel_order = $id;
         $pengambilan = PengambilanSampelOrder::findOrFail($id);
 
-        return view('admin.pengambilan_sampel.detail_order', compact('id_pengambilan_sampel_order', 'pengambilan'));
+        return view('admin.pengambilan_sampel_selesai.detail_order', compact('id_pengambilan_sampel_order', 'pengambilan'));
     }
 
     public function generateNoSkr(){
@@ -134,7 +134,7 @@ class PengambilanSampelOrderController extends Controller
     public function cetakInvoice($id){
 
         $pengambilan_order = PengambilanSampelOrder::findOrFail($id);
-        $pdf = PDF::loadview('admin.pengambilan_sampel.invoice', compact('pengambilan_order'))->setPaper('a4', 'potrait');
+        $pdf = PDF::loadview('admin.pengambilan_sampel_selesai.invoice', compact('pengambilan_order'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 
@@ -144,7 +144,7 @@ class PengambilanSampelOrderController extends Controller
         $id_skr = Skr::where('id_pengambilan_sampel_order', $id)->first()->id;
         $tanggal_skr = TimelinePengambilanSampel::where('id_pengambilan_sampel_order', $id)->where('id_status_pengambilan_sampel', 4)->latest()->first()->tanggal;
         $skr = Skr::findOrFail($id_skr);
-        $pdf = PDF::loadview('admin.pengambilan_sampel.skr', compact('pengambilan_order', 'skr', 'tanggal_skr'))->setPaper('a4', 'potrait');
+        $pdf = PDF::loadview('admin.pengambilan_sampel_selesai.skr', compact('pengambilan_order', 'skr', 'tanggal_skr'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 
@@ -153,13 +153,13 @@ class PengambilanSampelOrderController extends Controller
         $id_tbp = Tbp::where('id_pengambilan_sampel_order', $id)->first()->id;
         $tbp = Tbp::findOrFail($id_tbp);
         $no_skr = Skr::where('id_pengambilan_sampel_order', $id)->first()->no_skr;
-        $pdf = PDF::loadview('admin.pengambilan_sampel.tbp', compact('pengambilan_order', 'tbp', 'no_skr'))->setPaper('a4', 'potrait');
+        $pdf = PDF::loadview('admin.pengambilan_sampel_selesai.tbp', compact('pengambilan_order', 'tbp', 'no_skr'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 
     public function showBuktiPembayaran($id){
         $pengambilan = PengambilanSampelOrder::findOrFail($id);
-        return view('admin.pengambilan_sampel.bukti_pembayaran', compact('pengambilan'));
+        return view('admin.pengambilan_sampel_selesai.bukti_pembayaran', compact('pengambilan'));
     }
 
     public function updateBuktiPembayaran(Request $request ,$id){
@@ -178,10 +178,10 @@ class PengambilanSampelOrderController extends Controller
         if (BeritaAcaraSampel::where('id_pengambilan_sampel_order', $id)->exists()) {    
         $pengambilan = PengambilanSampelOrder::findOrFail($id);
         $berita_acara = BeritaAcaraSampel::where('id_pengambilan_sampel_order', $id)->get();
-        return view('admin.pengambilan_sampel.edit_berita_acara', compact('pengambilan', 'berita_acara'));
+        return view('admin.pengambilan_sampel_selesai.edit_berita_acara', compact('pengambilan', 'berita_acara'));
         } else {
         $pengambilan = PengambilanSampelOrder::findOrFail($id);
-        return view('admin.pengambilan_sampel.create_berita_acara', compact('pengambilan'));
+        return view('admin.pengambilan_sampel_selesai.create_berita_acara', compact('pengambilan'));
         }     
     }
 
@@ -205,7 +205,7 @@ class PengambilanSampelOrderController extends Controller
             } 
             DB::commit();
             toast('Data Berhasil disimpan')->autoClose(2000)->hideCloseButton();
-            return redirect()->route('admin.pengambilanSampel.index');
+            return redirect()->route('admin.pengambilanSampelSelesai.index');
         } catch (\Exception $e) {
             DB::rollback();
             toast('Gagal menambah data')->autoClose(2000)->hideCloseButton();
@@ -261,13 +261,13 @@ class PengambilanSampelOrderController extends Controller
     public function cetakBa($id){
         $pengambilan_order = PengambilanSampelOrder::findOrFail($id);
         $berita_acara = BeritaAcaraSampel::where('id_pengambilan_sampel_order', $id)->get();
-        $pdf = PDF::loadview('admin.pengambilan_sampel.ba', compact('pengambilan_order', 'berita_acara'))->setPaper('a4', 'potrait');
+        $pdf = PDF::loadview('admin.pengambilan_sampel_selesai.ba', compact('pengambilan_order', 'berita_acara'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 
     public function editBaPelanggan($id){
         $pengambilan = PengambilanSampelOrder::findOrFail($id);
-        return view('admin.pengambilan_sampel.edit_ba_pelanggan', compact('pengambilan'));
+        return view('admin.pengambilan_sampel_selesai.edit_ba_pelanggan', compact('pengambilan'));
     }
 
     public function updateBaPelanggan(Request $request ,$id){
@@ -303,7 +303,7 @@ class PengambilanSampelOrderController extends Controller
     public function cetakBaPelanggan($id){
         $pengambilan = PengambilanSampelOrder::findOrFail($id);
 
-        $pdf = PDF::loadview('admin.pengambilan_sampel.ba_pelanggan', compact('pengambilan'))->setPaper('a4', 'potrait');
+        $pdf = PDF::loadview('admin.pengambilan_sampel_selesai.ba_pelanggan', compact('pengambilan'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 }

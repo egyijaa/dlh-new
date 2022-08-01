@@ -14,12 +14,12 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use PDF;
 
-class PengambilanSampelController extends Controller
+class PengambilanSampelSelesaiController extends Controller
 {
     public function index(){
-        $pengambilan = PengambilanSampelOrder::where('id_user', auth()->user()->id)->where('id_status_pengambilan_sampel', '!=', 9 )->orderBy('id', 'DESC')->get();
+        $pengambilan = PengambilanSampelOrder::where('id_status_pengambilan_sampel', 9)->where('id_user', auth()->user()->id)->orderBy('id', 'DESC')->get();
 
-        return view('pelanggan.pengambilan_sampel.index', compact('pengambilan'));
+        return view('pelanggan.pengambilan_sampel_selesai.index', compact('pengambilan'));
     }
 
     public function createOrder(){
@@ -27,7 +27,7 @@ class PengambilanSampelController extends Controller
         $sampel = SampelUji::all();
         $volume = VolumeSampel::all();
 
-        return view('pelanggan.pengambilan_sampel.create_order', compact('tipe_pelanggan', 'sampel', 'volume'));
+        return view('pelanggan.pengambilan_sampel_selesai.create_order', compact('tipe_pelanggan', 'sampel', 'volume'));
     }
 
     public function generateNoPre(){
@@ -100,13 +100,13 @@ class PengambilanSampelController extends Controller
         $timeline->save();
 
         toast('Data Order Berhasil Disimpan','success');
-        return redirect()->route('pelanggan.pengambilanSampel.index');
+        return redirect()->route('pelanggan.pengambilanSampelSelesai.index');
     }
 
     public function detailOrder($id){
         $pengambilan = PengambilanSampelOrder::findOrFail($id);
 
-        return view('pelanggan.pengambilan_sampel.detail_order', compact('pengambilan'));
+        return view('pelanggan.pengambilan_sampel_selesai.detail_order', compact('pengambilan'));
     }
 
     public function editOrder($id)
@@ -115,7 +115,7 @@ class PengambilanSampelController extends Controller
         $tipe_pelanggan = TipePelanggan::all();
         $sampel = SampelUji::all();
         $volume = VolumeSampel::all();
-        return view('pelanggan.pengambilan_sampel.edit_order', compact('pengambilan','tipe_pelanggan', 'sampel', 'volume'));
+        return view('pelanggan.pengambilan_sampel_selesai.edit_order', compact('pengambilan','tipe_pelanggan', 'sampel', 'volume'));
     }
 
     public function updateOrder(Request $request,$id)
@@ -160,7 +160,7 @@ class PengambilanSampelController extends Controller
 
         $pengambilan->update();
         toast('Data Order Berhasil Diubah','success');
-        return redirect()->route('pelanggan.pengambilanSampel.index');
+        return redirect()->route('pelanggan.pengambilanSampelSelesai.index');
 
     }
 
@@ -193,13 +193,13 @@ class PengambilanSampelController extends Controller
     
         $nomor_order = PengambilanSampelOrder::where('id', $id)->first()->nomor_pre;
 
-        return view('pelanggan.pengambilan_sampel.tracking', compact('timeline', 'nomor_order'));
+        return view('pelanggan.pengambilan_sampel_selesai.tracking', compact('timeline', 'nomor_order'));
     }
 
     public function showInvoice($id){
 
         $pengambilan_order = PengambilanSampelOrder::findOrFail($id);
-        return view('pelanggan.pengambilan_sampel.show_invoice', compact('pengambilan_order'));
+        return view('pelanggan.pengambilan_sampel_selesai.show_invoice', compact('pengambilan_order'));
     }
 
     public function buktiPembayaran(Request $request){
@@ -229,15 +229,14 @@ class PengambilanSampelController extends Controller
     public function cetakInvoice($id){
 
         $pengambilan_order = PengambilanSampelOrder::findOrFail($id);
-        $pdf = PDF::loadview('pelanggan.pengambilan_sampel.invoice', compact('pengambilan_order'))->setPaper('a4', 'potrait');
+        $pdf = PDF::loadview('pelanggan.pengambilan_sampel_selesai.invoice', compact('pengambilan_order'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 
     public function cetakBaPelanggan($id){
         $pengambilan = PengambilanSampelOrder::findOrFail($id);
 
-        $pdf = PDF::loadview('pelanggan.pengambilan_sampel.ba_pelanggan', compact('pengambilan'))->setPaper('a4', 'potrait');
+        $pdf = PDF::loadview('pelanggan.pengambilan_sampel_selesai.ba_pelanggan', compact('pengambilan'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
-
 }

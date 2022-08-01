@@ -70,6 +70,8 @@
 
                                     @if ($s->foto_shu1 && $s->foto_shu2)
                                     <a href="{{ route('admin.pengujianSelesai.cetakShuPelanggan', $s->id) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm my-2">Lihat PDF SHU Pelanggan</i></a> 
+                                    @else
+                                    <a href="{{ route('admin.pengujianSelesai.editShuPelanggan', $s->id) }}" target="_blank" class="btn btn-warning btn-sm mb-1">Upload SHU Pelanggan</a>
                                     @endif
                                     
                                     </td>

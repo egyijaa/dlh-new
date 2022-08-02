@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header justify-content-between d-flex d-inline">
                         <h4 class="card-title">Akun Admin</h4>
-                        <a href="#" data-toggle="modal" data-target="#tambah"><i class="btn btn-sm btn-primary shadow-sm">+ Tambah</i></a>
+                        {{-- <a href="#" data-toggle="modal" data-target="#tambah"><i class="btn btn-sm btn-primary shadow-sm">+ Tambah</i></a> --}}
                       </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -41,7 +41,7 @@
                                         @endif</td>
                                         <td>
                                             <a href="#" data-id="{{ $a->id }}" data-name="{{ $a->name }}" data-email="{{ $a->email }}" data-role="{{ $a->role }}" data-toggle="modal" data-target="#edit"><i class="fas fa-edit"></i></a> | 
-                                            <a href="#" data-target="#delete" data-toggle="modal" data-id="{{ $a->id }}"><i class="fas fa-trash"></i></a>
+                                            {{-- <a href="#" data-target="#delete" data-toggle="modal" data-id="{{ $a->id }}"><i class="fas fa-trash"></i></a> --}}
                                         </td>
                                     </tr>
                                     @endforeach

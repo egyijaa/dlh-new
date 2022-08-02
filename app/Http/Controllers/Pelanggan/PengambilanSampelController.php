@@ -43,13 +43,12 @@ class PengambilanSampelController extends Controller
     }
 
     public function storeOrder(Request $request){
-
         $validatedData = $request->validate([
             'nama_pemesan' => 'required',
             'email' => 'required',
-            'no_hp' => 'required',
             'alamat' => 'required',
-            'nik' => 'required',
+            'no_hp' => 'required|between:10,13',
+            'nik' => 'required|digits:16',
             'file_surat' => 'mimes:pdf|max:3120',
             'jenis_sampel' =>'required',
             'tanggal_sampling' => 'required',
@@ -112,10 +111,16 @@ class PengambilanSampelController extends Controller
     public function editOrder($id)
     {
         $pengambilan = PengambilanSampelOrder::findOrFail($id);
-        $tipe_pelanggan = TipePelanggan::all();
-        $sampel = SampelUji::all();
-        $volume = VolumeSampel::all();
-        return view('pelanggan.pengambilan_sampel.edit_order', compact('pengambilan','tipe_pelanggan', 'sampel', 'volume'));
+        if ($pengambilan->id_status_pengambilan_sampel >= 2) {
+            toast('Eitsss...Data Tidak Dapat diubah','error');
+            return redirect()->route('pelanggan.pengambilanSampel.index');
+        } else {
+            $tipe_pelanggan = TipePelanggan::all();
+            $sampel = SampelUji::all();
+            $volume = VolumeSampel::all();
+            return view('pelanggan.pengambilan_sampel.edit_order', compact('pengambilan','tipe_pelanggan', 'sampel', 'volume'));
+        }
+        
     }
 
     public function updateOrder(Request $request,$id)
@@ -123,6 +128,8 @@ class PengambilanSampelController extends Controller
         // dd($request->all());
         $validatedData = $request->validate([
             'file_surat' => 'mimes:pdf|max:3120',
+            'no_hp' => 'required|numeric|between:10,13',
+            'nik' => 'required|digits:16',
         ]);
 
         $pengambilan = PengambilanSampelOrder::findOrFail($id);
@@ -206,7 +213,7 @@ class PengambilanSampelController extends Controller
 
         $validatedData = $request->validate([
             'tanggal_bayar' => 'required',
-            'bukti_bayar' => 'mimes:pdf,JPG,jpeg,png,jpg|max:2048',
+            'bukti_bayar' => 'mimes:pdf,JPG,jpeg,png,jpg|max:3120',
         ]);
 
         $pengambilan = PengambilanSampelOrder::find($request->id);

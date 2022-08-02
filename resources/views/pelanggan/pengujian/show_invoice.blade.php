@@ -122,7 +122,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="bukti_bayar">Upload Bukti Pembayaran (PDF/Jpeg/Jpg)</label>
+                        <label for="bukti_bayar">Upload Bukti Pembayaran (PDF/Jpeg/Jpg | Max 3mb)</label>
                         <input type="file" class="form-control @error('file') is-invalid @enderror" id="bukti_bayar" name="bukti_bayar" required>
                         @error('bukti_bayar')
                         <div class="invalid-feedback">

@@ -42,9 +42,9 @@ class PengujianController extends Controller
         $validatedData = $request->validate([
             'nama_pemesan' => 'required',
             'email' => 'required',
-            'no_hp' => 'required',
+            'no_hp' => 'required', 'digits_between:10,13',
             'alamat' => 'required',
-            'nik' => 'required',
+            'nik' => 'required', 'digits:16',
             'file_surat' => 'mimes:pdf|max:3120',
         ]);
 
@@ -102,15 +102,22 @@ class PengujianController extends Controller
 
     public function getOrder(Request $request, $id){
         $id_pengujian_order = $id;
-        $nomor_pre = PengujianOrder::where('id', $id_pengujian_order)->first()->nomor_pre;
+        $pengujian = PengujianOrder::findOrFail($id);
+        if ($pengujian->id_user != auth()->user()->id) {
+            toast('Eitsss...Anda tidak boleh masuk ke orderan orang lain!','error');
+            return Redirect::route('pelanggan.pengujian.index');
+        } else {
+            $nomor_pre = PengujianOrder::where('id', $id_pengujian_order)->first()->nomor_pre;
 
-        $status = PengujianOrder::where('id', $id_pengujian_order)->first()->id_status_pengujian;
-
-        $sampel = SampelUji::all();
-
-        $sampel_order = SampelOrder::with('parameterSampelOrder')->where('id_pengujian_order', $id_pengujian_order)->orderBy('id', 'DESC')->get();
-
-        return view('pelanggan.pengujian.sampel', compact('id_pengujian_order', 'nomor_pre', 'sampel', 'status', 'sampel_order'));
+            $status = PengujianOrder::where('id', $id_pengujian_order)->first()->id_status_pengujian;
+    
+            $sampel = SampelUji::all();
+    
+            $sampel_order = SampelOrder::with('parameterSampelOrder')->where('id_pengujian_order', $id_pengujian_order)->orderBy('id', 'DESC')->get();
+    
+            return view('pelanggan.pengujian.sampel', compact('id_pengujian_order', 'nomor_pre', 'sampel', 'status', 'sampel_order'));
+        }
+     
     }
 
     public function getParameter(Request $request, $id)
@@ -208,11 +215,19 @@ class PengujianController extends Controller
     public function editSampelParameter($id)
     {
         $sampel_order = SampelOrder::with('parameterSampelOrder')->findOrFail($id);
-        $sampel = SampelUji::all();
-        return view('pelanggan.pengujian.edit_sampel', [
-            'sampel_order' => $sampel_order,
-            'sampel' => $sampel
-        ]);
+        $id_pengujian_order = $sampel_order->id_pengujian_order;
+        $pengujian = PengujianOrder::findOrFail($id_pengujian_order);
+
+        if ($pengujian->id_user != auth()->user()->id) {
+            toast('Eitsss...Anda tidak boleh masuk ke orderan orang lain!','error');
+            return Redirect::route('pelanggan.pengujian.index');
+        } else {
+            $sampel = SampelUji::all();
+            return view('pelanggan.pengujian.edit_sampel', [
+                'sampel_order' => $sampel_order,
+                'sampel' => $sampel
+            ]);
+        }
     }
 
     public function updateSampelParameter(Request $request)
@@ -331,7 +346,7 @@ class PengujianController extends Controller
 
         $validatedData = $request->validate([
             'tanggal_bayar' => 'required',
-            'bukti_bayar' => 'mimes:pdf,JPG,jpeg,png,jpg|max:2048',
+            'bukti_bayar' => 'mimes:pdf,JPG,jpeg,png,jpg|max:3120',
         ]);
 
         $pengujian = PengujianOrder::find($request->id);

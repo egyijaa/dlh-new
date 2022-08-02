@@ -62,6 +62,7 @@
                                             @if ($p->statusPengambilanSampel->id != 1)
                                                 
                                             @else
+                                            <a href="{{ route('pelanggan.pengambilanSampel.editOrder', $p->id) }}" class="btn btn-warning btn-sm mt-1">Edit Order</a>
                                             <a href="#" class="btn btn-secondary btn-sm mt-1" data-target="#kirim" data-toggle="modal" data-id="{{ $p->id }}">Kirim Order</a>
                                             <a href="#" class="btn btn-danger btn-sm mt-1" data-target="#delete" data-toggle="modal" data-id="{{ $p->id }}">Hapus Order</a>
                                             @endif

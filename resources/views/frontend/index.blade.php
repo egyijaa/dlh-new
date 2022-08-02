@@ -157,7 +157,7 @@
                         <div class="col-xl-5 text-center text-xl-end">
                             <h2 class="font-weight-bold text-color-light line-height-4 text-3 mb-2 text-uppercase appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="800" data-plugin-options="{'minWindowWidth': 0}"><span class="opacity-6">UPT Laboratorium Lingkungan</span></h2>
                             <h1 class="text-color-light font-weight-bold text-8 negative-ls-05 line-height-1 mb-4 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="1100" data-plugin-options="{'minWindowWidth': 0}">Pontianak Laboratory Information System<br><span class="font-weight-extra-bold custom-highlight-1 ws-nowrap p-1 custom-highlight-anim custom-highlight-anim-delay">(POLIS)</span></h1>
-                            <a href="demo-renewable-energy-login.html" class="btn btn-arrow-effect-1 ws-nowrap text-light text-4 bg-transparent border-0 px-0 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="1300" data-plugin-options="{'minWindowWidth': 0}">Pesan Sekarang <i class="fas fa-arrow-right ms-2 p-relative top-2"></i></a>
+                            <a href="/login" class="btn btn-arrow-effect-1 ws-nowrap text-light text-4 bg-transparent border-0 px-0 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="1300" data-plugin-options="{'minWindowWidth': 0}">Pesan Sekarang <i class="fas fa-arrow-right ms-2 p-relative top-2"></i></a>
                         </div>
                         <div class="col-xl-3 text-xl-end d-none d-xl-block">
                             <div class="row align-items-end pb-4">
@@ -219,7 +219,17 @@
                             <div class="card-body text-center text-lg-start m-2 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="100" data-plugin-options="{'minWindowWidth': 0}">
                                 <img height="90" src="{{ url('frontend/img/demos/event/icons/successfull-stories.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-stroke-color-primary mb-4'}" />
                                 <h4 class="font-weight-bold mt-4">Visi & Misi</h4>
-                                <p class="text-3">Lorem ipsum dolor sit amet, consec tetur adipiscing elit. Proin mauris erat, accumsan quis ullamcorper.</p>
+                                <p class="text-3">
+                                    visi: <br>
+                                    Terwujudnya Laboratorium lingkungan yang profesional, objektif dan mandiri.
+                                    <br>
+                                    Misi:
+                                     <br>
+                                        1.	Mengutamakan pelayanan prima melalui penyajian data dan informasi yang cepat, akurat dan terpecaya.
+                                        2.	Meningkatan kompetensi SDM laboratorium secara berkelanjutan
+                                        3.	Menyajikan data hasil pengujian yang dapat dipertanggungjawabkan secara ilmiah dan hukum
+                                        4.	Menjalin kerjasama dengan instansi terkait, dunia usaha dan laboratorium lainnya.
+                                </p>
                                 <!-- <a href="#" class="btn btn-arrow-effect-1 ws-nowrap text-primary text-2 bg-transparent border-0 px-0 text-uppercase">More Details <i class="fas fa-arrow-right ms-2"></i></a> -->
                             </div>
                         </div>
@@ -240,7 +250,8 @@
                             <div class="card-body text-center text-lg-start m-2 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="1200" data-plugin-options="{'minWindowWidth': 0}">
                                 <img height="90" src="{{ url('frontend/img/demos/renewable-energy/icons/icon-5.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-stroke-color-primary mb-4'}" />
                                 <h4 class="font-weight-bold mt-4">Motto</h4>
-                                <p class="text-3">Lorem ipsum dolor sit amet, consec tetur adipiscing elit. Proin mauris erat, accumsan quis ullamcorper.</p>
+                                <p class="text-3">
+                                    "Mengedepankan akurasi dengan tenaga yang kompeten"</p>
                                 <!-- <a href="#" class="btn btn-arrow-effect-1 ws-nowrap text-primary text-2 bg-transparent border-0 px-0 text-uppercase">More Details <i class="fas fa-arrow-right ms-2"></i></a> -->
                             </div>
                         </div>
@@ -250,7 +261,10 @@
                             <div class="card-body text-center text-lg-start m-2 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="400" data-plugin-options="{'minWindowWidth': 0}">
                                 <img height="90" src="{{ url('frontend/img/demos/event/icons/event-editions.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-stroke-color-primary mb-4'}" />
                                 <h4 class="font-weight-bold mt-4">Maklumat Pelayanan</h4>
-                                <p class="text-3">Lorem ipsum dolor sit amet, consec tetur adipiscing elit. Proin mauris erat, accumsan quis ullamcorper.</p>
+                                <p class="text-3">
+                                    
+"Dengan ini, kami menyatakan sanggup menyelenggarakan pelayanan sesuai standar pelayanan yang telah ditetapkan dan apabila tidak menepati janji ini, kami siap menerima sanksi sesuai ketentuan perundang-undangan yang berlaku"
+                                </p>
                                 <!-- <a href="#" class="btn btn-arrow-effect-1 ws-nowrap text-primary text-2 bg-transparent border-0 px-0 text-uppercase">More Details <i class="fas fa-arrow-right ms-2"></i></a> -->
                             </div>
                         </div>

@@ -27,7 +27,7 @@
                             <div class="row my-2">
                                 <div class="col-6">
                                     <label for="titik_sampling">Titik Sampling</label>
-                                    <input type="text" name="titik_sampling" class="form-control" value="{{ $ba->titik_sampling }}" required>
+                                    <input type="text" name="titik_sampling" class="form-control" value="{{ $ba->titik_sampling }}" required readonly>
                                     @error('titik_sampling')
                                     <div class="invalid-feedback">
                                         {{$message}}
@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="col-6">
                                     <label for="kode_sampel">Kode Wadah Sampel</label>
-                                    <input type="text" name="kode_sampel" class="form-control" value="{{ $ba->kode_sampel }}" required>
+                                    <input type="text" name="kode_sampel" class="form-control" value="{{ $ba->kode_sampel }}" required readonly>
                                     @error('kode_sampel')
                                     <div class="invalid-feedback">
                                         {{$message}}
@@ -47,7 +47,7 @@
                             <div class="row my-1">
                                 <div class="col-6">
                                     <label for="lu">Titik Koordinat (LU)</label>
-                                    <input type="text" name="lu" class="form-control" value="{{ $ba->lu }}" required>
+                                    <input type="text" name="lu" class="form-control" value="{{ $ba->lu }}" required readonly>
                                     @error('lu')
                                     <div class="invalid-feedback">
                                         {{$message}}
@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="col-6">
                                     <label for="suhu">Temp udara °</label>
-                                    <input type="text" name="suhu" class="form-control" value="{{ $ba->suhu }}"  required>
+                                    <input type="text" name="suhu" class="form-control" value="{{ $ba->suhu }}" readonly required>
                                     @error('suhu')
                                     <div class="invalid-feedback">
                                         {{$message}}
@@ -67,7 +67,7 @@
                             <div class="row mt-2">
                                 <div class="col-6">
                                     <label for="ls">Titik Koordinat (LS)</label>
-                                    <input type="text" name="ls" class="form-control" value="{{ $ba->ls }}" required>
+                                    <input type="text" name="ls" class="form-control" value="{{ $ba->ls }}" required readonly>
                                     @error('ls')
                                     <div class="invalid-feedback">
                                         {{$message}}
@@ -77,9 +77,9 @@
                                 <div class="col-4">
                                     <label for="cuaca">Cuaca</label>
                                     <select name="cuaca" id="cuaca" class="custom-select @error('cuaca') is-invalid @enderror" required>
-                                            <option value="cerah" {{ $ba->cuaca == "cerah" ? 'selected' : '' }}>cerah</option>
-                                            <option value="mendung" {{ $ba->cuaca == "mendung" ? 'selected' : '' }}>mendung</option>
-                                            <option value="hujan" {{ $ba->cuaca == "hujan" ? 'selected' : '' }}>hujan</option>
+                                            <option disabled value="cerah" {{ $ba->cuaca == "cerah" ? 'selected' : '' }}>cerah</option>
+                                            <option disabled value="mendung" {{ $ba->cuaca == "mendung" ? 'selected' : '' }}>mendung</option>
+                                            <option disabled value="hujan" {{ $ba->cuaca == "hujan" ? 'selected' : '' }}>hujan</option>
                                     </select>
                                     @error('cuaca')
                                     <div class="invalid-feedback">

@@ -17,7 +17,7 @@
                             @csrf
                             @method('PUT')
                             <div class="form-group">
-                                <label for="foto_ba1">Upload Scan/Foto BA Lembar 1</label>
+                                <label for="foto_ba1">Upload Scan/Foto BA Lembar 1 <i><small>Jpg/Jpeg/PNG|Max: 3 Mb</small></i></label>
                                 <input type="file" class="form-control @error('foto_ba1') is-invalid @enderror" id="foto_ba1" name="foto_ba1" required>
                                 @error('foto_ba1')
                                 <div class="invalid-feedback">
@@ -30,7 +30,7 @@
 
                             </div>
                             <div class="form-group">
-                                <label for="foto_ba2">Upload Scan/Foto BA Lembar 2</label>
+                                <label for="foto_ba2">Upload Scan/Foto BA Lembar 2 <i><small>Jpg/Jpeg/PNG|Max: 5 Mb</small></i></label>
                                 <input type="file" class="form-control @error('foto_ba2') is-invalid @enderror" id="foto_ba2" name="foto_ba2" required>
                                 @error('foto_ba2')
                                 <div class="invalid-feedback">

@@ -57,7 +57,7 @@
                             <div class="col-7 col-stats">
                                 <div class="numbers">
                                     <p class="card-category">Orderan</p>
-                                    <h4 class="card-title">$ 1,345</h4>
+                                    <h4 class="card-title">Rp 1.000.500</h4>
                                 </div>
                             </div>
                         </div>
@@ -76,7 +76,7 @@
                             <div class="col-7 col-stats">
                                 <div class="numbers">
                                     <p class="card-category">Sertifikat</p>
-                                    <h4 class="card-title">576</h4>
+                                    <h4 class="card-title">12</h4>
                                 </div>
                             </div>
                         </div>

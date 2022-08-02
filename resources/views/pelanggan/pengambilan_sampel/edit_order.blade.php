@@ -33,16 +33,16 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="nomor_surat">Nomor Surat <i><small>bila ada</small></i></label>
+                                        <label for="nomor_surat">Nomor Surat <i><small>bila ada, file PDF|Max: 3mb</small></i></label>
                                         <input type="text" class="form-control @error('nomor_surat') is-invalid @enderror" id="nomor_surat" name="nomor_surat" value="{{ $pengambilan->nomor_surat }}">
                                         @if($pengambilan->file_surat)
                                             <a href="{{  Storage::url($pengambilan->file_surat)  }}" target="_blank" class="btn btn-info btn-sm">Klik Disini untuk membuka file</a>
                                           <br>
                                         @else 
-                                          Tidak ada file
+                                          
                                         @endif
-                                        <input type="file" name="file_surat">
-                                        @error('nomor_surat')
+                                        <input type="file" name="file_surat" id="file_surat">
+                                        @error('file_surat')
                                         <div class="invalid-feedback">
                                             {{$message}}
                                         </div>
@@ -62,7 +62,7 @@
                                    </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="nik">NIK*</label>
+                                        <label for="nik">NIK* <i><small>16 digit</small></i></label>
                                         <input type="number" class="form-control @error('nik') is-invalid @enderror" id="nik" name="nik" value="{{ $pengambilan->nik }}" required>
                                         @error('nik')
                                         <div class="invalid-feedback">
@@ -108,7 +108,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="no_hp">No Hp (WhatsApp)*</label>
+                                        <label for="no_hp">No Hp (WhatsApp)* <i><small>10-13 digit</small></i></label>
                                         <input type="number" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp" name="no_hp" value="{{ $pengambilan->no_hp }}" required>
                                         @error('no_hp')
                                         <div class="invalid-feedback">

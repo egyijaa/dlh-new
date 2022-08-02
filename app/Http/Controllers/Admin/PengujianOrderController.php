@@ -256,8 +256,8 @@ class PengujianOrderController extends Controller
 
     public function updateShuPelanggan(Request $request ,$id){
         $validatedData = $request->validate([
-            'foto_shu1' => 'mimes:JPG,jpeg,png,jpg|max:2048',
-            'foto_shu2' => 'mimes:JPG,jpeg,png,jpg|max:2048',
+            'foto_shu1' => 'mimes:JPG,jpeg,png,jpg|max:3120',
+            'foto_shu2' => 'mimes:JPG,jpeg,png,jpg|max:5120',
         ]);
 
         $sampel = SampelOrder::find($id);

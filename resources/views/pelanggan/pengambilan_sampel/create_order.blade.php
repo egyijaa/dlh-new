@@ -35,12 +35,17 @@
                                 </div>
                                 <div class="col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        <label for="nomor_surat">Nomor Surat <i><small>bila ada</small></i></label>
+                                        <label for="nomor_surat">Nomor Surat <i><small>bila ada, file PDF|Max: 3mb</small></i></label>
                                         <input type="text"
                                             class="form-control @error('nomor_surat') is-invalid @enderror"
                                             id="nomor_surat" name="nomor_surat">
                                         <input type="file" name="file_surat">
                                         @error('nomor_surat')
+                                        <div class="invalid-feedback">
+                                            {{$message}}
+                                        </div>
+                                        @enderror
+                                        @error('file_surat')
                                         <div class="invalid-feedback">
                                             {{$message}}
                                         </div>
@@ -62,7 +67,7 @@
                                 </div>
                                 <div class="col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        <label for="nik">NIK*</label>
+                                        <label for="nik">NIK* <i><small>16 digit</small></i></label>
                                         <input type="number" class="form-control @error('nik') is-invalid @enderror"
                                             id="nik" name="nik" required>
                                         @error('nik')
@@ -114,9 +119,9 @@
                                 </div>
                                 <div class="col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        <label for="no_hp">No Hp (WhatsApp)*</label>
+                                        <label for="no_hp">No Hp (WhatsApp)* <i><small>10-13 digit</small></i></label>
                                         <input type="number" class="form-control @error('no_hp') is-invalid @enderror"
-                                            id="no_hp" name="no_hp" required>
+                                            id="no_hp" name="no_hp" required placeholder="081423xxxxxx">
                                         @error('no_hp')
                                         <div class="invalid-feedback">
                                             {{$message}}
@@ -248,7 +253,7 @@
                                     <div class="form-group">
                                         <label for="pendamping_sampling"><b>Pendamping Saat Sampling*</b></label>
                                         <textarea name="pendamping_sampling" class="form-control" id="pendamping_sampling"
-                                            cols="5" rows="5" required></textarea>
+                                            cols="5" rows="5" required placeholder="cth : Pak Fulan, Hp: 0813xxxxxxxx"></textarea>
                                         @error('pendamping_sampling')
                                         <div class="invalid-feedback">
                                             {{$message}}

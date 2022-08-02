@@ -28,7 +28,7 @@
                             </li>
                             <li class="{{ request()->is('admin/pejabat') ?'active' : '' }}">
                                 <a href="{{ route('admin.pejabat.index') }}">
-                                    <span class="sub-item">Pejabat</span>
+                                    <span class="sub-item">Jabatan</span>
                                 </a>
                             </li>
                         </ul>

@@ -69,7 +69,7 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="nav-link" href="#tentang" data-hash="" data-hash-offset="0" data-hash-offset-lg="32">
+                                                    <a class="nav-link" href="/#tentang" data-hash="" data-hash-offset="0" data-hash-offset-lg="32">
                                                         Tentang Kami
                                                     </a>
                                                 </li>
@@ -165,7 +165,7 @@
                                 </div>
                                 <div class="process-step-content px-5">
                                     <h4 class="text-color-dark font-weight-bold text-4 line-height-1 mb-3">1. Pendaftaran</h4>
-                                    <p class="custom-font-secondary custom-text-size-1 px-3 mb-0">Lorem ipsum dolor sit <strong class="text-color-dark">amet</strong>, consectetur adipiscing elit.</p>
+                                    <p class="custom-font-secondary custom-text-size-1 px-3 mb-0">Silahkan Login / Register di website POLIS untuk membuat akun</p>
                                 </div>
                             </div>
                             <div class="process-step col-12 col-lg-3 mb-5 mb-lg-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
@@ -174,7 +174,7 @@
                                 </div>
                                 <div class="process-step-content px-5">
                                     <h4 class="text-color-dark font-weight-bold text-4 line-height-1 mb-3">2. Pemesanan</h4>
-                                    <p class="custom-font-secondary custom-text-size-1 px-3 mb-0">Lorem ipsum dolor sit <strong class="text-color-dark">amet</strong>, consectetur adipiscing elit. Nunc viverra erat orci, ac auctor.</p>
+                                    <p class="custom-font-secondary custom-text-size-1 px-3 mb-0">Pilih Menu order baru, kemudian pilih layanan yang diinginkan</p>
                                 </div>
                             </div>
                             <div class="process-step col-12 col-lg-3 mb-5 mb-lg-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
@@ -183,7 +183,7 @@
                                 </div>
                                 <div class="process-step-content px-5">
                                     <h4 class="text-color-dark font-weight-bold text-4 line-height-1 mb-3">3. Proses Layanan</h4>
-                                    <p class="custom-font-secondary custom-text-size-1 px-3 mb-0">Lorem ipsum dolor sit <strong class="text-color-dark">amet</strong>, consectetur adipiscing elit.</p>
+                                    <p class="custom-font-secondary custom-text-size-1 px-3 mb-0">Silahkan isi formulir secara lengkap dari masing-masing layanan yang telah diberikan</p>
                                 </div>
                             </div>
                             <div class="process-step col-12 col-lg-3 mb-5 mb-lg-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
@@ -192,7 +192,7 @@
                                 </div>
                                 <div class="process-step-content px-5">
                                     <h4 class="text-color-dark font-weight-bold text-4 line-height-1 mb-3">4. Pengambilan Hasil</h4>
-                                    <p class="custom-font-secondary custom-text-size-1 px-3 mb-0">Lorem ipsum dolor sit <strong class="text-color-dark">amet</strong>, consectetur adipiscing elit. Nunc viverra erat orci, ac auctor.</p>
+                                    <p class="custom-font-secondary custom-text-size-1 px-3 mb-0">Hasil dapat diambil di kantor DLH</p>
                                 </div>
                             </div>
                         </div>

@@ -215,9 +215,9 @@ class PengambilanSampelOrderController extends Controller
 
     public function updateBeritaAcara(Request $request){
         $validatedData = $request->validate([
-            'foto1' => 'mimes:JPG,jpeg,png,jpg|max:3048',
-            'foto2' => 'mimes:JPG,jpeg,png,jpg|max:3048',
-            'foto3' => 'mimes:JPG,jpeg,png,jpg|max:3048',
+            'foto1' => 'mimes:JPG,jpeg,png,jpg|max:3120',
+            'foto2' => 'mimes:JPG,jpeg,png,jpg|max:3120',
+            'foto3' => 'mimes:JPG,jpeg,png,jpg|max:3120',
         ]);
 
         $berita_acara = BeritaAcaraSampel::findOrFail($request->id);
@@ -272,8 +272,8 @@ class PengambilanSampelOrderController extends Controller
 
     public function updateBaPelanggan(Request $request ,$id){
         $validatedData = $request->validate([
-            'foto_ba1' => 'mimes:JPG,jpeg,png,jpg|max:2048',
-            'foto_ba2' => 'mimes:JPG,jpeg,png,jpg|max:2048',
+            'foto_ba1' => 'mimes:JPG,jpeg,png,jpg|max:3120',
+            'foto_ba2' => 'mimes:JPG,jpeg,png,jpg|max:5120',
         ]);
 
         $pengambilan = PengambilanSampelOrder::find($id);

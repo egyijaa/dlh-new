@@ -9,6 +9,57 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Langkah Pembayaran</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="nav nav-pills nav-secondary  nav-pills-no-bd nav-pills-icons justify-content-center" id="pills-tab-with-icon" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pills-home-tab-icon" data-toggle="pill" href="#pills-home-icon" role="tab" aria-controls="pills-home-icon" aria-selected="true">
+                                    <i class="flaticon-coins"></i>
+                                    1. Bayar
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-profile-tab-icon" data-toggle="pill" href="#pills-profile-icon" role="tab" aria-controls="pills-profile-icon" aria-selected="false">
+                                    <i class="flaticon-picture"></i>
+                                    2. Upload Bukti
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-contact-tab-icon" data-toggle="pill" href="#pills-contact-icon" role="tab" aria-controls="pills-contact-icon" aria-selected="false">
+                                    <i class="flaticon-check"></i>
+                                    3. Verifikasi Admin
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content mt-2 mb-3" id="pills-with-icon-tabContent">
+                            <div class="tab-pane fade show active" id="pills-home-icon" role="tabpanel" aria-labelledby="pills-home-tab-icon">
+                                <div class="col-md-8 ml-auto mr-auto">
+                                    <p>Silahkan Bayar Tagihan sesuai nominal yang telah ditentukan melalui ATM/Mobile Banking/Teller Bank Kalbar.</p>
+                                </div>
+                             
+                            </div>
+                            <div class="tab-pane fade" id="pills-profile-icon" role="tabpanel" aria-labelledby="pills-profile-tab-icon">
+                                <div class="col-md-8 ml-auto mr-auto">
+                                    <p>Upload Bukti Pembayaran berupa foto struk atau screenshot pembayaran yang telah dilakukan. Jangan lupa juga untuk mengupload tanggal sesuai tanggal yang ada di bukti struk pembayaran.</p>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-contact-icon" role="tabpanel" aria-labelledby="pills-contact-tab-icon">
+                                <div class="col-md-8 ml-auto mr-auto">
+                                    <p>
+                                        Setelah upload bukti pembayaran, mohon tunggu admin untuk mengecek pembayaran anda apakah berhasil atau tidak. Pemberitahuan berhasil atau tidak, akan dikirim melalui email anda.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
                     <div class="card-header justify-content-between d-flex d-inline">
                         <h4 class="card-title">{{ $pengambilan_order->nomor_pre }}</h4>
                         <a href="{{ route('pelanggan.pengambilanSampel.cetakInvoice', $pengambilan_order->id) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak Invoice</i></a> 
@@ -36,9 +87,14 @@
                                 @else
                                     Sudah Bayar
                                 @endif
-                                
-                                
-                                </span></td>
+                                </span>
+                                <br><br>
+                                @php
+                                $jatuh_tempo = \Carbon\Carbon::parse($tanggal_buat)->addDays(2);
+                                @endphp
+                                <b>Batas Tanggal Pembayaran : {{  $jatuh_tempo->format('d M Y') }} </b>
+                                </td>
+
                             </tr>
                         </table>
                     
@@ -55,34 +111,36 @@
                                 </td>
                             </tr>
                         </table>
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Jenis Sampel</th>
-                                    <th scope="col">Jumlah Titik Sampling</th>
-                                    <th scope="col" align="right">Harga</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                    $i = 1;
-                                @endphp
-
-                                <tr>
-                                    <td>{{ $i++ }}</td>
-                                    <td>{{ $pengambilan_order->sampelUji->nama_sampel }}</td>
-                                    <td>
-                                       x {{ $pengambilan_order->jumlah_titik_sampling }} titik sampling
-                                    </td>
-                                    <td align="right">@currency($pengambilan_order->total_harga)</td>
-                                </tr>
-                          
-                                <tr>
-                                    <td colspan="4" align="right">Sub Total <b>@currency($pengambilan_order->total_harga)</b></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Jenis Sampel</th>
+                                        <th scope="col">Jumlah Titik Sampling</th>
+                                        <th scope="col" align="right">Harga</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $i = 1;
+                                    @endphp
+    
+                                    <tr>
+                                        <td>{{ $i++ }}</td>
+                                        <td>{{ $pengambilan_order->sampelUji->nama_sampel }}</td>
+                                        <td>
+                                           x {{ $pengambilan_order->jumlah_titik_sampling }} titik sampling
+                                        </td>
+                                        <td align="right">@currency($pengambilan_order->total_harga)</td>
+                                    </tr>
+                              
+                                    <tr>
+                                        <td colspan="4" align="right">Sub Total <b>@currency($pengambilan_order->total_harga)</b></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <table class="table2" style="width:100%; padding-left: 25px; padding-right: 25px; padding-bottom: 8px;">
                             <tr>
                                 <td class="td2" colspan="4" style="font-size: 11px;"><b>Catatan</b><br>Harap membayar sesuai dengan total tagihan, yaitu sebesar @currency($pengambilan_order->total_harga) <br>- -</td>

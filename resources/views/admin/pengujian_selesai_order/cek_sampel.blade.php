@@ -55,23 +55,23 @@
                                     <td>
                                     @if ($status >= 5)
                                         
-                                    <a href="{{ route('admin.pengujianSelesai.hasilUji', ['order'=>$nomor_pre, 'id'=>$s->id]) }}" class="btn btn-info btn-sm mt-1">Lihat</a>
+                                    <a href="{{ route('admin.pengujianSelesai.hasilUji', ['order'=>$nomor_pre, 'id'=>$s->id]) }}" class="btn btn-info btn-xs mt-1">Lihat</a>
                                     <br>
                                     @endif
                                     
                                     @if ($status >= 9)
-                                    <a href="{{ route('admin.pengujianSelesai.cetakLaporanSementara', ['order'=>$id_pengujian_order, 'sampel'=>$s->id] ) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm my-1">Cetak Laporan Sementara</i></a>
+                                    <a href="{{ route('admin.pengujianSelesai.cetakLaporanSementara', ['order'=>$id_pengujian_order, 'sampel'=>$s->id] ) }}" target="_blank"><i class="btn btn-xs btn-primary shadow-sm mt-1">Cetak Laporan Sementara</i></a>
                                     @endif
 
 
                                     @if ($status >= 11)
-                                    <a href="{{ route('admin.pengujianSelesai.cetakSertifikat', ['order'=>$id_pengujian_order, 'sampel'=>$s->id]) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm mb-1">Cetak Sertifikat (SHU)</i></a> 
+                                    <a href="{{ route('admin.pengujianSelesai.cetakSertifikat', ['order'=>$id_pengujian_order, 'sampel'=>$s->id]) }}" target="_blank"><i class="btn btn-xs btn-primary shadow-sm mt-1">Cetak Sertifikat (SHU)</i></a> 
                                     @endif
 
                                     @if ($s->foto_shu1 && $s->foto_shu2)
-                                    <a href="{{ route('admin.pengujianSelesai.cetakShuPelanggan', $s->id) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm my-2">Lihat PDF SHU Pelanggan</i></a> 
+                                    <a href="{{ route('admin.pengujianSelesai.cetakShuPelanggan', $s->id) }}" target="_blank"><i class="btn btn-xs btn-primary shadow-sm mt-1">Lihat PDF SHU Pelanggan</i></a> 
                                     @else
-                                    <a href="{{ route('admin.pengujianSelesai.editShuPelanggan', $s->id) }}" target="_blank" class="btn btn-warning btn-sm mb-1">Upload SHU Pelanggan</a>
+                                    <a href="{{ route('admin.pengujianSelesai.editShuPelanggan', $s->id) }}" target="_blank" class="btn btn-warning btn-xs mb-1">Upload SHU Pelanggan</a>
                                     @endif
                                     
                                     </td>

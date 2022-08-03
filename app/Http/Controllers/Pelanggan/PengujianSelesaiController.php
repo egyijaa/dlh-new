@@ -324,7 +324,8 @@ class PengujianSelesaiController extends Controller
     public function showInvoice($id){
 
         $pengujian_order = PengujianOrder::with('sampelOrder')->findOrFail($id);
-        return view('pelanggan.pengujian_selesai.show_invoice', compact('pengujian_order'));
+        $tanggal_buat = TimelinePengujian::where('id_pengujian_order', $id)->where('id_status_pengujian', 4)->latest()->first()->tanggal;
+        return view('pelanggan.pengujian_selesai.show_invoice', compact('pengujian_order', 'tanggal_buat'));
     }
 
     public function buktiPembayaran(Request $request){
@@ -354,7 +355,8 @@ class PengujianSelesaiController extends Controller
     public function cetakInvoice($id){
 
         $pengujian_order = PengujianOrder::with('sampelOrder')->findOrFail($id);
-        $pdf = PDF::loadview('pelanggan.pengujian_selesai.invoice', compact('pengujian_order'))->setPaper('a4', 'potrait');
+        $tanggal_buat = TimelinePengujian::where('id_pengujian_order', $id)->where('id_status_pengujian', 4)->latest()->first()->tanggal;
+        $pdf = PDF::loadview('pelanggan.pengujian_selesai.invoice', compact('pengujian_order', 'tanggal_buat'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 

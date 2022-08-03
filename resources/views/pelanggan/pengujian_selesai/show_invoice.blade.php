@@ -36,9 +36,14 @@
                                 @else
                                     Sudah Bayar
                                 @endif
-                                
-                                
-                                </span></td>
+                                </span>
+                                <br><br>
+                                @php
+                                $jatuh_tempo = \Carbon\Carbon::parse($tanggal_buat)->addDays(2);
+                                @endphp
+                                <b>Batas Tanggal Pembayaran : {{  $jatuh_tempo->format('d M Y') }} </b>
+                                </td>
+
                             </tr>
                         </table>
                     

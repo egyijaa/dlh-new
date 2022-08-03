@@ -99,7 +99,7 @@
                 </tr>
                 <tr>
                     <td style="border: 1px solid black;" scope="col">Hal</td>
-                    <td style="border: 1px solid black;" scope="col">: 2&nbsp;&nbsp;dari&nbsp;&nbsp;2</td>
+                    <td style="border: 1px solid black;" scope="col">: ...&nbsp;&nbsp;dari&nbsp;&nbsp;...</td>
                 </tr>
             </tbody>
         </table>

@@ -134,7 +134,8 @@ class PengambilanSampelSelesaiController extends Controller
     public function cetakInvoice($id){
 
         $pengambilan_order = PengambilanSampelOrder::findOrFail($id);
-        $pdf = PDF::loadview('admin.pengambilan_sampel_selesai.invoice', compact('pengambilan_order'))->setPaper('a4', 'potrait');
+        $tanggal_buat = TimelinePengambilanSampel::where('id_pengambilan_sampel_order', $id)->where('id_status_pengambilan_sampel', 4)->latest()->first()->tanggal;
+        $pdf = PDF::loadview('admin.pengambilan_sampel_selesai.invoice', compact('pengambilan_order', 'tanggal_buat'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 

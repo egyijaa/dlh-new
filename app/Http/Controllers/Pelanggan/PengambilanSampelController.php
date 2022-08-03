@@ -96,6 +96,7 @@ class PengambilanSampelController extends Controller
         $timeline->id_status_pengambilan_sampel = 1;
         $timeline->id_pengambilan_sampel_order = $pengambilan->id;
         $timeline->tanggal = Carbon::now('Asia/Jakarta');
+        $timeline->id_user = auth()->user()->id;
         $timeline->save();
 
         toast('Data Order Berhasil Disimpan','success');
@@ -184,6 +185,7 @@ class PengambilanSampelController extends Controller
             $timeline->id_status_pengambilan_sampel = 2;
             $timeline->id_pengambilan_sampel_order = $request->id;
             $timeline->tanggal = Carbon::now('Asia/Jakarta');
+            $timeline->id_user = auth()->user()->id;
             $timeline->save();
 
             $pengambilan = PengambilanSampelOrder::find($request->id);
@@ -206,7 +208,8 @@ class PengambilanSampelController extends Controller
     public function showInvoice($id){
 
         $pengambilan_order = PengambilanSampelOrder::findOrFail($id);
-        return view('pelanggan.pengambilan_sampel.show_invoice', compact('pengambilan_order'));
+        $tanggal_buat = TimelinePengambilanSampel::where('id_pengambilan_sampel_order', $id)->where('id_status_pengambilan_sampel', 4)->latest()->first()->tanggal;
+        return view('pelanggan.pengambilan_sampel.show_invoice', compact('pengambilan_order', 'tanggal_buat'));
     }
 
     public function buktiPembayaran(Request $request){
@@ -236,7 +239,8 @@ class PengambilanSampelController extends Controller
     public function cetakInvoice($id){
 
         $pengambilan_order = PengambilanSampelOrder::findOrFail($id);
-        $pdf = PDF::loadview('pelanggan.pengambilan_sampel.invoice', compact('pengambilan_order'))->setPaper('a4', 'potrait');
+        $tanggal_buat = TimelinePengambilanSampel::where('id_pengambilan_sampel_order', $id)->where('id_status_pengambilan_sampel', 4)->latest()->first()->tanggal;
+        $pdf = PDF::loadview('pelanggan.pengambilan_sampel.invoice', compact('pengambilan_order', 'tanggal_buat'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 

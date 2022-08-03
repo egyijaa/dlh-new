@@ -17,6 +17,8 @@ class CreateTimelinePengujianTable extends Migration
             $table->bigIncrements('id');
             $table->foreignId('id_status_pengujian')->references('id')->on('status_pengujian')->onDelete('cascade');
             $table->foreignId('id_pengujian_order')->references('id')->on('pengujian_order')->onDelete('cascade');
+            $table->string('keterangan')->nullable();
+            $table->integer('id_user');
             $table->dateTime('tanggal');
             $table->timestamps();
         });

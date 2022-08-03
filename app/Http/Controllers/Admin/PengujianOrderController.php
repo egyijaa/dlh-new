@@ -151,6 +151,8 @@ class PengujianOrderController extends Controller
         $timeline->id_status_pengujian = $request->get('status');;
         $timeline->id_pengujian_order = $pengujian->id;
         $timeline->tanggal = Carbon::now('Asia/Jakarta');
+        $timeline->id_user = $pengujian->id_user;
+        $timeline->keterangan = $request->get('keterangan');
         $timeline->save();
 
         toast('Status Berhasil Diubah','success');
@@ -160,7 +162,8 @@ class PengujianOrderController extends Controller
     public function cetakInvoice($id){
 
         $pengujian_order = PengujianOrder::with('sampelOrder')->findOrFail($id);
-        $pdf = PDF::loadview('admin.pengujian_order.invoice', compact('pengujian_order'))->setPaper('a4', 'potrait');
+        $tanggal_buat = TimelinePengujian::where('id_pengujian_order', $id)->where('id_status_pengujian', 4)->latest()->first()->tanggal;
+        $pdf = PDF::loadview('admin.pengujian_order.invoice', compact('pengujian_order', 'tanggal_buat'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 

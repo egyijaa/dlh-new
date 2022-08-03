@@ -34,9 +34,14 @@
                                 @else
                                     Sudah Bayar
                                 @endif
-                                
-                                
-                                </span></td>
+                                </span>
+                                <br><br>
+                                @php
+                                $jatuh_tempo = \Carbon\Carbon::parse($tanggal_buat)->addDays(2);
+                                @endphp
+                                <b>Batas Tanggal Pembayaran : {{  $jatuh_tempo->format('d M Y') }} </b>
+                                </td>
+
                             </tr>
                         </table>
                     
@@ -53,34 +58,36 @@
                                 </td>
                             </tr>
                         </table>
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Jenis Sampel</th>
-                                    <th scope="col">Jumlah Titik Sampling</th>
-                                    <th scope="col" align="right">Harga</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                    $i = 1;
-                                @endphp
-
-                                <tr>
-                                    <td>{{ $i++ }}</td>
-                                    <td>{{ $pengambilan_order->sampelUji->nama_sampel }}</td>
-                                    <td>
-                                       x {{ $pengambilan_order->jumlah_titik_sampling }} titik sampling
-                                    </td>
-                                    <td align="right">@currency($pengambilan_order->total_harga)</td>
-                                </tr>
-                          
-                                <tr>
-                                    <td colspan="4" align="right">Sub Total <b>@currency($pengambilan_order->total_harga)</b></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Jenis Sampel</th>
+                                        <th scope="col">Jumlah Titik Sampling</th>
+                                        <th scope="col" align="right">Harga</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $i = 1;
+                                    @endphp
+    
+                                    <tr>
+                                        <td>{{ $i++ }}</td>
+                                        <td>{{ $pengambilan_order->sampelUji->nama_sampel }}</td>
+                                        <td>
+                                           x {{ $pengambilan_order->jumlah_titik_sampling }} titik sampling
+                                        </td>
+                                        <td align="right">@currency($pengambilan_order->total_harga)</td>
+                                    </tr>
+                              
+                                    <tr>
+                                        <td colspan="4" align="right">Sub Total <b>@currency($pengambilan_order->total_harga)</b></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <table class="table2" style="width:100%; padding-left: 25px; padding-right: 25px; padding-bottom: 8px;">
                             <tr>
                                 <td class="td2" colspan="4" style="font-size: 11px;"><b>Catatan</b><br>Harap membayar sesuai dengan total tagihan, yaitu sebesar @currency($pengambilan_order->total_harga) <br>- -</td>

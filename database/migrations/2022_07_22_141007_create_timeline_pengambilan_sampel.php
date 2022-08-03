@@ -17,6 +17,8 @@ class CreateTimelinePengambilanSampel extends Migration
             $table->bigIncrements('id');
             $table->foreignId('id_status_pengambilan_sampel')->references('id')->on('status_pengambilan_sampel')->onDelete('cascade');
             $table->foreignId('id_pengambilan_sampel_order')->references('id')->on('pengambilan_sampel_order')->onDelete('cascade');
+            $table->string('keterangan')->nullable();
+            $table->integer('id_user');
             $table->dateTime('tanggal');
             $table->timestamps();
         });

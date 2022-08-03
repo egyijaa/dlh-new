@@ -21,7 +21,7 @@
                                         <th>Nomor Analis/Uji</th>
                                         <th>Kode Sampel</th>
                                         <th>Jenis Sampel</th>
-                                        <th>Parameter</th>
+                                        <th style="width: 40%">Parameter</th>
                                         <th>Harga</th>
                                         <th>Diambil Dari</th>
                                         <th>Catatan Pelanggan</th>
@@ -40,9 +40,9 @@
                                     <td>{{ $s->nomor_uji }}</td>
                                     <td>{{ $s->kode_sampel }}</td>
                                     <td>{{ $s->sampelUji->nama_sampel }}</td>
-                                    <td>
+                                    <td>    
                                             @foreach ($s->parameterSampelOrder as $parameter)
-                                                <li>{{ $parameter->parameterSampel->nama_parameter }}</li>
+                                            <li>{{ $parameter->parameterSampel->nama_parameter }}</li>
                                             @endforeach
                                     </td>
                                     <td>@currency($s->harga)</td>
@@ -60,21 +60,21 @@
                                     <td>
                                     @if ($status >= 5)
                                         
-                                    <a href="{{ route('admin.pengujian.hasilUji', ['order'=>$nomor_pre, 'id'=>$s->id]) }}" class="btn btn-info btn-sm mt-1">Lihat</a>
+                                    <a href="{{ route('admin.pengujian.hasilUji', ['order'=>$nomor_pre, 'id'=>$s->id]) }}" class="btn btn-info btn-xs mt-1">Lihat</a>
                                     <br>
                                     @endif
                                     
                                     @if ($status >= 9)
-                                    <a href="{{ route('admin.pengujian.cetakLaporanSementara', ['order'=>$id_pengujian_order, 'sampel'=>$s->id] ) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm my-1">Cetak Laporan Sementara</i></a>
+                                    <a href="{{ route('admin.pengujian.cetakLaporanSementara', ['order'=>$id_pengujian_order, 'sampel'=>$s->id] ) }}" target="_blank"><i class="btn btn-xs btn-primary shadow-sm my-1">Cetak Laporan Sementara</i></a>
                                     @endif
 
 
                                     @if ($status >= 11)
-                                    <a href="{{ route('admin.pengujian.cetakSertifikat', ['order'=>$id_pengujian_order, 'sampel'=>$s->id]) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm mb-1">Cetak Sertifikat (SHU)</i></a> 
+                                    <a href="{{ route('admin.pengujian.cetakSertifikat', ['order'=>$id_pengujian_order, 'sampel'=>$s->id]) }}" target="_blank"><i class="btn btn-xs btn-primary shadow-sm mb-1">Cetak Sertifikat (SHU)</i></a> 
                                     @endif
 
                                     @if ($status >= 12)
-                                    <a href="{{ route('admin.pengujian.editShuPelanggan', $s->id) }}" target="_blank" class="btn btn-info btn-sm mb-1">Upload SHU Pelanggan</a>
+                                    <a href="{{ route('admin.pengujian.editShuPelanggan', $s->id) }}" target="_blank" class="btn btn-info btn-xs mb-1">Upload SHU Pelanggan</a>
                                     @endif
                                     
                                     </td>

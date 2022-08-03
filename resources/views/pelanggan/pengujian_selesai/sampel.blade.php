@@ -51,10 +51,10 @@
                                     <td>@currency($s->harga)</td>
                                     <td>
                                         @if ($status >= 10)
-                                        <a href="{{ route('pelanggan.pengujianSelesai.hasilUji', ['order'=>$nomor_pre, 'id'=>$s->id]) }}" class="btn btn-info btn-sm mt-1">Lihat Hasil</a>
+                                        <a href="{{ route('pelanggan.pengujianSelesai.hasilUji', ['order'=>$nomor_pre, 'id'=>$s->id]) }}" class="btn btn-info btn-xs my-1">Lihat Hasil</a>
                                         @endif
                                         @if ($s->foto_shu1 && $s->foto_shu2)
-                                        <a href="{{ route('pelanggan.pengujianSelesai.cetakShuPelanggan', $s->id) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm my-2">Lihat PDF Sertifikat</i></a> 
+                                        <a href="{{ route('pelanggan.pengujianSelesai.cetakShuPelanggan', $s->id) }}" target="_blank"><i class="btn btn-xs btn-primary shadow-sm my-1">Lihat PDF Sertifikat</i></a> 
                                         @endif
                                     </td>
                                     </tr>

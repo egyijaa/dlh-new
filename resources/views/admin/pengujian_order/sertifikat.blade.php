@@ -189,7 +189,7 @@
         <br>
         <table style="width: 100%; font-size: 14px; padding-left: 27px; padding-right: 27px;">
             <tr>
-                <td>Nama Laporan</td>
+                <td>Nomor Laporan</td>
                 <td>: {{ $sampel_order->nomor_sertifikat }}</td>
             </tr>
             <tr>

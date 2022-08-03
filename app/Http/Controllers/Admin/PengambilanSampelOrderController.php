@@ -122,9 +122,11 @@ class PengambilanSampelOrderController extends Controller
         }
 
         $timeline = new TimelinePengambilanSampel();
-        $timeline->id_status_pengambilan_sampel = $request->get('status');;
+        $timeline->id_status_pengambilan_sampel = $request->get('status');
         $timeline->id_pengambilan_sampel_order = $pengambilan->id;
         $timeline->tanggal = Carbon::now('Asia/Jakarta');
+        $timeline->keterangan = $request->get('keterangan');
+        $timeline->id_user = $pengambilan->id_user;
         $timeline->save();
 
         toast('Status Berhasil Diubah','success');
@@ -134,7 +136,8 @@ class PengambilanSampelOrderController extends Controller
     public function cetakInvoice($id){
 
         $pengambilan_order = PengambilanSampelOrder::findOrFail($id);
-        $pdf = PDF::loadview('admin.pengambilan_sampel.invoice', compact('pengambilan_order'))->setPaper('a4', 'potrait');
+        $tanggal_buat = TimelinePengambilanSampel::where('id_pengambilan_sampel_order', $id)->where('id_status_pengambilan_sampel', 4)->latest()->first()->tanggal;
+        $pdf = PDF::loadview('admin.pengambilan_sampel.invoice', compact('pengambilan_order', 'tanggal_buat'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 

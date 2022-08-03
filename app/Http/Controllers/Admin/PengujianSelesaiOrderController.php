@@ -160,7 +160,8 @@ class PengujianSelesaiOrderController extends Controller
     public function cetakInvoice($id){
 
         $pengujian_order = PengujianOrder::with('sampelOrder')->findOrFail($id);
-        $pdf = PDF::loadview('admin.pengujian_selesai_order.invoice', compact('pengujian_order'))->setPaper('a4', 'potrait');
+        $tanggal_buat = TimelinePengujian::where('id_pengujian_order', $id)->where('id_status_pengujian', 4)->latest()->first()->tanggal;
+        $pdf = PDF::loadview('admin.pengujian_selesai_order.invoice', compact('pengujian_order', 'tanggal_buat'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 

@@ -42,6 +42,9 @@
                                         <div class="timeline-panel">
                                             <div class="timeline-heading">
                                                 <h4 class="timeline-title">{{ $t->statusPengambilanSampel->status_pelanggan }}</h4>
+                                                @if ($t->keterangan)
+                                                <p>"{{ $t->keterangan }}"</p>
+                                                @endif
                                                 <p><small class="text-muted"><i class="flaticon-time"></i>{{ \Carbon\Carbon::parse($t->tanggal)->format('d-M-Y , H:i:s') }}</small></p>
                                             </div>
                                         </div>

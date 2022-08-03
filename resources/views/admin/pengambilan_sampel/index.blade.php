@@ -23,7 +23,7 @@
                                         <th>Tanggal Order</th>
                                         <th>Status</th>
                                         <th>Sub Total</th>
-                                        <th>Aksi</th>
+                                        <th style="width: 30%">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -39,40 +39,40 @@
                                         <td>
                                             <span class="
                                             @if($p->id_status_pengambilan_sampel == 1 || $p->id_status_pengambilan_sampel == 5 || $p->id_status_pengambilan_sampel == 6 || $p->id_status_pengambilan_sampel == 7 || $p->id_status_pengambilan_sampel == 8)
-                                            badge badge-primary mt-2
+                                            badge badge-primary mt-1
                                             @elseif ($p->id_status_pengambilan_sampel == 4 || $p->id_status_pengambilan_sampel == 9)
-                                            badge badge-success mt-2
+                                            badge badge-success mt-1
                                             @elseif ($p->id_status_pengambilan_sampel == 3)
-                                            badge badge-danger mt-2
+                                            badge badge-danger mt-1
                                             @else 
-                                            badge badge-warning mt-2
+                                            badge badge-warning mt-1
                                             @endif
                                             ">{{ $p->statusPengambilanSampel->status_admin }}</span>
 
 
                                         @if ($p->bukti_bayar)
-                                        <hr>
+                                        <hr class="my-1">
                                         @if ($p->id_status_pengambilan_sampel >= 5)
                                         <span class="badge badge-success mb-1">Sudah Bayar</span>
                                         @endif
-                                        <a href="{{ route('admin.pengambilanSampel.showBuktiPembayaran', $p->id) }}" class="btn btn-primary btn-sm mb-2">Lihat Bukti Pembayaran</a>
+                                        <a href="{{ route('admin.pengambilanSampel.showBuktiPembayaran', $p->id) }}" class="btn btn-primary btn-xs mb-2">Lihat Bukti Pembayaran</a>
                                         @endif
                                         </td>
                                         <td>@currency($p->total_harga)</td>
                                         <td>
-                                            <a href="{{ route('admin.pengambilanSampel.detailOrder', $p->id) }}" class="btn btn-sm btn-info shadow-sm my-3">
+                                            <a href="{{ route('admin.pengambilanSampel.detailOrder', $p->id) }}" class="btn btn-xs btn-info shadow-sm my-1">
                                                 <i class="fas fa-pencil fa-sm text-white-50"></i>Detail order
                                             </a>
                                             @if ($p->id_status_pengambilan_sampel != 3)
-                                            <a href="#" class="btn btn-warning btn-sm my-2" data-target="#status" data-toggle="modal" data-id="{{ $p->id }}" data-status="{{ $p->statusPengambilanSampel->id }}">Ganti Status</a>
+                                            <a href="#" class="btn btn-warning btn-xs my-1" data-target="#status" data-toggle="modal" data-id="{{ $p->id }}" data-status="{{ $p->statusPengambilanSampel->id }}">Ganti Status</a>
                                             @endif
                                             @if ($p->id_status_pengambilan_sampel >= 4)
-                                            <a href="{{ route('admin.pengambilanSampel.cetakInvoice', $p->id) }}" target="_blank"><i class="btn btn-sm btn-primary shadow-sm">Cetak Invoice</i></a> 
-                                            <a href="{{ route('admin.pengambilanSampel.cetakSkr', $p->id) }}" target="_blank"><i class="btn btn-sm btn-primary my-1 shadow-sm">Cetak SKR</i></a> 
+                                            <a href="{{ route('admin.pengambilanSampel.cetakInvoice', $p->id) }}" target="_blank"><i class="btn btn-xs btn-primary shadow-sm">Cetak Invoice</i></a> 
+                                            <a href="{{ route('admin.pengambilanSampel.cetakSkr', $p->id) }}" target="_blank"><i class="btn btn-xs btn-primary my-1 shadow-sm">Cetak SKR</i></a> 
                                             @endif
                                             @if ($p->id_status_pengambilan_sampel >= 5)
-                                            <a href="{{ route('admin.pengambilanSampel.cetakTbp', $p->id) }}" target="_blank"><i class="btn btn-sm btn-primary my-1 shadow-sm">Cetak TBP</i></a>
-                                            <a href="{{ route('admin.pengambilanSampel.beritaAcara', $p->id) }}" class="btn btn-sm btn-primary shadow-sm my-3">
+                                            <a href="{{ route('admin.pengambilanSampel.cetakTbp', $p->id) }}" target="_blank"><i class="btn btn-xs btn-primary my-1 shadow-sm">Cetak TBP</i></a>
+                                            <a href="{{ route('admin.pengambilanSampel.beritaAcara', $p->id) }}" class="btn btn-xs btn-primary shadow-sm my-1">
                                                 <i class="fas fa-pencil fa-sm text-white-50"></i>Berita Acara
                                             </a> 
                                             @endif
@@ -113,6 +113,15 @@
                             @endforeach
                         </select>
                         @error('status')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="keterangan">Keterangan</label>
+                        <input type="text" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" name="keterangan">
+                        @error('keterangan')
                         <div class="invalid-feedback">
                             {{$message}}
                         </div>

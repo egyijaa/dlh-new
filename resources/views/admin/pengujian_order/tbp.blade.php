@@ -134,23 +134,23 @@ function terbilang($nilai) {
                         </span><span style="border: 1px solid black; padding: 2 2 2 40;">@currency($pengujian_order->total_harga)</span></td>
             </tr>
             <tr>
-                <td>b. </td>
+                <td></td>
                 <td colspan="2" style="width: 96%">(<i> @php
                   echo terbilang($pengujian_order->total_harga);
               @endphp RUPIAH</i>)</td>
             </tr>
             <tr>
-                <td>c. </td>
+                <td>b. </td>
                 <td style="width: 20%">Dari Nama</td>
                 <td style="width: 76%">: {{ $pengujian_order->nama_pemesan }}</td>
             </tr>
             <tr>
-                <td>d. </td>
+                <td>c. </td>
                 <td style="width: 20%">Alamat</td>
                 <td style="width: 76%">: {{ $pengujian_order->alamat }}</td>
             </tr>
             <tr>
-                <td style="vertical-align: top; position:relative;">e. </td>
+                <td style="vertical-align: top; position:relative;">d. </td>
                 <td style="width: 20%; vertical-align: top; position:relative;">Sebagai Pembayaran</td>
                 <td style="width: 76%">: Retribusi Pemakaian Kekayaan Daerah (Pelayanan Pemeriksaan Laboratorium)</td>
             </tr>
@@ -188,12 +188,12 @@ function terbilang($nilai) {
         </table>
         <table style="width: 100%; font-size: 14px; padding-left: 27px; font-size: 11.5px">
             <tr>
-                <td>f. </td>
+                <td>e. </td>
                 <td style="width: 20%">Tanggal diterima uang</td>
                 <td style="width: 76%">: {{ date('d M Y', strtotime($pengujian_order->tanggal_bayar)) }}</td>
             </tr>
             <tr>
-                <td>g. </td>
+                <td>f. </td>
                 <td style="width: 20%">Nomor SKR</td>
                 <td style="width: 76%">: {{ $no_skr }}</td>
             </tr>

@@ -24,7 +24,7 @@
                                         <th>Tanggal Order</th>
                                         <th>Status</th>
                                         <th>Sub Total</th>
-                                        <th>Aksi</th>
+                                        <th style="width: 25%">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -35,33 +35,31 @@
                                     <tr>
                                         <td>{{ $i++ }}</td>
                                         <td>{{ $p->nomor_pre }}</td>
-                                        <td>{{ $p->nama_pemesan }}</td>
+                                        <td>{{Str::limit($p->nama_pemesan, 20)}}</td>
                                         <td>{{ date('d M Y', strtotime($p->tanggal_isi)) }}</td>
                                         <td><span class="
                                             @if($p->id_status_pengujian == 1 || $p->id_status_pengujian == 5 || $p->id_status_pengujian == 5 || $p->id_status_pengujian == 6 || $p->id_status_pengujian == 7 || $p->id_status_pengujian == 8 || $p->id_status_pengujian == 9 || $p->id_status_pengujian == 10 || $p->id_status_pengujian == 11 || $p->id_status_pengujian == 12)
-                                            badge badge-primary
+                                            badge badge-primary mt-1
                                             @elseif ($p->id_status_pengujian == 4 || $p->id_status_pengujian == 13)
-                                            badge badge-success
+                                            badge badge-success mt-1
                                             @elseif ($p->id_status_pengujian == 3)
-                                            badge badge-danger
+                                            badge badge-danger mt-1
                                             @else 
-                                            badge badge-warning
+                                            badge badge-warning mt-1
                                             @endif
                                             ">{{ $p->statusPengujian->status_pelanggan }}</span>
-                                        
+                                        <hr class="my-1">
                                         @if ($p->id_status_pengujian >= 5)
-                                        <span class="badge badge-success my-1">Sudah Bayar</span>
+                                        <span class="badge badge-success my-1">Sudah Bayar</span> |
                                         @endif
-                                        <br>
-                                        <a href="{{ route('pelanggan.pengujian.tracking', $p->id) }}"><i class="fas fa-angle-double-right" style="font-size: 11px">Tracking</i></a>
+                                        <a href="{{ route('pelanggan.pengujian.tracking', $p->id) }}"><i class="fas fa-angle-double-right my-1" style="font-size: 11px">Tracking</i></a>
                                         </td>
                                         <td>@currency($p->total_harga)</td>
                                         <td>
-                                            <a href="{{ route('pelanggan.pengujian.detailOrder', $p->id) }}" class="btn btn-info btn-sm mt-1">Detail Order</a>
                                            <form action="{{ route('pelanggan.pengujian.sampel') }}" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="id_order" value="{{ $p->id }}">
-                                                <button type="submit" class="btn btn-primary btn-sm my-1">
+                                                <button type="submit" class="btn btn-primary btn-xs mt-1">
                                                     @if ($p->statusPengujian->id == 1)
                                                         Pilih
                                                     @else
@@ -69,15 +67,16 @@
                                                     @endif
                                                     Sampel</button>
                                             </form> 
+                                            <a href="{{ route('pelanggan.pengujian.detailOrder', $p->id) }}" class="btn btn-info btn-xs my-1">Detail Order</a>
                                             @if ($p->statusPengujian->id != 1)
                                                 
                                             @else
-                                            <a href="#" class="btn btn-secondary btn-sm mt-1" data-target="#kirim" data-toggle="modal" data-id="{{ $p->id }}">Kirim Order</a>
-                                            <a href="#" class="btn btn-danger btn-sm mt-1" data-target="#delete" data-toggle="modal" data-id="{{ $p->id }}">Hapus Order</a>
+                                            <a href="#" class="btn btn-secondary btn-xs my-1" data-target="#kirim" data-toggle="modal" data-id="{{ $p->id }}">Kirim Order</a>
+                                            <a href="#" class="btn btn-danger btn-xs mb-1" data-target="#delete" data-toggle="modal" data-id="{{ $p->id }}">Hapus Order</a>
                                             @endif
 
                                             @if ($p->statusPengujian->id >= 4)
-                                            <a href="{{ route('pelanggan.pengujian.showInvoice', $p->id) }}"><i class="btn btn-sm btn-primary shadow-sm my-1">Lihat Invoice</i></a> 
+                                            <a href="{{ route('pelanggan.pengujian.showInvoice', $p->id) }}"><i class="btn btn-xs btn-primary shadow-sm my-1">Lihat Invoice</i></a> 
                                             @endif
                                         </td>
                                     </tr>

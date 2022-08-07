@@ -80,8 +80,14 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item {{ request()->is('pelanggan/profil/changePassword/*') ?'active' : '' }}">
-                    <a href="{{ route('pelanggan.profil.changePassword', Auth::user()->id) }}">
+                <li class="nav-item {{ request()->is('pelanggan/testimoni') ?'active' : '' }}">
+                    <a href="{{ route('pelanggan.testimoni.index') }}">
+                        <i class="fas fa-comment"></i>
+                        <p>Testimoni</p>
+                    </a>
+                </li>
+                <li class="nav-item {{ request()->is('pelanggan/profil/changePassword') ?'active' : '' }}">
+                    <a href="{{ route('pelanggan.profil.changePassword') }}">
                         <i class="fas fa-user"></i>
                         <p>Profile Saya</p>
                     </a>

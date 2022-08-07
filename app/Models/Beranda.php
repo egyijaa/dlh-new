@@ -5,15 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Testimoni extends Model
+class Beranda extends Model
 {
     use HasFactory;
 
-    protected $table = 'testimoni';
+    protected $table = 'home';
     protected $guarded = [];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'id_user', 'id');
-    }
 }

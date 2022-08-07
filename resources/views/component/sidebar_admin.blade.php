@@ -8,13 +8,13 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item {{ request()->is('admin/sampel-uji') || request()->is('admin/parameter-sampel') || request()->is('admin/pejabat') ?'active' : '' }} submenu">
+                <li class="nav-item {{ request()->is('admin/sampel-uji') || request()->is('admin/parameter-sampel') || request()->is('admin/pejabat') || request()->is('admin/beranda') || request()->is('admin/testimoni') ?'active' : '' }} submenu">
                     <a data-toggle="collapse" href="#datamaster" class="collapsed" aria-expanded="false">
                         <i class="fas fa-home"></i>
                         <p>Data Master</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse {{ request()->is('admin/sampel-uji') || request()->is('admin/parameter-sampel') || request()->is('admin/pejabat') ?'show' : '' }}" id="datamaster">
+                    <div class="collapse {{ request()->is('admin/sampel-uji') || request()->is('admin/parameter-sampel') || request()->is('admin/pejabat') || request()->is('admin/beranda') || request()->is('admin/testimoni') ?'show' : '' }}" id="datamaster">
                         <ul class="nav nav-collapse">
                             <li class="{{ request()->is('admin/sampel-uji') ?'active' : '' }}">
                                 <a href="{{ route('admin.sampel-uji.index') }}">
@@ -29,6 +29,16 @@
                             <li class="{{ request()->is('admin/pejabat') ?'active' : '' }}">
                                 <a href="{{ route('admin.pejabat.index') }}">
                                     <span class="sub-item">Jabatan</span>
+                                </a>
+                            </li>
+                            <li class="{{ request()->is('admin/beranda') ?'active' : '' }}">
+                                <a href="{{ route('admin.beranda.index') }}">
+                                    <span class="sub-item">Konten Beranda</span>
+                                </a>
+                            </li>
+                            <li class="{{ request()->is('admin/testimoni') ?'active' : '' }}">
+                                <a href="{{ route('admin.testimoni.index') }}">
+                                    <span class="sub-item">Testimoni</span>
                                 </a>
                             </li>
                         </ul>
@@ -55,15 +65,15 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item {{ request()->is('admin/pengambilanSampel') || request()->is('admin/pengambilanSampel/detailOrder/*') || request()->is('admin/pengambilanSampel/beritaAcara/*') || request()->is('admin/pengambilanSampel/editBaPelanggan/*') || request()->is('admin/pengambilanSampel/showBuktiPembayaran/*') || request()->is('admin/pengambilanSampelSelesai') || request()->is('admin/pengambilanSampelSelesai/detailOrder/*') || request()->is('admin/pengambilanSampelSelesai/beritaAcara/*') || request()->is('admin/pengambilanSampelSelesai/editBaPelanggan/*') || request()->is('admin/pengambilanSampelSelesai/showBuktiPembayaran/*') ?'active' : '' }} submenu">
+                <li class="nav-item {{ request()->is('admin/pengambilanSampel') || request()->is('admin/pengambilanSampel/detailOrder/*') || request()->is('admin/pengambilanSampel/editOrder/*') || request()->is('admin/pengambilanSampel/beritaAcara/*') || request()->is('admin/pengambilanSampel/editBaPelanggan/*') || request()->is('admin/pengambilanSampel/showBuktiPembayaran/*') || request()->is('admin/pengambilanSampelSelesai') || request()->is('admin/pengambilanSampelSelesai/detailOrder/*') || request()->is('admin/pengambilanSampelSelesai/beritaAcara/*') || request()->is('admin/pengambilanSampelSelesai/editBaPelanggan/*') || request()->is('admin/pengambilanSampelSelesai/showBuktiPembayaran/*') ?'active' : '' }} submenu">
                     <a data-toggle="collapse" href="#pengambilansampel" class="collapsed" aria-expanded="false">
                         <i class="fas fa-fill-drip"></i>
                         <p>Pengambilan Sampel</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse {{ request()->is('admin/pengambilanSampel') || request()->is('admin/pengambilanSampel/detailOrder/*') || request()->is('admin/pengambilanSampel/beritaAcara/*') || request()->is('admin/pengambilanSampel/editBaPelanggan/*') || request()->is('admin/pengambilanSampel/showBuktiPembayaran/*') || request()->is('admin/pengambilanSampelSelesai') || request()->is('admin/pengambilanSampelSelesai/detailOrder/*') || request()->is('admin/pengambilanSampelSelesai/beritaAcara/*') || request()->is('admin/pengambilanSampelSelesai/editBaPelanggan/*') || request()->is('admin/pengambilanSampelSelesai/showBuktiPembayaran/*') ?'show' : '' }}" id="pengambilansampel">
+                    <div class="collapse {{ request()->is('admin/pengambilanSampel') || request()->is('admin/pengambilanSampel/detailOrder/*') || request()->is('admin/pengambilanSampel/editOrder/*') || request()->is('admin/pengambilanSampel/beritaAcara/*') || request()->is('admin/pengambilanSampel/editBaPelanggan/*') || request()->is('admin/pengambilanSampel/showBuktiPembayaran/*') || request()->is('admin/pengambilanSampelSelesai') || request()->is('admin/pengambilanSampelSelesai/detailOrder/*') || request()->is('admin/pengambilanSampelSelesai/beritaAcara/*') || request()->is('admin/pengambilanSampelSelesai/editBaPelanggan/*') || request()->is('admin/pengambilanSampelSelesai/showBuktiPembayaran/*') ?'show' : '' }}" id="pengambilansampel">
                         <ul class="nav nav-collapse">
-                            <li class="{{ request()->is('admin/pengambilanSampel') || request()->is('admin/pengambilanSampel/detailOrder/*') || request()->is('admin/pengambilanSampel/beritaAcara/*') || request()->is('admin/pengambilanSampel/editBaPelanggan/*') || request()->is('admin/pengambilanSampel/showBuktiPembayaran/*') ?'active' : '' }}">
+                            <li class="{{ request()->is('admin/pengambilanSampel') || request()->is('admin/pengambilanSampel/detailOrder/*') || request()->is('admin/pengambilanSampel/editOrder/*') || request()->is('admin/pengambilanSampel/beritaAcara/*') || request()->is('admin/pengambilanSampel/editBaPelanggan/*') || request()->is('admin/pengambilanSampel/showBuktiPembayaran/*') ?'active' : '' }}">
                                 <a href="{{ route('admin.pengambilanSampel.index') }}">
                                     <span class="sub-item">Order baru</span>
                                 </a>
@@ -76,15 +86,15 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item {{ request()->is('admin/pengujian') || request()->is('admin/pengujian/detailOrder/*') || request()->is('admin/pengujian/showBuktiPembayaran/*') || request()->is('admin/pengujian/getOrder/*') || request()->is('admin/pengujian/getOrder/hasilUji/*/sampel/*') || request()->is('admin/pengujian/editShuPelanggan/*') || request()->is('admin/pengujianSelesai') || request()->is('admin/pengujianSelesai/detailOrder/*') || request()->is('admin/pengujianSelesai/showBuktiPembayaran/*') || request()->is('admin/pengujianSelesai/getOrder/*') || request()->is('admin/pengujianSelesai/getOrder/hasilUji/*/sampel/*') || request()->is('admin/pengujianSelesai/editShuPelanggan/*') ? 'active' : '' }} submenu">
+                <li class="nav-item {{ request()->is('admin/pengujian') || request()->is('admin/pengujian/detailOrder/*') || request()->is('admin/pengujian/editSampelParameter/*') || request()->is('admin/pengujian/showBuktiPembayaran/*') || request()->is('admin/pengujian/getOrder/*') || request()->is('admin/pengujian/getOrder/hasilUji/*/sampel/*') || request()->is('admin/pengujian/editShuPelanggan/*') || request()->is('admin/pengujianSelesai') || request()->is('admin/pengujianSelesai/detailOrder/*') || request()->is('admin/pengujianSelesai/showBuktiPembayaran/*') || request()->is('admin/pengujianSelesai/getOrder/*') || request()->is('admin/pengujianSelesai/getOrder/hasilUji/*/sampel/*') || request()->is('admin/pengujianSelesai/editShuPelanggan/*') ? 'active' : '' }} submenu">
                     <a data-toggle="collapse" href="#pengujian" class="collapsed" aria-expanded="false">
                         <i class="fas fa-clipboard-list"></i>
                         <p>Pengujian</p>
                         <span class="caret"></span>
                     </a> 
-                    <div class="collapse {{ request()->is('admin/pengujian') || request()->is('admin/pengujian/detailOrder/*') || request()->is('admin/pengujian/showBuktiPembayaran/*') || request()->is('admin/pengujian/getOrder/*') || request()->is('admin/pengujian/getOrder/hasilUji/*/sampel/*') || request()->is('admin/pengujian/editShuPelanggan/*') || request()->is('admin/pengujianSelesai') ||  request()->is('admin/pengujianSelesai/detailOrder/*') || request()->is('admin/pengujianSelesai/showBuktiPembayaran/*') || request()->is('admin/pengujianSelesai/getOrder/*') || request()->is('admin/pengujianSelesai/getOrder/hasilUji/*/sampel/*') || request()->is('admin/pengujianSelesai/editShuPelanggan/*') ?'show' : '' }}" id="pengujian">
+                    <div class="collapse {{ request()->is('admin/pengujian') || request()->is('admin/pengujian/detailOrder/*') || request()->is('admin/pengujian/editSampelParameter/*') || request()->is('admin/pengujian/showBuktiPembayaran/*') || request()->is('admin/pengujian/getOrder/*') || request()->is('admin/pengujian/getOrder/hasilUji/*/sampel/*') || request()->is('admin/pengujian/editShuPelanggan/*') || request()->is('admin/pengujianSelesai') ||  request()->is('admin/pengujianSelesai/detailOrder/*') || request()->is('admin/pengujianSelesai/showBuktiPembayaran/*') || request()->is('admin/pengujianSelesai/getOrder/*') || request()->is('admin/pengujianSelesai/getOrder/hasilUji/*/sampel/*') || request()->is('admin/pengujianSelesai/editShuPelanggan/*') ?'show' : '' }}" id="pengujian">
                         <ul class="nav nav-collapse">
-                            <li class="{{ request()->is('admin/pengujian') || request()->is('admin/pengujian/detailOrder/*') || request()->is('admin/pengujian/showBuktiPembayaran/*') || request()->is('admin/pengujian/getOrder/*') || request()->is('admin/pengujian/getOrder/hasilUji/*/sampel/*') || request()->is('admin/pengujian/editShuPelanggan/*') ?'active' : '' }}">
+                            <li class="{{ request()->is('admin/pengujian') || request()->is('admin/pengujian/detailOrder/*') || request()->is('admin/pengujian/editSampelParameter/*') || request()->is('admin/pengujian/showBuktiPembayaran/*') || request()->is('admin/pengujian/getOrder/*') || request()->is('admin/pengujian/getOrder/hasilUji/*/sampel/*') || request()->is('admin/pengujian/editShuPelanggan/*') ?'active' : '' }}">
                                 <a href="{{ route('admin.pengujian.index') }}">
                                     <span class="sub-item">Order baru</span>
                                 </a>

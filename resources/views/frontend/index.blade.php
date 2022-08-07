@@ -211,48 +211,41 @@
             </div>
         </section>
 
-        <section class="section my-0 py-5 border-0 bg-color-grey">
+        <section class="section my-0 py-2 border-0 bg-color-grey">
             <div class="container container-xl-custom pb-3">
-                <div class="row py-5 pb-4">
+                <div class="row py-2 pb-4">
                     <div class="col-lg-4">
-                        <div class="card border-0 bg-color-light box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
+                        <div class="card border-0 bg-color-light box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms pb-5">
                             <div class="card-body text-center text-lg-start m-2 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="100" data-plugin-options="{'minWindowWidth': 0}">
                                 <img height="90" src="{{ url('frontend/img/demos/event/icons/successfull-stories.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-stroke-color-primary mb-4'}" />
                                 <h4 class="font-weight-bold mt-4">Visi & Misi</h4>
-                                <p class="text-3">
-                                    visi: <br>
-                                    Terwujudnya Laboratorium lingkungan yang profesional, objektif dan mandiri.
-                                    <br>
-                                    Misi:
-                                     <br>
-                                        1.	Mengutamakan pelayanan prima melalui penyajian data dan informasi yang cepat, akurat dan terpecaya.
-                                        2.	Meningkatan kompetensi SDM laboratorium secara berkelanjutan
-                                        3.	Menyajikan data hasil pengujian yang dapat dipertanggungjawabkan secara ilmiah dan hukum
-                                        4.	Menjalin kerjasama dengan instansi terkait, dunia usaha dan laboratorium lainnya.
-                                </p>
-                                <!-- <a href="#" class="btn btn-arrow-effect-1 ws-nowrap text-primary text-2 bg-transparent border-0 px-0 text-uppercase">More Details <i class="fas fa-arrow-right ms-2"></i></a> -->
+                                <div class="row pt-5">
+                                    <div class="col-6">     
+
+                                        <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#visi">
+                                            Visi
+                                        </button>
+                                    </div>
+                                    <div class="col-6">     
+
+                                        <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#misi">
+                                            Misi
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <hr>
                             </div>
                         </div>
                     </div>
     
-                    {{-- <div class="col-lg-3">
-                        <div class="card border-0 bg-color-light box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
-                            <div class="card-body text-center text-lg-start m-2 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="700" data-plugin-options="{'minWindowWidth': 0}">
-                                <img height="90" src="{{ url('frontend/img/demos/renewable-energy/icons/icon-3.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-stroke-color-primary mb-4'}" />
-                                <h4 class="font-weight-bold mt-4">Solar Panels</h4>
-                                <p class="text-3">Lorem ipsum dolor sit amet, consec tetur adipiscing elit. Proin mauris erat, accumsan quis ullamcorper.</p>
-                                <!-- <a href="#" class="btn btn-arrow-effect-1 ws-nowrap text-primary text-2 bg-transparent border-0 px-0 text-uppercase">More Details <i class="fas fa-arrow-right ms-2"></i></a> -->
-                            </div>
-                        </div>
-                    </div> --}}
                     <div class="col-lg-4">
                         <div class="card border-0 bg-color-light box-shadow-1 box-shadow-1-hover anim-hover-translate-top-10px transition-3ms">
                             <div class="card-body text-center text-lg-start m-2 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="1200" data-plugin-options="{'minWindowWidth': 0}">
                                 <img height="90" src="{{ url('frontend/img/demos/renewable-energy/icons/icon-5.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-stroke-color-primary mb-4'}" />
                                 <h4 class="font-weight-bold mt-4">Motto</h4>
                                 <p class="text-3">
-                                    "Mengedepankan akurasi dengan tenaga yang kompeten"</p>
-                                <!-- <a href="#" class="btn btn-arrow-effect-1 ws-nowrap text-primary text-2 bg-transparent border-0 px-0 text-uppercase">More Details <i class="fas fa-arrow-right ms-2"></i></a> -->
+                                    {{ $beranda->motto }}</p>
                             </div>
                         </div>
                     </div>
@@ -261,22 +254,54 @@
                             <div class="card-body text-center text-lg-start m-2 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="400" data-plugin-options="{'minWindowWidth': 0}">
                                 <img height="90" src="{{ url('frontend/img/demos/event/icons/event-editions.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-stroke-color-primary mb-4'}" />
                                 <h4 class="font-weight-bold mt-4">Maklumat Pelayanan</h4>
-                                <p class="text-3">
-                                    
-"Dengan ini, kami menyatakan sanggup menyelenggarakan pelayanan sesuai standar pelayanan yang telah ditetapkan dan apabila tidak menepati janji ini, kami siap menerima sanksi sesuai ketentuan perundang-undangan yang berlaku"
+                                <p class="text-3" style="text-align: justify">
+                                    {{ $beranda->maklumat_pelayanan }}
                                 </p>
-                                <!-- <a href="#" class="btn btn-arrow-effect-1 ws-nowrap text-primary text-2 bg-transparent border-0 px-0 text-uppercase">More Details <i class="fas fa-arrow-right ms-2"></i></a> -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        {{-- modal --}}
+        <div class="modal fade" id="visi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Visi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ $beranda->visi }}
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="misi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Misi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ol>
+                        <li>{{ $beranda->misi1 }}</li>
+                        <li>{{ $beranda->misi2 }}</li>
+                        <li>{{ $beranda->misi3 }}</li>
+                        <li>{{ $beranda->misi4 }}</li>
+                    </ol>
+                </div>
+            </div>
+            </div>
+        </div>
         
-        <section class="section my-0 py-5 border-0 bg-transparent">
+        <section class="section my-0 pt-2 pb-5 border-0 bg-transparent">
             <div class="container container-xl-custom">
-                <div class="row align-items-center justify-content-around mt-5">
-                    <div class="col-lg-5 text-end p-relative pt-5 max-width-custom-1">
+                <div class="row align-items-center justify-content-around mt-4">
+                    <div class="col-lg-5 text-end p-relative pt-2 max-width-custom-1">
                         <div class="p-absolute right-0">
                             <div data-plugin-float-element data-plugin-options="{'startPos': 'top', 'speed': 10.0, 'transition': true, 'transitionDuration': 1000}">
                                 <img width="470" height="451" src="{{ url('frontend/img/demos/business-consulting-5/svg/icon-bg-1.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': ''}" />
@@ -287,14 +312,14 @@
                         </div>
                     </div>
                     <div class="col-lg-4 text-center text-lg-start">
-                        <h3 class="mt-5 pt-4">Syarat <br/>dan Ketentuan</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget eleifend dolor, et maximus enim. Donec metus tellus, ornare in fermentum in, vulputate ut lorem.</p>
+                        <h3 class="mt-5 pt-4">{{ $beranda->judul1 }}</h3>
+                        <p>{{ $beranda->isi1 }}</p>
                     </div>
                 </div>
                 <div class="row align-items-center justify-content-around mt-5">
                     <div class="col-lg-4 text-center text-lg-start">
-                        <h3 class="mt-5 pt-4">Kebijakan Anti Suap<br> dan Gratifikasi</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget eleifend dolor, et maximus enim. Donec metus tellus, ornare in fermentum in, vulputate ut lorem.</p>
+                        <h3 class="mt-5 pt-4">{{ $beranda->judul2 }}</h3>
+                        <p>{{ $beranda->isi2 }}</p>
                     </div>
                     <div class="col-lg-5 p-relative pt-5 max-width-custom-1">
                         <div class="p-absolute left-0">
@@ -319,8 +344,8 @@
                         </div>
                     </div>
                     <div class="col-lg-4 text-center text-lg-start">
-                        <h3 class="mt-5 pt-4">Kebijakan <br/>Privasi</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget eleifend dolor, et maximus enim. Donec metus tellus, ornare in fermentum in, vulputate ut lorem.</p>
+                        <h3 class="mt-5 pt-4">{{ $beranda->judul3 }}</h3>
+                        <p>{{ $beranda->isi3 }}</p>
                     </div>
                 </div>
             </div>
@@ -332,34 +357,54 @@
                     <div class="col-sm-6 col-lg-3 mb-4 mb-lg-0">
                         <div class="counter">
                             <img width="44" height="50" src="{{ url('frontend/img/demos/event/icons/event-editions.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light d-inline-block p-relative bottom-1'}" />
-                            <strong class="pt-3 custom-font-secondary font-weight-bold" data-to="10" data-append="+">0</strong>
-                            <label class="pt-2 text-4 opacity-20">Sertifikat Uji</label>
+                            <strong class="pt-3 custom-font-secondary font-weight-bold" data-to="{{ $sertifikat_pengujian }}" data-append="">{{ $sertifikat_pengujian }}</strong>
+                            <label class="pt-2 text-4">Sertifikat Uji</label>
                         </div>
                     </div>
                     <div class="col-sm-6 col-lg-3 mb-4 mb-lg-0">
                         <div class="counter">
                             <img width="60" height="50" src="{{ url('frontend/img/demos/event/icons/event-visitors.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'd-inline-block p-relative bottom-1'}" />
-                            <strong class="pt-3 custom-font-secondary font-weight-bold" data-to="240" data-append="+">0</strong>
-                            <label class="pt-2 text-4 opacity-7">Pelanggan</label>
+                            <strong class="pt-3 custom-font-secondary font-weight-bold" data-to="{{ $pelanggan }}" data-append="">{{ $pelanggan }}</strong>
+                            <label class="pt-2 text-4">Pelanggan</label>
                         </div>
                     </div>
                     <div class="col-sm-6 col-lg-3 mb-4 mb-sm-0">
                         <div class="counter">
                             <img width="46" height="50" src="{{ url('frontend/img/demos/event/icons/successfull-stories.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light d-inline-block p-relative bottom-1'}" />
-                            <strong class="pt-3 custom-font-secondary font-weight-bold" data-to="2000" data-append="+">0</strong>
-                            <label class="pt-2 text-4 opacity-7">Sampel Pengujian</label>
+                            <strong class="pt-3 custom-font-secondary font-weight-bold" data-to="{{ $sampel_total }}" data-append="">{{ $sampel_total }}</strong>
+                            <label class="pt-2 text-4">Sampel Pengujian</label>
                         </div>
                     </div>
                     <div class="col-sm-6 col-lg-3">
                         <div class="counter">
-                            <img width="41" height="50" src="{{ url('frontend/img/demos/event/icons/professional-speakers.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'd-inline-block p-relative bottom-1'}" />
-                            <strong class="pt-3 custom-font-secondary font-weight-bold" data-to="20" data-append="+">0</strong>
-                            <label class="pt-2 text-4 opacity-7">Professional Speakers</label>
+                            <img width="41" height="50" src="{{ url('frontend/img/demos/event/icons/Picture1.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'd-inline-block p-relative bottom-1'}" />
+                            <strong class="pt-3 custom-font-secondary font-weight-bold" data-to="{{ $total_order }}" data-append="">{{ $total_order }}</strong>
+                            <label class="pt-2 text-4">Total Order</label>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        {{-- jam layanan --}}
+        <section class="border-0 p-relative">
+
+            <div class="container">
+                <div class="row pt-5 pb-2">
+                    <div class="col-md-8">
+                        <h3 class="font-weight-semibold text-9 text-capitalize mb-2">JAM PELAYANAN</h3>
+                        <div class="divider divider-small mt-0 mb-4">
+                            <hr class="bg-primary">
+                        </div>
+                    </div>
+
+                        <img src="{{ url('frontend/jam1.png') }}" alt="">
+                    
+                </div>
+            </div>
+
+        </section>
+
 
         <section class="section section-with-shape-divider border-0 m-0">
             <div class="shape-divider shape-divider-reverse-x" style="height: 120px;">
@@ -387,45 +432,35 @@
                 <div class="row">
                     <div class="col appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="750">
                         <div class="owl-carousel nav-style-1 nav-svg-arrows-1 nav-dark" data-plugin-options="{'responsive': {'0': {'items': 1}, '476': {'items': 2}, '768': {'items': 2}, '992': {'items': 2}, '1200': {'items': 2}}, 'autoplay': true, 'autoplayTimeout': 5000, 'autoplayHoverPause': true, 'dots': false, 'nav': true, 'loop': true, 'margin': 60, 'stagePadding': 50}">
+                            @forelse ($testimoni as $t)
                             <div>
                                 <div class="custom-testimonial-style-1 testimonial testimonial-style-3">
                                     <blockquote>
-                                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget risus porta, tincidunt turpis at, interdum torr. Suspendisse potenti. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                                        <p class="mb-0">{{ $t->komentar }}</p>
                                     </blockquote>
                                     <div class="testimonial-author">
                                         <div class="testimonial-author-thumbnail">
                                             <img src="{{ url('frontend/img/demos/industry-factory/testimonials/author-1.jpg') }}" class="img-fluid rounded-circle" alt="">
                                         </div>
-                                        <p class="ms-3"><strong class="font-weight-semibold text-color-dark text-4">John Smith</strong><span class="text-1">CLIMB THE MOUNTAIN</span></p>
+                                        <p class="ms-3"><strong class="font-weight-semibold text-color-dark text-4">{{ $t->user->name }}</strong></p>
                                     </div>
                                 </div>
                             </div>
+                            @empty
                             <div>
                                 <div class="custom-testimonial-style-1 testimonial testimonial-style-3">
                                     <blockquote>
-                                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget risus porta, tincidunt turpis at, interdum torr. Suspendisse potenti. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-                                    </blockquote>
-                                    <div class="testimonial-author">
-                                        <div class="testimonial-author-thumbnail">
-                                            <img src="{{ url('frontend/img/demos/industry-factory/testimonials/author-2.jpg') }}" class="img-fluid rounded-circle" alt="">
-                                        </div>
-                                        <p class="ms-3"><strong class="font-weight-semibold text-color-dark text-4">John Doe</strong><span class="text-1">AVANT GARDEN</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="custom-testimonial-style-1 testimonial testimonial-style-3">
-                                    <blockquote>
-                                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget risus porta, tincidunt turpis at, interdum torr. Suspendisse potenti. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                                        <p class="mb-0">Dengan adanya layanan website ini sangat memudahkan kami dalam proses pelayanan..</p>
                                     </blockquote>
                                     <div class="testimonial-author">
                                         <div class="testimonial-author-thumbnail">
                                             <img src="{{ url('frontend/img/demos/industry-factory/testimonials/author-1.jpg') }}" class="img-fluid rounded-circle" alt="">
                                         </div>
-                                        <p class="ms-3"><strong class="font-weight-semibold text-color-dark text-4">Robert Doe</strong><span class="text-1">OKLER THEMES</span></p>
+                                        <p class="ms-3"><strong class="font-weight-semibold text-color-dark text-4">Fikri Hanif</strong></p>
                                     </div>
                                 </div>
                             </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
@@ -433,24 +468,21 @@
         </section>
 
         <section class="section my-0 py-3 border-0 bg-transparent">
-            <div id="tentang" class="container container-xl-custom pt-4 pb-5">
+            <div id="tentang" class="container container-xl-custom pt-2 pb-3">
                 <div class="row py-5">
-                    <div class="col-lg-6">
-                        <h4 class="text-primary text-3 font-weight-bold mb-2">FREQUENT QUESTIONS</h4>
-                        <h3 class="mb-3">TENTANG KAMI</h3>
-                        <p class="mb-4 pb-2">Cras a elit sit amet leo accumsan volutpat. Suspendisse hendreriast ehicula leo, vel efficitur felis ultrices non. Cras a elit sit amet leo acun volutpat. Suspendisse hendrerit vehicula leo, vel efficitur fel.</p>
-
-                        <p class="mb-4 pb-2">Eo accumsan volutpat. Suspendisse hendreriast ehicula leo, vel efficitur felis ultrices non. Cras a elit sit amet leo acun volutpat. Suspendisse hendrerit vehicula.</p>
+                    <div class="col-lg-6 pt-5">
+                        <h3 class="mb-3">QNA ~ POLIS</h3>
+                        <p class="mb-4 pb-2">Seputar pertanyaan terkait Aplikasi POLIS...</p>
 
                         <div class="hstack gap-4 pt-3">
                             <div>
-                                <a href="#" class="btn btn-modern btn-primary font-weight-bold border-0 py-3 px-5 btn-arrow-effect-1 ws-nowrap">CONTACT US <i class="fas fa-arrow-right ms-2"></i></a>
+                                <a href="#" class="btn btn-modern btn-primary font-weight-bold border-0 py-3 px-5 btn-arrow-effect-1 ws-nowrap">Ada Pertanyaan?<i class="fas fa-arrow-right ms-2"></i></a>
                             </div>
                             <div class="vr"></div>
                             <div>
-                                <a href="tel:0123456789" class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary font-weight-semibold ms-1">
+                                <a href="https://api.whatsapp.com/send?phone={{ $beranda->wa }}&text=Halo%20Admin%21%20Saya%20mau%20bertanya." class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary font-weight-semibold ms-1" target="_blank">
                                     <i class="icon icon-phone text-color-primary text-4-5 me-2"></i>
-                                    800-123-4567
+                                    
                                 </a>
                             </div>
                         </div>
@@ -461,13 +493,13 @@
                                 <div class="card-header" id="collapse100HeadingOne">
                                     <h4 class="card-title m-0">
                                         <a class="accordion-toggle text-color-dark font-weight-bold border-radius text-3-5 collapsed" data-bs-toggle="collapse" data-bs-target="#collapse100One" aria-expanded="false" aria-controls="collapse100One">
-                                            1 - Tristique sit amet condim vel?
+                                            {{ $beranda->pertanyaan1 }}
                                         </a>
                                     </h4>
                                 </div>
                                 <div id="collapse100One" class="collapse" aria-labelledby="collapse100HeadingOne" data-bs-parent="#accordion100">
                                     <div class="card-body">
-                                        <p class="mb-0">Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien.</p>
+                                        <p class="mb-0">{{ $beranda->jawaban1 }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -475,13 +507,13 @@
                                 <div class="card-header" id="collapse100HeadingTwo">
                                     <h4 class="card-title m-0">
                                         <a class="accordion-toggle text-color-dark font-weight-bold border-radius text-3-5 collapsed" data-bs-toggle="collapse" data-bs-target="#collapse100Two" aria-expanded="false" aria-controls="collapse100Two">
-                                            2 - Cras a elit sit amet leo accumsan?
+                                            {{ $beranda->pertanyaan2 }}
                                         </a>
                                     </h4>
                                 </div>
                                 <div id="collapse100Two" class="collapse" aria-labelledby="collapse100HeadingTwo" data-bs-parent="#accordion100">
                                     <div class="card-body">
-                                        <p class="mb-0">Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien.</p>
+                                        <p class="mb-0">{{ $beranda->jawaban2 }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -489,13 +521,13 @@
                                 <div class="card-header" id="collapse100HeadingThree">
                                     <h4 class="card-title m-0">
                                         <a class="accordion-toggle text-color-dark font-weight-bold border-radius text-3-5 collapsed" data-bs-toggle="collapse" data-bs-target="#collapse100Three" aria-expanded="false" aria-controls="collapse100Three">
-                                            3 - Hel officitur felis ultricis nan?
+                                            {{ $beranda->pertanyaan3 }}
                                         </a>
                                     </h4>
                                 </div>
                                 <div id="collapse100Three" class="collapse" aria-labelledby="collapse100HeadingThree" data-bs-parent="#accordion100">
                                     <div class="card-body">
-                                        <p class="mb-0">Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien.</p>
+                                        <p class="mb-0">{{ $beranda->jawaban3 }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -503,27 +535,13 @@
                                 <div class="card-header" id="collapse100HeadingFour">
                                     <h4 class="card-title m-0">
                                         <a class="accordion-toggle text-color-dark font-weight-bold border-radius text-3-5 collapsed" data-bs-toggle="collapse" data-bs-target="#collapse100Four" aria-expanded="false" aria-controls="collapse100Four">
-                                            4 - Wuspaisse hendreirit vehicula leo?
+                                            {{ $beranda->pertanyaan4 }}
                                         </a>
                                     </h4>
                                 </div>
                                 <div id="collapse100Four" class="collapse" aria-labelledby="collapse100HeadingFour" data-bs-parent="#accordion100">
                                     <div class="card-body">
-                                        <p class="mb-0">Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card card-default">
-                                <div class="card-header" id="collapse100HeadingFive">
-                                    <h4 class="card-title m-0">
-                                        <a class="accordion-toggle text-color-dark font-weight-bold border-radius text-3-5 collapsed" data-bs-toggle="collapse" data-bs-target="#collapse100Five" aria-expanded="false" aria-controls="collapse100Five">
-                                            5 - Lintegers aliquet ullamcorper dollor, quis sollic tudin?
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapse100Five" class="collapse" aria-labelledby="collapse1HeadingFive" data-bs-parent="#accordion100">
-                                    <div class="card-body">
-                                        <p class="mb-0">Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien.</p>
+                                        <p class="mb-0">{{ $beranda->jawaban4 }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -536,15 +554,12 @@
         <section class="border-0 p-relative">
 
             <div class="container">
-                <div class="row pt-5 pb-4">
+                <div class="row pb-4">
                     <div class="col-md-8">
-                        <h3 class="font-weight-semibold text-9 text-capitalize mb-2">Our Locations</h3>
+                        <h3 class="font-weight-semibold text-9 text-capitalize mb-2">LOKASI</h3>
                         <div class="divider divider-small mt-0 mb-4">
                             <hr class="bg-primary">
                         </div>
-                    </div>
-                    <div class="col-md-4 text-md-end">
-                        <a href="#" class="btn btn-tertiary border-0 text-3-5 font-weight-semi-bold btn-px-5 btn-py-3 d-none d-md-inline-block">Request Rate</a>
                     </div>
                 </div>
             </div>
@@ -552,7 +567,7 @@
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-lg-10">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.8177994129705!2d109.32411331409578!3d-0.02927863555309829!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e1d58f96ca48811%3A0xca6dc22bf4279b0f!2sDinas%20Lingkungan%20Hidup%20Kota%20Pontianak!5e0!3m2!1sen!2sid!4v1657273551985!5m2!1sen!2sid" class="google-map m-0" style="min-height: 600px; border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.8177994129705!2d109.32411331409578!3d-0.02927863555309829!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e1d58f96ca48811%3A0xca6dc22bf4279b0f!2sDinas%20Lingkungan%20Hidup%20Kota%20Pontianak!5e0!3m2!1sen!2sid!4v1657273551985!5m2!1sen!2sid" class="google-map m-0" style="min-height: 200px; border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
@@ -567,7 +582,7 @@
     </div>
 
        <!-- WA float button -->
-       <a href="https://api.whatsapp.com/send?phone=6281522862759&text=Assalamualaikum%21%20Saya%20mau%20berinfaq." class="float" target="_blank">
+       <a href="https://api.whatsapp.com/send?phone={{ $beranda->wa }}&text=Halo%20Admin%21%20Saya%20mau%20bertanya." class="float" target="_blank">
         <i class="fab fa-whatsapp my-float"></i>
       </a>
 

@@ -33,6 +33,7 @@
                         <div class="tab-content mt-2 mb-3" id="pills-with-icon-tabContent">
                             <div class="tab-pane fade show active" id="pills-home-icon" role="tabpanel" aria-labelledby="pills-home-tab-icon">
                                 <hr>
+                                <h2>Pengambilan Sampel</h2>
                                <div class="row">
                                 <div class="col-md-3">
                                     <div class="card full-height">
@@ -43,13 +44,16 @@
                                             <div class="overflow-auto" style="height:300px;
                                             overflow-y: scroll;">
                                             <ol class="activity-feed">
-                                                @foreach ($timeline_pengambilan as $pengambilan)
+                                                @forelse ($timeline_pengambilan as $pengambilan)
                                                 <li class="feed-item feed-item-info">
                                                     <time class="date">{{ $pengambilan->created_at->diffForHumans() }}</time>
-                                                    <span class="text">Orderan {{ $pengambilan->pengambilanSampelOrder->nomor_pre }}</span> <br>
+                                                    <span class="text"><u>{{ $pengambilan->pengambilanSampelOrder->nomor_pre }}</u></span> <br>
                                                     <span class="text">{{ $pengambilan->statusPengambilanSampel->status_pelanggan }}</span>
                                                 </li>
-                                                @endforeach
+                                                @empty
+                                                <p class="text-center">Tidak ada notifikasi</p>
+                                                <hr>
+                                                @endforelse
                                             </ol>
                                             </div>
                                         </div>
@@ -116,6 +120,7 @@
                             </div>
                             <div class="tab-pane fade" id="pills-profile-icon" role="tabpanel" aria-labelledby="pills-profile-tab-icon">
                                <hr>
+                               <h2>Pengujian</h2>
                                <div class="row">
                                 <div class="col-md-3">
                                     <div class="card full-height">
@@ -126,13 +131,16 @@
                                             <div class="overflow-auto" style="height:300px;
                                             overflow-y: scroll;">
                                             <ol class="activity-feed">
-                                                @foreach ($timeline_pengujian as $pengujian)
+                                                @forelse ($timeline_pengujian as $pengujian)
                                                 <li class="feed-item feed-item-info">
                                                     <time class="date">{{ $pengujian->created_at->diffForHumans() }}</time>
-                                                    <span class="text">Orderan {{ $pengujian->pengujianOrder->nomor_pre }}</span> <br>
+                                                    <span class="text"><u>{{ $pengujian->pengujianOrder->nomor_pre }}</u></span> <br>
                                                     <span class="text">{{ $pengujian->statusPengujian->status_pelanggan }}</span>
                                                 </li>
-                                                @endforeach
+                                                @empty
+                                                <p class="text-center">Tidak ada notifikasi</p>
+                                                <hr>
+                                                @endforelse
                                             </ol>
                                             </div>
                                         </div>

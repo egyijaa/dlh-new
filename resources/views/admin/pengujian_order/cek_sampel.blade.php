@@ -58,6 +58,11 @@
                                         ---
                                     @endif</td>
                                     <td>
+                                    @if ($status == 2)
+                                    <a href="{{ route('admin.pengujian.editSampelParameter', $s->id) }}"><button class="btn btn-info btn-xs">Edit Parameter
+                                    </button></a> 
+                                    @endif
+
                                     @if ($status >= 5)
                                         
                                     <a href="{{ route('admin.pengujian.hasilUji', ['order'=>$nomor_pre, 'id'=>$s->id]) }}" class="btn btn-info btn-xs mt-1">Lihat</a>

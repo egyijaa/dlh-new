@@ -117,6 +117,7 @@
 
 		<!-- Theme Initialization Files -->
 		<script src="{{ url('frontend/js/theme.init.js') }}"></script>
+		@stack('scripts')
 
 		<script>
             $(function () {

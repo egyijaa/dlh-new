@@ -63,6 +63,11 @@
                                             <a href="{{ route('admin.pengambilanSampel.detailOrder', $p->id) }}" class="btn btn-xs btn-info shadow-sm my-1">
                                                 <i class="fas fa-pencil fa-sm text-white-50"></i>Detail order
                                             </a>
+                                            @if ($p->id_status_pengambilan_sampel == 2)
+                                            <a href="{{ route('admin.pengambilanSampel.editOrder', $p->id) }}" class="btn btn-xs btn-warning shadow-sm my-1">
+                                                <i class="fas fa-pencil fa-sm text-white-50"></i>Edit order
+                                            </a>
+                                            @endif
                                             @if ($p->id_status_pengambilan_sampel != 3)
                                             <a href="#" class="btn btn-warning btn-xs my-1" data-target="#status" data-toggle="modal" data-id="{{ $p->id }}" data-status="{{ $p->statusPengambilanSampel->id }}">Ganti Status</a>
                                             @endif

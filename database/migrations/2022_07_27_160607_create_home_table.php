@@ -19,7 +19,10 @@ class CreateHomeTable extends Migration
             $table->string('ig');
             $table->string('fb');
             $table->text('visi');
-            $table->text('misi');
+            $table->text('misi1');
+            $table->text('misi2');
+            $table->text('misi3');
+            $table->text('misi4');
             $table->text('motto');
             $table->text('maklumat_pelayanan');
             $table->string('judul1');

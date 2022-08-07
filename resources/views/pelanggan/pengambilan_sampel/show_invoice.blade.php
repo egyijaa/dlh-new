@@ -48,7 +48,7 @@
                             <div class="tab-pane fade" id="pills-contact-icon" role="tabpanel" aria-labelledby="pills-contact-tab-icon">
                                 <div class="col-md-8 ml-auto mr-auto">
                                     <p>
-                                        Setelah upload bukti pembayaran, mohon tunggu admin untuk mengecek pembayaran anda apakah berhasil atau tidak. Pemberitahuan berhasil atau tidak, akan dikirim melalui email anda.
+                                        Setelah upload bukti pembayaran, mohon tunggu admin untuk mengecek pembayaran anda apakah berhasil atau tidak. Pemberitahuan berhasil atau tidak, akan muncul di notifikasi pada menu dashboard.
                                     </p>
                                 </div>
                             </div>

@@ -10,6 +10,9 @@ use App\Models\StatusPengambilanSampel;
 use App\Models\Skr;
 use App\Models\Tbp;
 use App\Models\TimelinePengambilanSampel;
+use App\Models\TipePelanggan;
+use App\Models\SampelUji;
+use App\Models\VolumeSampel;
 use Carbon\Carbon;
 use PDF;
 use Illuminate\Support\Facades\DB;
@@ -28,6 +31,63 @@ class PengambilanSampelOrderController extends Controller
         $pengambilan = PengambilanSampelOrder::findOrFail($id);
 
         return view('admin.pengambilan_sampel.detail_order', compact('id_pengambilan_sampel_order', 'pengambilan'));
+    }
+
+    public function editOrder($id)
+    {
+        $pengambilan = PengambilanSampelOrder::findOrFail($id);
+        $tipe_pelanggan = TipePelanggan::all();
+        $sampel = SampelUji::all();
+        $volume = VolumeSampel::all();
+        return view('admin.pengambilan_sampel.edit_order', compact('pengambilan','tipe_pelanggan', 'sampel', 'volume'));
+        
+    }
+
+    public function updateOrder(Request $request,$id)
+    {
+        $validatedData = $request->validate([
+            'file_surat' => 'mimes:pdf|max:3120',
+            // 'no_hp' => 'required|numeric|between:10,13',
+            // 'nik' => 'required|digits:16',
+        ]);
+
+        $pengambilan = PengambilanSampelOrder::findOrFail($id);
+
+        $pengambilan->id_tipe_pelanggan = $request->get('id_tipe_pelanggan');
+        $pengambilan->nama_pemesan = $request->get('nama_pemesan');
+        $pengambilan->tanggal_isi = $request->get('tanggal_isi');
+        $pengambilan->nomor_surat = $request->get('nomor_surat');
+        $pengambilan->email = $request->get('email');
+        $pengambilan->no_hp = $request->get('no_hp');
+        $pengambilan->alamat = $request->get('alamat');
+        $pengambilan->keterangan = $request->get('keterangan');
+        $pengambilan->nik = $request->get('nik');
+        $pengambilan->jasa_pelayanan = $request->get('jasa_pelayanan');
+        $pengambilan->id_sampel_uji = $request->get('jenis_sampel');
+        $pengambilan->tanggal_sampling = $request->get('tanggal_sampling');
+        $pengambilan->persyaratan_pelanggan = $request->get('persyaratan_pelanggan');
+        $pengambilan->alamat_sampling = $request->get('alamat_sampling');
+        $pengambilan->pendamping_sampling = $request->get('pendamping_sampling');
+        $pengambilan->jumlah_lokasi_sampling = $request->get('jumlah_lokasi_sampling');
+        $pengambilan->jumlah_titik_sampling = $request->get('jumlah_titik_sampling');
+        $pengambilan->id_volume_sampel = $request->get('volume_sampel');
+
+        $harga_sampel = SampelUji::where('id', $request->get('jenis_sampel'))->first()->harga;
+
+        $pengambilan->total_harga = $harga_sampel*$request->get('jumlah_titik_sampling');
+
+        if ($request->file('file_surat')) {
+            if ($pengambilan->file_surat && file_exists(storage_path('app/public/' . $pengambilan->file_surat))) {
+                \Storage::delete('public/' . $pengambilan->file_surat);
+            }
+            $fileSurat = $request->file('file_surat')->store('pengambilan/fileSurat', 'public');
+            $pengambilan->file_surat = $fileSurat;
+        }
+
+        $pengambilan->update();
+        toast('Data Order Berhasil Diubah','success');
+        return redirect()->route('admin.pengambilanSampel.index');
+
     }
 
     public function generateNoSkr(){

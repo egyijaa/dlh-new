@@ -8,10 +8,13 @@ use Illuminate\Http\Request;
 use App\Models\PengujianOrder;
 use App\Models\SampelOrder;
 use App\Models\SampelUji;
+use App\Models\ParameterSampel;
 use App\Models\Skr;
 use App\Models\StatusPengujian;
 use App\Models\Tbp;
 use App\Models\TimelinePengujian;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use PDF;
 
@@ -48,6 +51,95 @@ class PengujianOrderController extends Controller
         $sampel->update();
         toast('Data Berhasil Diubah','success');
         return redirect()->back();
+    }
+
+    public function generateNoUji(){
+        $sampel = SampelOrder::select('nomor_uji')->latest('id')->first();//cek apakah ada data sbelumnya
+        if ($sampel) {
+            $nomor_uji = $sampel->nomor_uji;
+            $removed4char = substr($nomor_uji, 5);
+            $generateNoUji = $stpad = 'A-' . str_pad($removed4char + 1, 5, "0", STR_PAD_LEFT);
+        } else {
+            $generateNoUji = 'A-' . str_pad(1, 5, "0", STR_PAD_LEFT);
+        }
+        return $generateNoUji;
+    }
+
+    public function editSampelParameter($id)
+    {
+        $sampel_order = SampelOrder::with('parameterSampelOrder')->findOrFail($id);
+        $sampel = SampelUji::all();
+        return view('admin.pengujian_order.edit_sampel', [
+                'sampel_order' => $sampel_order,
+                'sampel' => $sampel
+            ]);
+    }
+
+    public function updateSampelParameter(Request $request)
+    {
+        DB::beginTransaction();
+        $validatedData = $request->validate([
+            'id_pengujian_order' => 'required',
+            'kode_sampel' => 'required',
+            'asal_sampel' => 'required',
+        ]);
+
+        try {
+      
+            $sampel_order_old = SampelOrder::find($request->id_sampel_order);
+            $sampel_order_old->delete();
+
+            $year_now = date("Y");
+            $sampel_order = SampelOrder::create([
+                'id_pengujian_order' =>  $request->id_pengujian_order,
+                'id_sampel_uji' =>  $request->sampel,
+                'kode_sampel' =>  $request->kode_sampel,
+                'asal_sampel' =>  $request->asal_sampel,
+                'catatan_pelanggan' =>  $request->catatan_pelanggan,
+                'nomor_uji' => $this->generateNoUji(),
+                'nomor_sertifikat' => $this->generateNoUji() . '/SHU/LABLING/' . $year_now,
+                'harga' => ''
+                
+            ]);
+            $total = [];
+            for($i = 0; $i < count($request->parameter); $i++){
+                $harga_parameter = ParameterSampel::where('id', $request->parameter[$i])->first()->harga;
+                ParameterSampelOrder::create([
+                    'id_sampel_order' => $sampel_order->id,
+                    'id_parameter_sampel' => $request->parameter[$i],
+                ]);
+                $total[] = $harga_parameter;
+            } 
+            //coba tambahkan total di sampelorder
+            $totalFinal = array_sum($total);
+            $s = SampelOrder::find($sampel_order->id);
+            $s->harga = $totalFinal;
+            $s->save();
+
+            //sub total biaya dimasukkan ke pengujian order
+            $total_harga = SampelOrder::where('id_pengujian_order', $request->id_pengujian_order)->sum('harga');
+            $pengujian_order = PengujianOrder::find($request->id_pengujian_order);
+            $pengujian_order->total_harga = $total_harga;
+            $pengujian_order->save();
+            DB::commit();
+
+            //return ke halaman sampel dgn mengembalikan paramereter seperti di function getOrder
+            $id_pengujian_order = $request->id_pengujian_order;
+            $nomor_pre = PengujianOrder::where('id', $id_pengujian_order)->first()->nomor_pre;
+    
+            $status = PengujianOrder::where('id', $id_pengujian_order)->first()->id_status_pengujian;
+    
+            $sampel = SampelUji::all();
+    
+            $sampel_order = SampelOrder::with('parameterSampelOrder')->where('id_pengujian_order', $id_pengujian_order)->orderBy('kode_sampel', 'DESC')->get();
+    
+            toast('Data Sampel dan Parameter Berhasil Diubah','success');
+            return redirect()->route('admin.pengujian.getOrder', $id_pengujian_order);
+        } catch (\Exception $e) {
+            DB::rollback();
+            toast('Gagal mengubah data')->autoClose(2000)->hideCloseButton();
+            return redirect()->back();
+        }
     }
 
     public function generateNoSkr(){

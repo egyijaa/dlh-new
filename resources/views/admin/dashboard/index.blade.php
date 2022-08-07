@@ -56,8 +56,8 @@
                             </div>
                             <div class="col-7 col-stats">
                                 <div class="numbers">
-                                    <p class="card-category">Orderan</p>
-                                    <h4 class="card-title">Rp 1.000.500</h4>
+                                    <p class="card-category">Orderan Total</p>
+                                    <h4 class="card-title">Rp 2.000.500</h4>
                                 </div>
                             </div>
                         </div>
@@ -105,7 +105,34 @@
                         <div class="tab-content mt-2 mb-3" id="pills-with-icon-tabContent">
                             <div class="tab-pane fade show active" id="pills-home-icon" role="tabpanel" aria-labelledby="pills-home-tab-icon">
                                 <hr>
+                                <h2>Pengambilan Sampel</h2>
                                <div class="row">
+                                <div class="col-md-3">
+                                    <div class="card full-height">
+                                        <div class="card-header">
+                                            <div class="card-title">Orderan yg Perlu dicek</div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="overflow-auto" style="height:300px;
+                                            overflow-y: scroll;">
+                                            <ol class="activity-feed">
+                                                @forelse ($cek_pengambilan as $cp)
+                                                <li class="feed-item feed-item-info">
+                                                    <time class="date">{{ $cp->updated_at->diffForHumans() }}</time>
+                                                    <span class="text">Orderan {{ $cp->nomor_pre }}</span> <br>
+                                                    <span class="text"> <a href="{{ route('admin.pengambilanSampel.detailOrder', $cp->id) }}" class="btn btn-xs btn-info shadow-sm my-1">
+                                                        <i class="fas fa-pencil fa-sm text-white-50"></i>Detail order
+                                                    </a></span>
+                                                </li>
+                                                @empty
+                                                <p class="text-center">Tidak ada notifikasi</p>
+                                                <hr>
+                                                @endforelse
+                                            </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-md-3">
                                     <div class="card full-height">
                                         <div class="card-header">
@@ -115,33 +142,19 @@
                                             <div class="overflow-auto" style="height:300px;
                                             overflow-y: scroll;">
                                             <ol class="activity-feed">
-                                                @foreach ($info_bayar_pengambilan as $pengambilan)
+                                                @forelse ($info_bayar_pengambilan as $pengambilan)
                                                 <li class="feed-item feed-item-info">
                                                     <time class="date">{{ $pengambilan->updated_at->diffForHumans() }}</time>
                                                     <span class="text">Orderan {{ $pengambilan->nomor_pre }}</span> <br>
-                                                    <span class="text">Ada Mengirim Bukti Pembayaran</span>
+                                                    <span class="text">Ada Mengirim Bukti Pembayaran
+                                                        <a href="{{ route('admin.pengambilanSampel.showBuktiPembayaran', $pengambilan->id) }}" class="btn btn-primary btn-xs mb-2">Lihat Bukti Pembayaran</a>
+                                                    </span>
                                                 </li>
-                                                @endforeach
+                                                @empty
+                                                <p class="text-center">Tidak ada notifikasi</p>
+                                                <hr>
+                                                @endforelse
                                             </ol>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-3">
-                                    <div class="card card-stats card-primary card-round">
-                                        <div class="card-body ">
-                                            <div class="row">
-                                                <div class="col-5">
-                                                    <div class="icon-big text-center">
-                                                        <i class="flaticon-chart-pie"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="col-7 col-stats">
-                                                    <div class="numbers">
-                                                        <p class="card-category">Order baru</p>
-                                                        <h4 class="card-title"></h4>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -188,7 +201,37 @@
                             </div>
                             <div class="tab-pane fade" id="pills-profile-icon" role="tabpanel" aria-labelledby="pills-profile-tab-icon">
                                <hr>
+                               <h2>Pengujian</h2>
                                <div class="row">
+                                <div class="col-md-3">
+                                    <div class="card full-height">
+                                        <div class="card-header">
+                                            <div class="card-title">Orderan yg Perlu dicek</div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="overflow-auto" style="height:300px;
+                                            overflow-y: scroll;">
+                                            <ol class="activity-feed">
+                                                @forelse ($cek_pengujian as $cpu)
+                                                <li class="feed-item feed-item-info">
+                                                    <time class="date">{{ $cpu->updated_at->diffForHumans() }}</time>
+                                                    <span class="text">Orderan {{ $cpu->nomor_pre }}</span> <br>
+                                                    <span class="text">  <a href="{{ route('admin.pengujian.detailOrder', $cpu->id) }}" class="btn btn-xs btn-info shadow-sm my-1">
+                                                        <i class="fas fa-pencil fa-sm text-white-50"></i>Detail order
+                                                    </a>
+                                                    <a href="{{ route('admin.pengujian.getOrder', $cpu->id) }}" class="btn btn-xs btn-primary shadow-sm my-1">
+                                                        <i class="fas fa-pencil fa-sm text-white-50"></i>Lihat Sampel
+                                                    </a></span>
+                                                </li>
+                                                @empty
+                                                <p class="text-center">Tidak ada notifikasi</p>
+                                                <hr>
+                                                @endforelse
+                                            </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-md-3">
                                     <div class="card full-height">
                                         <div class="card-header">
@@ -198,33 +241,19 @@
                                             <div class="overflow-auto" style="height:300px;
                                             overflow-y: scroll;">
                                             <ol class="activity-feed">
-                                                @foreach ($info_bayar_pengujian as $pengujian)
+                                                @forelse ($info_bayar_pengujian as $pengujian)
                                                 <li class="feed-item feed-item-info">
                                                     <time class="date">{{ $pengujian->updated_at->diffForHumans() }}</time>
                                                     <span class="text">Orderan {{ $pengujian->nomor_pre }}</span> <br>
-                                                    <span class="text">Ada Mengirim Bukti Pembayaran</span>
+                                                    <span class="text">Ada Mengirim Bukti Pembayaran
+                                                        <a href="{{ route('admin.pengujian.showBuktiPembayaran', $pengujian->id) }}" class="btn btn-primary btn-xs mb-2">Lihat Bukti Pembayaran</a>
+                                                    </span>
                                                 </li>
-                                                @endforeach
+                                                @empty
+                                                <p class="text-center">Tidak ada notifikasi</p>
+                                                <hr>
+                                                @endforelse
                                             </ol>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-3">
-                                    <div class="card card-stats card-primary card-round">
-                                        <div class="card-body ">
-                                            <div class="row">
-                                                <div class="col-5">
-                                                    <div class="icon-big text-center">
-                                                        <i class="flaticon-chart-pie"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="col-7 col-stats">
-                                                    <div class="numbers">
-                                                        <p class="card-category">Order baru</p>
-                                                        <h4 class="card-title"></h4>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>

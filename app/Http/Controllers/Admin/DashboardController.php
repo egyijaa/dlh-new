@@ -19,10 +19,13 @@ class DashboardController extends Controller
         $pendapatan_pengujian = PengujianOrder::where('id_status_pengujian','>=', 5)->sum('total_harga');
         $pendapatan_pengambilan = PengambilanSampelOrder::where('id_status_pengambilan_sampel','>=', 5)->sum('total_harga');
 
-        $info_bayar_pengujian = PengujianOrder::where('bukti_bayar', '!=', null)->where('id_status_pengujian', 4)->orderBy('id', 'DESC')->paginate(20);
+        $info_bayar_pengujian = PengujianOrder::where('bukti_bayar', '!=', null)->where('id_status_pengujian', 4)->orderBy('id', 'DESC')->limit(20)->get();
 
-        $info_bayar_pengambilan = PengambilanSampelOrder::where('bukti_bayar', '!=', null)->where('id_status_pengambilan_sampel', 4)->orderBy('id', 'DESC')->paginate(20);
+        $info_bayar_pengambilan = PengambilanSampelOrder::where('bukti_bayar', '!=', null)->where('id_status_pengambilan_sampel', 4)->orderBy('id', 'DESC')->limit(20)->get();
 
-        return view('admin.dashboard.index', compact('pelanggan', 'pengujian_selesai', 'pengambilan_selesai', 'pendapatan_pengujian', 'pendapatan_pengambilan', 'info_bayar_pengambilan', 'info_bayar_pengujian'));
+        $cek_pengujian = PengujianOrder::where('id_status_pengujian', 2)->orderBy('updated_at', 'DESC')->limit(20)->get();
+        $cek_pengambilan = PengambilanSampelOrder::where('id_status_pengambilan_sampel', 2)->orderBy('updated_at', 'DESC')->limit(20)->get();
+
+        return view('admin.dashboard.index', compact('pelanggan', 'pengujian_selesai', 'pengambilan_selesai', 'pendapatan_pengujian', 'pendapatan_pengambilan', 'info_bayar_pengambilan', 'info_bayar_pengujian', 'cek_pengujian', 'cek_pengambilan'));
     }
 }

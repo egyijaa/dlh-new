@@ -42,9 +42,9 @@ class PengujianController extends Controller
         $validatedData = $request->validate([
             'nama_pemesan' => 'required',
             'email' => 'required',
-            'no_hp' => 'required', 'digits_between:10,13',
+            'no_hp' => 'required|between:10,13',
+            'nik' => 'required|digits:16',
             'alamat' => 'required',
-            'nik' => 'required', 'digits:16',
             'file_surat' => 'mimes:pdf|max:3120',
         ]);
 

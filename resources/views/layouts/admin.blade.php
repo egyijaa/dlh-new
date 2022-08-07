@@ -66,14 +66,16 @@
 											<div class="avatar-lg"><img src="{{ url('admin/img/user.png') }}" alt="image profile" class="avatar-img rounded"></div>
 											<div class="u-text">
 												<h4>{{ auth()->user()->name }}</h4>
-												<p class="text-muted">{{ auth()->user()->email }}</p><a 
+												<p class="text-muted">{{ auth()->user()->email }}</p>
 												@if (auth()->user()->role == 0)
-												href="{{ route('pelanggan.profil.changePassword', Auth::user()->id) }}"
-												@else
-												href="{{ route('admin.profil.changePassword', Auth::user()->id) }}"
+													@if (auth()->user()->aktivasi == 1)
+													<a href="{{ route('pelanggan.profil.changePassword') }}"class="btn btn-xs btn-secondary btn-sm">Profile</a>
+													@endif
+													
+												@elseif (auth()->user()->role == 1)
+												<a href="{{ route('admin.profil.changePassword', Auth::user()->id) }}"class="btn btn-xs btn-secondary btn-sm">Profile</a>
 												@endif
-												
-												class="btn btn-xs btn-secondary btn-sm">Profile</a>
+
 											</div>
 										</div>
 									</li>

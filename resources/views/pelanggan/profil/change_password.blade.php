@@ -4,7 +4,7 @@
 <div class="content">
     <div class="page-inner">
         <div class="page-header">
-            <a href="{{ route('pelanggan.pengujian.index') }}"><i class="fas fa-arrow-left"> Kembali</i></a>
+
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -13,11 +13,11 @@
                         <h4 class="card-title">Profil Saya</h4>
                       </div>
                     <div class="card-body">
-                        @if (session('error'))
-<div class="alert alert-danger">
-    {{ session('error') }}
-</div>
-@endif
+                         @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                            @endif
                                 <form action="{{ route('pelanggan.profil.savePassword', $item->id) }}" method="POST" enctype="multipart/form-data">
                                     @method('PUT')
                                     @csrf

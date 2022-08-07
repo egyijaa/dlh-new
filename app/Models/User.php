@@ -68,4 +68,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(PengambilanSampelOrder::class, 'id_user', 'id');
     }
+
+    public function testimoni()
+    {
+        return $this->hasMany(Testimoni::class, 'id_user', 'id');
+    }
 }

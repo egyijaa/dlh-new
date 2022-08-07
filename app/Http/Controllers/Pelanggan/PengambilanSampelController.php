@@ -129,8 +129,8 @@ class PengambilanSampelController extends Controller
         // dd($request->all());
         $validatedData = $request->validate([
             'file_surat' => 'mimes:pdf|max:3120',
-            'no_hp' => 'required|numeric|between:10,13',
-            'nik' => 'required|digits:16',
+            // 'no_hp' => 'required|numeric|between:10,13',
+            // 'nik' => 'required|digits:16',
         ]);
 
         $pengambilan = PengambilanSampelOrder::findOrFail($id);

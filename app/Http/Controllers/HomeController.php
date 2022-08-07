@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Beranda;
 use App\Models\ParameterSampel;
+use App\Models\PengambilanSampelOrder;
+use App\Models\PengujianOrder;
+use App\Models\SampelOrder;
 use App\Models\SampelUji;
+use App\Models\Testimoni;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -27,15 +33,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // if(auth()->user()->role == 1){
-            
-        //     return view('admin.dashboard.index');
-        // } else if (auth()->user()->role == 0){
-        //     return view('pelanggan.dashboard.index');
-        // }
-        return view('frontend.index');
+        $testimoni = Testimoni::where('tampil', 1)->orderBy('id', 'DESC')->get();
+        $beranda = Beranda::findOrFail(1);
 
+        $pelanggan = User::where('role', 0)->count();
+        $order_pengujian = PengujianOrder::count();
+        $order_pengambilan = PengambilanSampelOrder::count();
+        $total_order = $order_pengujian + $order_pengambilan;
+        $sertifikat_pengujian = SampelOrder::where('foto_shu2', '!=', null)->count();
+        $sampel_total = SampelOrder::count();
 
+        return view('frontend.index', compact('testimoni', 'beranda', 'pelanggan', 'total_order', 'sertifikat_pengujian', 'sampel_total'));
     }
 
     public function biaya(){

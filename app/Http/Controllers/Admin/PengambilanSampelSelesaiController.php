@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BeritaAcaraSampel;
+use App\Models\Pejabat;
 use Illuminate\Http\Request;
 use App\Models\PengambilanSampelOrder;
 use App\Models\StatusPengambilanSampel;
@@ -145,7 +146,8 @@ class PengambilanSampelSelesaiController extends Controller
         $id_skr = Skr::where('id_pengambilan_sampel_order', $id)->first()->id;
         $tanggal_skr = TimelinePengambilanSampel::where('id_pengambilan_sampel_order', $id)->where('id_status_pengambilan_sampel', 4)->latest()->first()->tanggal;
         $skr = Skr::findOrFail($id_skr);
-        $pdf = PDF::loadview('admin.pengambilan_sampel_selesai.skr', compact('pengambilan_order', 'skr', 'tanggal_skr'))->setPaper('a4', 'potrait');
+        $kadis = Pejabat::findOrFail(1);
+        $pdf = PDF::loadview('admin.pengambilan_sampel_selesai.skr', compact('pengambilan_order', 'skr', 'tanggal_skr', 'kadis'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 
@@ -154,7 +156,8 @@ class PengambilanSampelSelesaiController extends Controller
         $id_tbp = Tbp::where('id_pengambilan_sampel_order', $id)->first()->id;
         $tbp = Tbp::findOrFail($id_tbp);
         $no_skr = Skr::where('id_pengambilan_sampel_order', $id)->first()->no_skr;
-        $pdf = PDF::loadview('admin.pengambilan_sampel_selesai.tbp', compact('pengambilan_order', 'tbp', 'no_skr'))->setPaper('a4', 'potrait');
+        $bendahara = Pejabat::findOrFail(2);
+        $pdf = PDF::loadview('admin.pengambilan_sampel_selesai.tbp', compact('pengambilan_order', 'tbp', 'no_skr', 'bendahara'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 
@@ -262,7 +265,9 @@ class PengambilanSampelSelesaiController extends Controller
     public function cetakBa($id){
         $pengambilan_order = PengambilanSampelOrder::findOrFail($id);
         $berita_acara = BeritaAcaraSampel::where('id_pengambilan_sampel_order', $id)->get();
-        $pdf = PDF::loadview('admin.pengambilan_sampel_selesai.ba', compact('pengambilan_order', 'berita_acara'))->setPaper('a4', 'potrait');
+        $teknis = Pejabat::findOrFail(3);
+        $penyelia = Pejabat::findOrFail(4);
+        $pdf = PDF::loadview('admin.pengambilan_sampel_selesai.ba', compact('pengambilan_order', 'berita_acara', 'teknis', 'penyelia'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 

@@ -38,9 +38,9 @@
                                     <td>{{ $i++ }}</td>
                                     <td>{{ $s->kode_sampel }}</td>
                                     <td>{{ $s->sampelUji->nama_sampel }}</td>
-                                    <td>
+                                    <td>| 
                                         @foreach ($s->parameterSampelOrder as $parameter)
-                                        <li>{{ $parameter->parameterSampel->nama_parameter }}</li>
+                                        {{ $parameter->parameterSampel->nama_parameter }} |
                                     @endforeach
                                     </td>
                                     <td>@if ($s->catatan_pelanggan)

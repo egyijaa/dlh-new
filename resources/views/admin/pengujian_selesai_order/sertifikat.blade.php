@@ -158,7 +158,7 @@
             <br>
             <tr>
                 <td colspan="2"><p style="font-size: 11.5px; border: 1px solid #FF4900; padding: 5px; color: #FF4900">Hasil pengujian ini berlaku untuk contoh-contoh tersebut diatas.<br>Pengambil contoh bertanggung jawab atas keterwakilan contoh</p></td>
-                <td colspan="2" align="center">Penanggungjawab Teknis<br><br><br><br><u><b>DINA ANGELINA, S.Si</b></u></td>
+                <td colspan="2" align="center">Penanggungjawab Teknis<br><br><br><br><u><b>{{ $teknis->nama }}</b></u></td>
             </tr>
         </table>
     </div>
@@ -235,7 +235,7 @@
         <table style="width:100%; font-size: 14px; padding-left: 8px; padding-bottom: 8px;">
             <tr>
                 <td colspan="2"><p style="font-size: 11.5px; border: 1px solid #FF4900; padding: 5px; color: #FF4900">Hasil pengujian ini berlaku untuk contoh-contoh tersebut diatas.<br>Pengambil contoh bertanggung jawab atas keterwakilan contoh</p></td>
-                <td colspan="2" align="center">Penanggungjawab Teknis<br><br><br><br><u><b>DINA ANGELINA, S.Si</b></u></td>
+                <td colspan="2" align="center">Penanggungjawab Teknis<br><br><br><br><u><b>{{ $teknis->nama }}</b></u></td>
             </tr>
         </table>
         <p align="center" style="font-size: 7.5px;"><u><i>Sertifikat Hasil Uji tidak boleh digandakan kecuali keseluruhan tanpa persetujuan tertulis dari Laboratorium Lingkungan DLH Kota Pontianak</i></u><br><i>The Test Result Certificate may not be duplicated except in its entirety without written approval from the Pontianak City DLH Environmental Laboratory</i></p>

@@ -68,9 +68,9 @@
                                                 <i class="fas fa-pencil fa-sm text-white-50"></i>Edit order
                                             </a>
                                             @endif
-                                            @if ($p->id_status_pengambilan_sampel != 3)
+                                         
                                             <a href="#" class="btn btn-warning btn-xs my-1" data-target="#status" data-toggle="modal" data-id="{{ $p->id }}" data-status="{{ $p->statusPengambilanSampel->id }}">Ganti Status</a>
-                                            @endif
+                                            
                                             @if ($p->id_status_pengambilan_sampel >= 4)
                                             <a href="{{ route('admin.pengambilanSampel.cetakInvoice', $p->id) }}" target="_blank"><i class="btn btn-xs btn-primary shadow-sm">Cetak Invoice</i></a> 
                                             <a href="{{ route('admin.pengambilanSampel.cetakSkr', $p->id) }}" target="_blank"><i class="btn btn-xs btn-primary my-1 shadow-sm">Cetak SKR</i></a> 

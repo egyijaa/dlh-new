@@ -189,8 +189,8 @@
         <br>
         <table style="width:100%; font-size: 14px; padding-left: 8px;">
           <tr>
-              <td align="center">Mengetahui,<br>Penanggungjawab Teknis<br><br><br><br><br><b>Dina Angelina, S.Si</b></td>
-              <td align="center">Diperiksa<br>Penyelia<br><br><br><br><br><b>Estiningtiyas Kusumasturi, ST</b></td>
+              <td align="center">Mengetahui,<br>Penanggungjawab Teknis<br><br><br><br><br><b>{{ $teknis->nama }}</b></td>
+              <td align="center">Diperiksa<br>Penyelia<br><br><br><br><br><b>{{ $penyelia->nama }}</b></td>
           </tr>
       </table>
 </body>

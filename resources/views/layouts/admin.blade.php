@@ -73,7 +73,9 @@
 													@endif
 													
 												@elseif (auth()->user()->role == 1)
-												<a href="{{ route('admin.profil.changePassword', Auth::user()->id) }}"class="btn btn-xs btn-secondary btn-sm">Profile</a>
+												<a href="{{ route('admin.profil.changePassword') }}"class="btn btn-xs btn-secondary btn-sm">Profile</a>
+												@elseif (auth()->user()->role == 2)
+												<a href="{{ route('bendahara.profil.changePassword') }}"class="btn btn-xs btn-secondary btn-sm">Profile</a>
 												@endif
 
 											</div>
@@ -99,11 +101,17 @@
 
 		<!-- Sidebar -->
 		
-		@if (auth()->user()->role == 1 )
+		@if (auth()->user()->role == 1)
 		@include('component.sidebar_admin')
 		
-		@else
+		@elseif (auth()->user()->role == 0)
 		@include('component.sidebar_pelanggan')
+
+		@elseif (auth()->user()->role == 2)
+		@include('component.sidebar_bendahara')
+
+		@elseif (auth()->user()->role == 3)
+		@include('component.sidebar_helper')
 			
 		@endif
 		<!-- End Sidebar -->

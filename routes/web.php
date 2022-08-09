@@ -16,6 +16,14 @@ use App\Http\Controllers\Admin\PengujianSelesaiOrderController;
 use App\Http\Controllers\Admin\PengambilanSampelOrderController;
 use App\Http\Controllers\Admin\PengambilanSampelSelesaiController;
 
+//bendahara
+use App\Http\Controllers\Bendahara\DashboardController as BendaharaDashboardController;
+use App\Http\Controllers\Bendahara\ProfilController as BendaharaProfilController;
+use App\Http\Controllers\Bendahara\PengujianOrderController as BendaharaPengujianOrderController;
+use App\Http\Controllers\Bendahara\PengujianSelesaiOrderController as BendaharaPengujianSelesaiOrderController;
+use App\Http\Controllers\Bendahara\PengambilanSampelOrderController as BendaharaPengambilanSampelOrderController;
+use App\Http\Controllers\Bendahara\PengambilanSampelSelesaiController as BendaharaPengambilanSampelSelesaiController;
+
 
 use App\Http\Controllers\Pelanggan\DashboardController as PelangganDashboardController;
 use App\Http\Controllers\Pelanggan\PengujianController as PelangganPengujianController;
@@ -90,7 +98,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'isAdmin'])->group(f
     });
 
     Route::prefix('profil')->name('profil.')->group(function () {
-        Route::get('changePassword/{id}', [ProfilController::class, 'changePassword'])->name('changePassword');
+        Route::get('changePassword', [ProfilController::class, 'changePassword'])->name('changePassword');
         Route::put('savePassword/{id}', [ProfilController::class, 'savePassword'])->name('savePassword');
     });
 
@@ -189,6 +197,88 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'isAdmin'])->group(f
         Route::get('cetakBaPelanggan/{id}', [PengambilanSampelSelesaiController::class, 'cetakBaPelanggan'])->name('cetakBaPelanggan');
     });
 });
+
+
+//bagian BENDAHARA
+Route::prefix('bendahara')->name('bendahara.')->middleware(['auth', 'isBendahara'])->group(function () {
+    Route::prefix('dashboard')->name('dashboard.')->group(function () {
+        Route::get('', [BendaharaDashboardController::class, 'index'])->name('index');
+    });
+
+    Route::prefix('profil')->name('profil.')->group(function () {
+        Route::get('changePassword', [BendaharaProfilController::class, 'changePassword'])->name('changePassword');
+        Route::put('savePassword/{id}', [BendaharaProfilController::class, 'savePassword'])->name('savePassword');
+    });
+
+    Route::prefix('pengujian')->name('pengujian.')->group(function () {
+        Route::get('', [BendaharaPengujianOrderController::class, 'index'])->name('index');
+        Route::get('getOrder/{id}', [BendaharaPengujianOrderController::class, 'getOrder'])->name('getOrder');
+        Route::get('detailOrder/{id}', [BendaharaPengujianOrderController::class, 'detailOrder'])->name('detailOrder');
+
+        Route::put('gantiStatus', [BendaharaPengujianOrderController::class, 'gantiStatus'])->name('gantiStatus');
+        Route::get('cetakInvoice/{id}', [BendaharaPengujianOrderController::class, 'cetakInvoice'])->name('cetakInvoice');
+        Route::get('cetakSkr/{id}', [BendaharaPengujianOrderController::class, 'cetakSkr'])->name('cetakSkr');
+        Route::get('cetakTbp/{id}', [BendaharaPengujianOrderController::class, 'cetakTbp'])->name('cetakTbp');
+       
+        Route::get('showBuktiPembayaran/{id}', [BendaharaPengujianOrderController::class, 'showBuktiPembayaran'])->name('showBuktiPembayaran');
+        Route::put('updateBuktiPembayaran/{id}', [BendaharaPengujianOrderController::class, 'updateBuktiPembayaran'])->name('updateBuktiPembayaran');
+        
+    });
+
+    // ==========================================================
+    // pengujian selesai bendahara
+    Route::prefix('pengujianSelesai')->name('pengujianSelesai.')->group(function () {
+        Route::get('', [BendaharaPengujianSelesaiOrderController::class, 'index'])->name('index');
+        Route::get('getOrder/{id}', [BendaharaPengujianSelesaiOrderController::class, 'getOrder'])->name('getOrder');
+        Route::get('detailOrder/{id}', [BendaharaPengujianSelesaiOrderController::class, 'detailOrder'])->name('detailOrder');
+       
+        Route::put('gantiStatus', [BendaharaPengujianSelesaiOrderController::class, 'gantiStatus'])->name('gantiStatus');
+        Route::get('cetakInvoice/{id}', [BendaharaPengujianSelesaiOrderController::class, 'cetakInvoice'])->name('cetakInvoice');
+        Route::get('cetakSkr/{id}', [BendaharaPengujianSelesaiOrderController::class, 'cetakSkr'])->name('cetakSkr');
+        Route::get('cetakTbp/{id}', [BendaharaPengujianSelesaiOrderController::class, 'cetakTbp'])->name('cetakTbp');
+       
+        Route::get('showBuktiPembayaran/{id}', [BendaharaPengujianSelesaiOrderController::class, 'showBuktiPembayaran'])->name('showBuktiPembayaran');
+        Route::put('updateBuktiPembayaran/{id}', [BendaharaPengujianSelesaiOrderController::class, 'updateBuktiPembayaran'])->name('updateBuktiPembayaran');
+    });
+    // ==========================================================
+
+
+    //pengambilan sampel order bendahara
+    Route::prefix('pengambilanSampel')->name('pengambilanSampel.')->group(function () {
+        Route::get('', [BendaharaPengambilanSampelOrderController::class, 'index'])->name('index');
+        Route::get('detailOrder/{id}', [BendaharaPengambilanSampelOrderController::class, 'detailOrder'])->name('detailOrder');
+        // Route::get('getOrder/{id}', [PengambilanSampelOrderController::class, 'getOrder'])->name('getOrder');
+       
+        Route::put('gantiStatus', [BendaharaPengambilanSampelOrderController::class, 'gantiStatus'])->name('gantiStatus');
+        Route::get('cetakInvoice/{id}', [BendaharaPengambilanSampelOrderController::class, 'cetakInvoice'])->name('cetakInvoice');
+        Route::get('cetakSkr/{id}', [BendaharaPengambilanSampelOrderController::class, 'cetakSkr'])->name('cetakSkr');
+        Route::get('cetakTbp/{id}', [BendaharaPengambilanSampelOrderController::class, 'cetakTbp'])->name('cetakTbp');
+
+        Route::get('showBuktiPembayaran/{id}', [BendaharaPengambilanSampelOrderController::class, 'showBuktiPembayaran'])->name('showBuktiPembayaran');
+        Route::put('updateBuktiPembayaran/{id}', [BendaharaPengambilanSampelOrderController::class, 'updateBuktiPembayaran'])->name('updateBuktiPembayaran');
+    });
+
+
+    //pengambilan sampel order bendahara SELESAIIII
+    Route::prefix('pengambilanSampelSelesai')->name('pengambilanSampelSelesai.')->group(function () {
+        Route::get('', [BendaharaPengambilanSampelSelesaiController::class, 'index'])->name('index');
+        Route::get('detailOrder/{id}', [BendaharaPengambilanSampelSelesaiController::class, 'detailOrder'])->name('detailOrder');
+        // Route::get('getOrder/{id}', [PengambilanSampelSelesaiController::class, 'getOrder'])->name('getOrder');
+        Route::put('gantiStatus', [BendaharaPengambilanSampelSelesaiController::class, 'gantiStatus'])->name('gantiStatus');
+        Route::get('cetakInvoice/{id}', [BendaharaPengambilanSampelSelesaiController::class, 'cetakInvoice'])->name('cetakInvoice');
+        Route::get('cetakSkr/{id}', [BendaharaPengambilanSampelSelesaiController::class, 'cetakSkr'])->name('cetakSkr');
+        Route::get('cetakTbp/{id}', [BendaharaPengambilanSampelSelesaiController::class, 'cetakTbp'])->name('cetakTbp');
+
+        Route::get('showBuktiPembayaran/{id}', [BendaharaPengambilanSampelSelesaiController::class, 'showBuktiPembayaran'])->name('showBuktiPembayaran');
+        Route::put('updateBuktiPembayaran/{id}', [BendaharaPengambilanSampelSelesaiController::class, 'updateBuktiPembayaran'])->name('updateBuktiPembayaran');
+    });
+});
+
+
+//SELESAI BENDAHARA
+
+
+
 
 //bagian pelanggan
 Route::prefix('pelanggan')->name('pelanggan.')->middleware(['auth', 'isPelanggan'])->group(function () {

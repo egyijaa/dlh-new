@@ -93,7 +93,7 @@
         <br>
         <br>
         <br>
-        (Estiningtiyas)
+        ({{ $penyelia->nama }})
         </div>
     </div>
     <div class="parent">

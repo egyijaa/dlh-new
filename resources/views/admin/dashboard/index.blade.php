@@ -38,7 +38,7 @@
                             <div class="col-7 col-stats">
                                 <div class="numbers">
                                     <p class="card-category">Sampel</p>
-                                    <h4 class="card-title">1303</h4>
+                                    <h4 class="card-title">{{ $sampel }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -56,8 +56,12 @@
                             </div>
                             <div class="col-7 col-stats">
                                 <div class="numbers">
-                                    <p class="card-category">Orderan Total</p>
-                                    <h4 class="card-title">Rp 2.000.500</h4>
+                                    <p class="card-category">Pendapatan Total</p>
+                                    @php
+                                        $pendapatan_total = $pendapatan_pengujian + $pendapatan_pengambilan;
+                                    @endphp
+
+                                    <h4 class="card-title">@currency($pendapatan_total)</h4>
                                 </div>
                             </div>
                         </div>
@@ -76,7 +80,7 @@
                             <div class="col-7 col-stats">
                                 <div class="numbers">
                                     <p class="card-category">Sertifikat</p>
-                                    <h4 class="card-title">12</h4>
+                                    <h4 class="card-title">{{ $sertifikat }}</h4>
                                 </div>
                             </div>
                         </div>

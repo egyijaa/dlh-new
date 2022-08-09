@@ -64,9 +64,9 @@
                                             <a href="{{ route('admin.pengujian.getOrder', $p->id) }}" class="btn btn-xs btn-primary shadow-sm my-1">
                                                 <i class="fas fa-pencil fa-sm text-white-50"></i>Lihat Sampel
                                             </a>
-                                            @if ($p->id_status_pengujian != 3)
+                                           
                                             <a href="#" class="btn btn-warning btn-xs my-1" data-target="#status" data-toggle="modal" data-id="{{ $p->id }}" data-status="{{ $p->statusPengujian->id }}">Ganti Status</a>
-                                            @endif
+                                          
                                             @if ($p->id_status_pengujian >= 4)
                                             <a href="{{ route('admin.pengujian.cetakInvoice', $p->id) }}" target="_blank"><i class="btn btn-xs my-1 btn-primary shadow-sm">Cetak Invoice</i></a> 
                                             <a href="{{ route('admin.pengujian.cetakSkr', $p->id) }}" target="_blank"><i class="btn btn-xs btn-primary my-1 shadow-sm">Cetak SKR</i></a> 

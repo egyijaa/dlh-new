@@ -21,16 +21,10 @@
                                 <div class="d-none d-lg-inline-block">
                                     <ul class="nav nav-pills me-1">
                                         <li class="nav-item pe-2 mx-1">
-                                            <a href="http://www.facebook.com/" target="_blank" title="Facebook" class="text-color-dark text-color-hover-primary text-2"><i class="fab fa-facebook-f"></i></a>
+                                            <a href="http://www.facebook.com/{{ $beranda->fb }}" target="_blank" title="Facebook" class="text-color-dark text-color-hover-primary text-2"><i class="fab fa-facebook-f"></i></a>
                                         </li>
                                         <li class="nav-item px-2 mx-1">
-                                            <a href="http://www.twitter.com/" target="_blank" title="Twitter" class="text-color-dark text-color-hover-primary text-2"><i class="fab fa-twitter"></i></a>
-                                        </li>
-                                        <li class="nav-item px-2 mx-1">
-                                            <a href="http://www.instagram.com/" target="_blank" title="Instagram" class="text-color-dark text-color-hover-primary text-2"><i class="fab fa-instagram"></i></a>
-                                        </li>
-                                        <li class="nav-item px-2 mx-1 me-0 pe-0">
-                                            <a href="http://www.linkedin.com/" target="_blank" title="Linkedin" class="text-color-dark text-color-hover-primary text-2"><i class="fab fa-linkedin-in"></i></a>
+                                            <a href="http://www.instagram.com/{{ $beranda->ig }}" target="_blank" title="Instagram" class="text-color-dark text-color-hover-primary text-2"><i class="fab fa-instagram"></i></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -59,13 +53,13 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="nav-link" href="#">
+                                                    <a class="nav-link" href="#" >
                                                         Cek Sertifikat
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="nav-link" href="#">
-                                                        Metode Pembayaran
+                                                    <a class="nav-link" href="{{ url('frontend/UserManualDLH.pdf') }}" target="_blank">
+                                                        Buku Panduan
                                                     </a>
                                                 </li>
                                                 <li>
@@ -86,6 +80,8 @@
                                 <a href="{{ route('pelanggan.dashboard.index') }}" class="btn btn-modern btn-primary font-weight-bold border-0 btn-arrow-effect-1">Dashboard <i class="fas fa-arrow-right ms-2"></i></a>
                                 @elseif (Auth::user()->role == 1)
                                 <a href="{{ route('admin.dashboard.index') }}" class="btn btn-modern btn-primary font-weight-bold border-0 btn-arrow-effect-1">Dashboard Admin <i class="fas fa-arrow-right ms-2"></i></a>
+                                @elseif (Auth::user()->role == 2)
+                                <a href="{{ route('bendahara.dashboard.index') }}" class="btn btn-modern btn-primary font-weight-bold border-0 btn-arrow-effect-1">Dashboard Bendahara <i class="fas fa-arrow-right ms-2"></i></a>
                                 @endif
                                     <form action="{{ url('logout') }}" method="POST" class="btn btn-modern">
                                         @csrf
@@ -219,10 +215,10 @@
                             <div class="card-body text-center text-lg-start m-2 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="100" data-plugin-options="{'minWindowWidth': 0}">
                                 <img height="90" src="{{ url('frontend/img/demos/event/icons/successfull-stories.svg') }}" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-stroke-color-primary mb-4'}" />
                                 <h4 class="font-weight-bold mt-4">Visi & Misi</h4>
-                                <div class="row pt-5">
+                                <div class="row pt-4">
                                     <div class="col-6">     
 
-                                        <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#visi">
+                                        <button type="button" class="btn btn-outline btn-primary btn-lg mb-2" data-bs-toggle="modal" data-bs-target="#visi">
                                             Visi
                                         </button>
                                     </div>
@@ -456,7 +452,7 @@
                                         <div class="testimonial-author-thumbnail">
                                             <img src="{{ url('frontend/img/demos/industry-factory/testimonials/author-1.jpg') }}" class="img-fluid rounded-circle" alt="">
                                         </div>
-                                        <p class="ms-3"><strong class="font-weight-semibold text-color-dark text-4">Fikri Hanif</strong></p>
+                                        <p class="ms-3"><strong class="font-weight-semibold text-color-dark text-4">Fikri hanif</strong></p>
                                     </div>
                                 </div>
                             </div>
@@ -476,14 +472,7 @@
 
                         <div class="hstack gap-4 pt-3">
                             <div>
-                                <a href="#" class="btn btn-modern btn-primary font-weight-bold border-0 py-3 px-5 btn-arrow-effect-1 ws-nowrap">Ada Pertanyaan?<i class="fas fa-arrow-right ms-2"></i></a>
-                            </div>
-                            <div class="vr"></div>
-                            <div>
-                                <a href="https://api.whatsapp.com/send?phone={{ $beranda->wa }}&text=Halo%20Admin%21%20Saya%20mau%20bertanya." class="d-flex align-items-center text-decoration-none text-color-dark text-color-hover-primary font-weight-semibold ms-1" target="_blank">
-                                    <i class="icon icon-phone text-color-primary text-4-5 me-2"></i>
-                                    
-                                </a>
+                                <a href="#" class="btn btn-modern btn-primary font-weight-bold border-0 py-3 px-5 btn-arrow-effect-1 ws-nowrap">Ada Pertanyaan?<i class="fab fa-whatsapp ms-2"></i></a>
                             </div>
                         </div>
                     </div>
@@ -595,9 +584,9 @@
                 </div>
                 <div class="col-md-6 col-lg-3 mt-4 mt-md-0">
                     <h3 class="mb-3 text-4-5 text-color-light">Kontak Kami</h3>							
-                    <a href="tel:0123456789" class="d-flex align-items-center text-decoration-none text-color-primary text-color-hover-light font-weight-medium ms-1">
+                    <a href="" class="d-flex align-items-center text-decoration-none text-color-primary text-color-hover-light font-weight-medium ms-1">
                         <i class="icon icon-phone text-color-primary text-4-5 me-2"></i>
-                        Telp. (0561) 766980
+                        Telp. (0561) 748134
                     </a>
                 </div>
                 <div class="col-md-6 col-lg-4 mt-4 mt-lg-0">
@@ -611,23 +600,13 @@
                     <h3 class="mb-3 text-4-5 text-color-light">Follow Us</h3>
                     <ul class="social-icons social-icons-clean social-icons-medium">
                         <li class="social-icons-facebook">
-                            <a href="http://www.facebook.com/" target="_blank" title="Facebook">
+                            <a href="http://www.facebook.com/{{ $beranda->fb }}" target="_blank" title="Facebook">
                                 <i class="fab fa-facebook-f text-color-light"></i>
                             </a>
                         </li>
-                        <li class="social-icons-twitter">
-                            <a href="http://www.twitter.com/" target="_blank" title="Twitter">
-                                <i class="fab fa-twitter text-color-light"></i>
-                            </a>
-                        </li>
                         <li class="social-icons-instagram">
-                            <a href="http://www.instagram.com/" target="_blank" title="Instagram">
+                            <a href="http://www.instagram.com/{{ $beranda->ig }}" target="_blank" title="Instagram">
                                 <i class="fab fa-instagram text-color-light"></i>
-                            </a>
-                        </li>
-                        <li class="social-icons-linkedin">
-                            <a href="http://www.linkedin.com/" target="_blank" title="Linkedin">
-                                <i class="fab fa-linkedin text-color-light"></i>
                             </a>
                         </li>
                     </ul>

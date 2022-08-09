@@ -9,6 +9,7 @@ use App\Models\PengujianOrder;
 use App\Models\SampelOrder;
 use App\Models\SampelUji;
 use App\Models\ParameterSampel;
+use App\Models\Pejabat;
 use App\Models\Skr;
 use App\Models\StatusPengujian;
 use App\Models\Tbp;
@@ -265,7 +266,8 @@ class PengujianOrderController extends Controller
         $id_skr = Skr::where('id_pengujian_order', $id)->first()->id;
         $tanggal_skr = TimelinePengujian::where('id_pengujian_order', $id)->where('id_status_pengujian', 4)->latest()->first()->tanggal;
         $skr = Skr::findOrFail($id_skr);
-        $pdf = PDF::loadview('admin.pengujian_order.skr', compact('pengujian_order', 'skr', 'tanggal_skr'))->setPaper('a4', 'potrait');
+        $kadis = Pejabat::findOrFail(1);
+        $pdf = PDF::loadview('admin.pengujian_order.skr', compact('pengujian_order', 'skr', 'tanggal_skr', 'kadis'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 
@@ -274,7 +276,8 @@ class PengujianOrderController extends Controller
         $id_tbp = Tbp::where('id_pengujian_order', $id)->first()->id;
         $tbp = Tbp::findOrFail($id_tbp);
         $no_skr = Skr::where('id_pengujian_order', $id)->first()->no_skr;
-        $pdf = PDF::loadview('admin.pengujian_order.tbp', compact('pengujian_order', 'tbp', 'no_skr'))->setPaper('a4', 'potrait');
+        $bendahara = Pejabat::findOrFail(2);
+        $pdf = PDF::loadview('admin.pengujian_order.tbp', compact('pengujian_order', 'tbp', 'no_skr', 'bendahara'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 
@@ -307,8 +310,10 @@ class PengujianOrderController extends Controller
         $id_sampel_order = $sampel;
         $tanggal_diterima_sampel = TimelinePengujian::where('id_pengujian_order', $id_order_pengujian)->where('id_status_pengujian', 6)->latest()->first()->tanggal;
         $sampel_order = SampelOrder::with('parameterSampelOrder')->findOrFail($id_sampel_order);
+        $teknis = Pejabat::findOrFail(3);
+        $penyelia = Pejabat::findOrFail(4);
 
-        $pdf = PDF::loadview('admin.pengujian_order.laporan_sementara', compact('sampel_order', 'tanggal_diterima_sampel'))->setPaper('a4', 'potrait');
+        $pdf = PDF::loadview('admin.pengujian_order.laporan_sementara', compact('sampel_order', 'tanggal_diterima_sampel', 'teknis', 'penyelia'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 
@@ -322,8 +327,8 @@ class PengujianOrderController extends Controller
         $tanggal_terbit_shu = TimelinePengujian::where('id_pengujian_order', $id_order_pengujian)->where('id_status_pengujian', 11)->latest()->first()->tanggal;
 
         $tanggal_selesai_analisis =  TimelinePengujian::where('id_pengujian_order', $id_order_pengujian)->where('id_status_pengujian', 9)->latest()->first()->tanggal;
-
-        $pdf = PDF::loadview('admin.pengujian_order.sertifikat', compact('sampel_order', 'tanggal_diterima_sampel', 'tanggal_terbit_shu', 'tanggal_selesai_analisis'))->setPaper('a4', 'potrait');
+        $teknis = Pejabat::findOrFail(3);
+        $pdf = PDF::loadview('admin.pengujian_order.sertifikat', compact('sampel_order', 'tanggal_diterima_sampel', 'tanggal_terbit_shu', 'tanggal_selesai_analisis', 'teknis'))->setPaper('a4', 'potrait');
 	    return $pdf->stream();
     }
 

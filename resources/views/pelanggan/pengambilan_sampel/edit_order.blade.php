@@ -203,9 +203,11 @@
                                         @enderror
                                     </div>
                                     <div class="col-6">
-                                        <label for="persyaratan_pelanggan"><b>Persyaratan Pelanggan</b> <i><small>(Jika ada)</small></i></label>
-                                        <input type="text" class="form-control @error('persyaratan_pelanggan') is-invalid @enderror" id="persyaratan_pelanggan" name="persyaratan_pelanggan" value="{{ $pengambilan->persyaratan_pelanggan }}">
-                                        @error('persyaratan_pelanggan')
+                                        <label for="jumlah_titik_sampling"><b>Jumlah Titik Sampling*</b></label>
+                                        <input type="number"
+                                            class="form-control @error('jumlah_titik_sampling') is-invalid @enderror"
+                                            id="jumlah_titik_sampling" name="jumlah_titik_sampling" value="{{ $pengambilan->jumlah_titik_sampling }}" required min="1">
+                                        @error('jumlah_titik_sampling')
                                         <div class="invalid-feedback">
                                             {{$message}}
                                         </div>
@@ -248,11 +250,9 @@
                                     </div>
                                     <div class="col-md-6 col-lg-6">
                                         <div class="form-group">
-                                            <label for="jumlah_titik_sampling"><b>Jumlah Titik Sampling*</b></label>
-                                            <input type="number"
-                                                class="form-control @error('jumlah_titik_sampling') is-invalid @enderror"
-                                                id="jumlah_titik_sampling" name="jumlah_titik_sampling" value="{{ $pengambilan->jumlah_titik_sampling }}" required>
-                                            @error('jumlah_titik_sampling')
+                                            <label for="persyaratan_pelanggan"><b>Persyaratan Pelanggan</b> <i><small>(Jika ada)</small></i></label>
+                                            <input type="text" class="form-control @error('persyaratan_pelanggan') is-invalid @enderror" id="persyaratan_pelanggan" name="persyaratan_pelanggan" value="{{ $pengambilan->persyaratan_pelanggan }}">
+                                            @error('persyaratan_pelanggan')
                                             <div class="invalid-feedback">
                                                 {{$message}}
                                             </div>
@@ -332,6 +332,16 @@
         today = yyyy + '-' + mm + '-' + dd;
         document.getElementById("tanggal_sampling").setAttribute("min", today);
 
+        const picker = document.getElementById('tanggal_sampling');
+        picker.addEventListener('input', function(e){
+            var day = new Date(this.value).getUTCDay();
+            if([6,0].includes(day)){
+                e.preventDefault();
+                this.value = '';
+                swal("Disabled!", "Sampling Tidak Tersedia Pada Hari Sabtu dan Minggu!", "warning");
+            }
+        });
+
         $(".hargaSampel").change(function () {
             console.log($("#jumlah_titik_sampling").val());
             if ($("#jumlah_titik_sampling").val() != '') {
@@ -343,6 +353,17 @@
         });
         
         $("#jumlah_titik_sampling").keyup(function () {
+            if (!$("input[type='radio'][name='jenis_sampel']").is(":checked")) {
+                $("#harga").text(formatRupiah(0, 'Rp. '));
+            } else if ($("#jumlah_titik_sampling").val() != '') {
+                hitung();
+            } else {
+                $("#harga").text(formatRupiah($("input[type='radio'][name='jenis_sampel']:checked")
+                    .data('harga'), 'Rp. '));
+            }
+        });
+
+        $("#jumlah_titik_sampling").change(function () {
             if (!$("input[type='radio'][name='jenis_sampel']").is(":checked")) {
                 $("#harga").text(formatRupiah(0, 'Rp. '));
             } else if ($("#jumlah_titik_sampling").val() != '') {

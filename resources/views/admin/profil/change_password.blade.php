@@ -17,7 +17,7 @@
     {{ session('error') }}
 </div>
 @endif
-                                <form action="{{ route('admin.profil.savePassword', $item->id) }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('admin.profil.savePassword', auth()->user()->id) }}" method="POST" enctype="multipart/form-data">
                                     @method('PUT')
                                     @csrf
                                     <div class="row">

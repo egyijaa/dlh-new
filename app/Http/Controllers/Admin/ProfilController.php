@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfilController extends Controller
 {
-    public function changePassword($id)
+    public function changePassword()
     {
-        $item = User::findOrFail($id);
+        $item = User::findOrFail(auth()->user()->id);
 
         return view('admin.profil.change_password', [
             'item' => $item

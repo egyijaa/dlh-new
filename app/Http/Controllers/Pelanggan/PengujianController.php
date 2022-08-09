@@ -85,7 +85,12 @@ class PengujianController extends Controller
         $id_pengujian_order = $id;
         $pengujian_order = PengujianOrder::findOrFail($id);
 
-        return view('pelanggan.pengujian.detail_order', compact('id_pengujian_order', 'pengujian_order'));
+        if ($pengujian_order->id_user != auth()->user()->id) {
+            toast('Uppsss.. akses tidak diizinkan','error');
+            return redirect()->route('pelanggan.pengujian.index');
+        } else {
+            return view('pelanggan.pengujian.detail_order', compact('id_pengujian_order', 'pengujian_order'));
+        }
     }
 
     public function deleteOrder(Request $request)
@@ -105,7 +110,7 @@ class PengujianController extends Controller
         $id_pengujian_order = $id;
         $pengujian = PengujianOrder::findOrFail($id);
         if ($pengujian->id_user != auth()->user()->id) {
-            toast('Eitsss...Anda tidak boleh masuk ke orderan orang lain!','error');
+            toast('Uppsss...Akses tidak diizinkan!','error');
             return Redirect::route('pelanggan.pengujian.index');
         } else {
             $nomor_pre = PengujianOrder::where('id', $id_pengujian_order)->first()->nomor_pre;
@@ -134,8 +139,16 @@ class PengujianController extends Controller
         $id_pengujian_order = $id;
         $nomor_pre = PengujianOrder::where('id', $id_pengujian_order)->first()->nomor_pre;
 
-        $sampel = SampelUji::all();
-        return view('pelanggan.pengujian.create_sampel', compact('id_pengujian_order','nomor_pre','sampel'));
+        $cek_status = PengujianOrder::where('id', $id_pengujian_order)->first()->id_status_pengujian;
+        if ($cek_status != 1) {
+            toast('Uppsss...Akses tidak diizinkan!','error');
+            return Redirect::route('pelanggan.pengujian.index');
+        } else {
+            $sampel = SampelUji::all();
+            return view('pelanggan.pengujian.create_sampel', compact('id_pengujian_order','nomor_pre','sampel'));            
+        }
+        
+
     }
 
     // public function generateNoUji(){
@@ -162,55 +175,62 @@ class PengujianController extends Controller
     }
 
     public function createSampelParameter(Request $request){
-        DB::beginTransaction();
-        $validatedData = $request->validate([
-            'id_pengujian_order' => 'required',
-            'kode_sampel' => 'required',
-            'asal_sampel' => 'required',
-        ]);
-
-        $year_now = date("Y");
-        try {
-            $sampel_order = SampelOrder::create([
-                'id_pengujian_order' =>  $request->id_pengujian_order,
-                'id_sampel_uji' =>  $request->sampel,
-                'kode_sampel' =>  $request->kode_sampel,
-                'asal_sampel' =>  $request->asal_sampel,
-                'catatan_pelanggan' => $request->catatan_pelanggan,
-                'nomor_uji' => $this->generateNoUji(),
-                'nomor_sertifikat' => $this->generateNoUji() . '/SHU/LABLING/' . $year_now,
-                'harga' => ''
-                
+        $cek_status = PengujianOrder::where('id', $request->id_pengujian_order)->first()->id_status_pengujian;
+        if ($cek_status != 1) {
+            toast('Uppsss...Akses tidak diizinkan!','error');
+            return Redirect::route('pelanggan.pengujian.index');
+        } else {
+            DB::beginTransaction();
+            $validatedData = $request->validate([
+                'id_pengujian_order' => 'required',
+                'kode_sampel' => 'required',
+                'asal_sampel' => 'required',
             ]);
-            $total = [];
-            for($i = 0; $i < count($request->parameter); $i++){
-                $harga_parameter = ParameterSampel::where('id', $request->parameter[$i])->first()->harga;
-                ParameterSampelOrder::create([
-                    'id_sampel_order' => $sampel_order->id,
-                    'id_parameter_sampel' => $request->parameter[$i],
+    
+            $year_now = date("Y");
+            try {
+                $sampel_order = SampelOrder::create([
+                    'id_pengujian_order' =>  $request->id_pengujian_order,
+                    'id_sampel_uji' =>  $request->sampel,
+                    'kode_sampel' =>  $request->kode_sampel,
+                    'asal_sampel' =>  $request->asal_sampel,
+                    'catatan_pelanggan' => $request->catatan_pelanggan,
+                    'nomor_uji' => $this->generateNoUji(),
+                    'nomor_sertifikat' => $this->generateNoUji() . '/SHU/LABLING/' . $year_now,
+                    'harga' => ''
+                    
                 ]);
-                $total[] = $harga_parameter;
-            } 
-            //coba tambahkan total di SampelOrder
-            $totalFinal = array_sum($total);
-            $s = SampelOrder::find($sampel_order->id);
-            $s->harga = $totalFinal;
-            $s->save();
-
-            //sub total biaya dimasukkan ke pengujian order
-            $total_harga = SampelOrder::where('id_pengujian_order', $request->id_pengujian_order)->sum('harga');
-            $pengujian_order = PengujianOrder::find($request->id_pengujian_order);
-            $pengujian_order->total_harga = $total_harga;
-            $pengujian_order->save();
-
-            DB::commit();
-            toast('Data Sampel dan Parameter Berhasil Disimpan','success');
-            return Redirect::route('pelanggan.pengujian.getOrder', $request->id_pengujian_order);
-        } catch (\Exception $e) {
-            DB::rollback();
-            toast('Gagal menambah data')->autoClose(2000)->hideCloseButton();
-            return redirect()->back();
+                $total = [];
+                for($i = 0; $i < count($request->parameter); $i++){
+                    $harga_parameter = ParameterSampel::where('id', $request->parameter[$i])->first()->harga;
+                    ParameterSampelOrder::create([
+                        'id_sampel_order' => $sampel_order->id,
+                        'id_parameter_sampel' => $request->parameter[$i],
+                    ]);
+                    $total[] = $harga_parameter;
+                } 
+                //coba tambahkan total di SampelOrder
+                $totalFinal = array_sum($total);
+                $s = SampelOrder::find($sampel_order->id);
+                $s->harga = $totalFinal;
+                $s->save();
+    
+                //sub total biaya dimasukkan ke pengujian order
+                $total_harga = SampelOrder::where('id_pengujian_order', $request->id_pengujian_order)->sum('harga');
+                $pengujian_order = PengujianOrder::find($request->id_pengujian_order);
+                $pengujian_order->total_harga = $total_harga;
+                $pengujian_order->save();
+    
+                DB::commit();
+                toast('Data Sampel dan Parameter Berhasil Disimpan','success');
+                return Redirect::route('pelanggan.pengujian.getOrder', $request->id_pengujian_order);
+            } catch (\Exception $e) {
+                DB::rollback();
+                toast('Gagal menambah data')->autoClose(2000)->hideCloseButton();
+                return redirect()->back();
+            }
         }
+ 
     }
 
     public function editSampelParameter($id)
@@ -219,8 +239,8 @@ class PengujianController extends Controller
         $id_pengujian_order = $sampel_order->id_pengujian_order;
         $pengujian = PengujianOrder::findOrFail($id_pengujian_order);
 
-        if ($pengujian->id_user != auth()->user()->id) {
-            toast('Eitsss...Anda tidak boleh masuk ke orderan orang lain!','error');
+        if ($pengujian->id_user != auth()->user()->id || $pengujian->id_status_pengujian != 1) {
+            toast('Uppss... Akses tidak diizinkan!','error');
             return Redirect::route('pelanggan.pengujian.index');
         } else {
             $sampel = SampelUji::all();
@@ -341,17 +361,30 @@ class PengujianController extends Controller
     public function tracking(Request $request, $id){
 
         $timeline = TimelinePengujian::where('id_pengujian_order', $id)->orderBy('id', 'DESC')->get();
+
+        $pengujian = PengujianOrder::find($id);
     
         $nomor_order = PengujianOrder::where('id', $id)->first()->nomor_pre;
 
-        return view('pelanggan.pengujian.tracking', compact('timeline', 'nomor_order'));
+        if ($pengujian->id_user != auth()->user()->id) {
+            toast('Uppss... Akses tidak diizinkan!','error');
+            return Redirect::route('pelanggan.pengujian.index');
+        } else {
+            return view('pelanggan.pengujian.tracking', compact('timeline', 'nomor_order'));
+        }
     }
 
     public function showInvoice($id){
 
         $pengujian_order = PengujianOrder::with('sampelOrder')->findOrFail($id);
-        $tanggal_buat = TimelinePengujian::where('id_pengujian_order', $id)->where('id_status_pengujian', 4)->latest()->first()->tanggal;
-        return view('pelanggan.pengujian.show_invoice', compact('pengujian_order', 'tanggal_buat'));
+
+        if ($pengujian_order->id_user != auth()->user()->id) {
+            toast('Uppss... Akses tidak diizinkan!','error');
+            return Redirect::route('pelanggan.pengujian.index');
+        } else {
+            $tanggal_buat = TimelinePengujian::where('id_pengujian_order', $id)->where('id_status_pengujian', 4)->latest()->first()->tanggal;
+            return view('pelanggan.pengujian.show_invoice', compact('pengujian_order', 'tanggal_buat'));   
+        }
     }
 
     public function buktiPembayaran(Request $request){
@@ -381,21 +414,35 @@ class PengujianController extends Controller
     public function cetakInvoice($id){
 
         $pengujian_order = PengujianOrder::with('sampelOrder')->findOrFail($id);
-        $tanggal_buat = TimelinePengujian::where('id_pengujian_order', $id)->where('id_status_pengujian', 4)->latest()->first()->tanggal;
-        $pdf = PDF::loadview('pelanggan.pengujian.invoice', compact('pengujian_order', 'tanggal_buat'))->setPaper('a4', 'potrait');
-	    return $pdf->stream();
+
+        if ($pengujian_order->id_user != auth()->user()->id) {
+            toast('Uppss... Akses tidak diizinkan!','error');
+            return Redirect::route('pelanggan.pengujian.index');
+        } else {
+            $tanggal_buat = TimelinePengujian::where('id_pengujian_order', $id)->where('id_status_pengujian', 4)->latest()->first()->tanggal;
+            $pdf = PDF::loadview('pelanggan.pengujian.invoice', compact('pengujian_order', 'tanggal_buat'))->setPaper('a4', 'potrait');
+            return $pdf->stream();
+        }
     }
 
     public function hasilUji($order ,$id){
-        $parameter_order = ParameterSampelOrder::where('id_sampel_order', $id)->get();
-        $nomor_order = $order;
-        $id_sampel_order = $id;
-        $sampel = SampelOrder::where('id', $id)->first()->id_sampel_uji;
-        $kode_sampel = SampelOrder::where('id', $id)->first()->kode_sampel;
-        $nama_sampel = SampelUji::where('id', $sampel)->first()->nama_sampel;
         $id_pengujian_order = SampelOrder::where('id', $id)->first()->id_pengujian_order;
 
-        return view('pelanggan.pengujian.hasil_uji', compact('parameter_order', 'nomor_order', 'nama_sampel', 'kode_sampel', 'id_pengujian_order', 'id_sampel_order'));
+        $cek = PengujianOrder::find($id_pengujian_order);
+
+        if ($cek->id_user != auth()->user()->id) {
+            toast('Uppss... Akses tidak diizinkan!','error');
+            return Redirect::route('pelanggan.pengujian.index');
+        } else {
+            $parameter_order = ParameterSampelOrder::where('id_sampel_order', $id)->get();
+            $nomor_order = $order;
+            $id_sampel_order = $id;
+            $sampel = SampelOrder::where('id', $id)->first()->id_sampel_uji;
+            $kode_sampel = SampelOrder::where('id', $id)->first()->kode_sampel;
+            $nama_sampel = SampelUji::where('id', $sampel)->first()->nama_sampel;
+    
+            return view('pelanggan.pengujian.hasil_uji', compact('parameter_order', 'nomor_order', 'nama_sampel', 'kode_sampel', 'id_pengujian_order', 'id_sampel_order'));
+        }
     }
 
 

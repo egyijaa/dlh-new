@@ -108,8 +108,10 @@
                                         <input type="date" class="form-control @error('tanggal_sampling') is-invalid @enderror" id="tanggal_sampling" name="tanggal_sampling" value="{{ $pengambilan->tanggal_sampling }}"  required readonly>
                                     </div>
                                     <div class="col-6">
-                                        <label for="persyaratan_pelanggan"><b>Persyaratan Pelanggan</b> <i><small>(Jika ada)</small></i></label>
-                                        <input type="text" class="form-control @error('persyaratan_pelanggan') is-invalid @enderror" id="persyaratan_pelanggan" name="persyaratan_pelanggan" value="{{ $pengambilan->persyaratan_pelanggan }}" readonly>
+                                            <label for="jumlah_titik_sampling"><b>Jumlah Titik Sampling*</b></label>
+                                            <input type="number"
+                                                class="form-control @error('jumlah_titik_sampling') is-invalid @enderror"
+                                                id="jumlah_titik_sampling" name="jumlah_titik_sampling" value="{{ $pengambilan->jumlah_titik_sampling }}" required readonly>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
@@ -133,10 +135,8 @@
                                     </div>
                                     <div class="col-md-6 col-lg-6">
                                         <div class="form-group">
-                                            <label for="jumlah_titik_sampling"><b>Jumlah Titik Sampling*</b></label>
-                                            <input type="number"
-                                                class="form-control @error('jumlah_titik_sampling') is-invalid @enderror"
-                                                id="jumlah_titik_sampling" name="jumlah_titik_sampling" value="{{ $pengambilan->jumlah_titik_sampling }}" required readonly>
+                                            <label for="persyaratan_pelanggan"><b>Persyaratan Pelanggan</b> <i><small>(Jika ada)</small></i></label>
+                                            <input type="text" class="form-control @error('persyaratan_pelanggan') is-invalid @enderror" id="persyaratan_pelanggan" name="persyaratan_pelanggan" value="{{ $pengambilan->persyaratan_pelanggan }}" readonly>
                                         </div>
                                     </div>
                                 </div>

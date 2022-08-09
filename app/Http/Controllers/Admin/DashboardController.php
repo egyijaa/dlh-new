@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\PengambilanSampelOrder;
 use App\Models\PengujianOrder;
 use App\Models\User;
+use App\Models\SampelOrder;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 
@@ -26,6 +27,9 @@ class DashboardController extends Controller
         $cek_pengujian = PengujianOrder::where('id_status_pengujian', 2)->orderBy('updated_at', 'DESC')->limit(20)->get();
         $cek_pengambilan = PengambilanSampelOrder::where('id_status_pengambilan_sampel', 2)->orderBy('updated_at', 'DESC')->limit(20)->get();
 
-        return view('admin.dashboard.index', compact('pelanggan', 'pengujian_selesai', 'pengambilan_selesai', 'pendapatan_pengujian', 'pendapatan_pengambilan', 'info_bayar_pengambilan', 'info_bayar_pengujian', 'cek_pengujian', 'cek_pengambilan'));
+        $sertifikat = SampelOrder::where('foto_shu2', '!=', null)->count();
+        $sampel = SampelOrder::count();
+
+        return view('admin.dashboard.index', compact('pelanggan', 'pengujian_selesai', 'pengambilan_selesai', 'pendapatan_pengujian', 'pendapatan_pengambilan', 'info_bayar_pengambilan', 'info_bayar_pengujian', 'cek_pengujian', 'cek_pengambilan', 'sertifikat', 'sampel'));
     }
 }

@@ -105,15 +105,19 @@ class PengambilanSampelController extends Controller
 
     public function detailOrder($id){
         $pengambilan = PengambilanSampelOrder::findOrFail($id);
-
-        return view('pelanggan.pengambilan_sampel.detail_order', compact('pengambilan'));
+        if ($pengambilan->id_user != auth()->user()->id) {
+            toast('Uppsss.. akses tidak diizinkan','error');
+            return redirect()->route('pelanggan.pengambilanSampel.index');
+        } else {
+            return view('pelanggan.pengambilan_sampel.detail_order', compact('pengambilan'));
+        }
     }
 
     public function editOrder($id)
     {
         $pengambilan = PengambilanSampelOrder::findOrFail($id);
-        if ($pengambilan->id_status_pengambilan_sampel >= 2) {
-            toast('Eitsss...Data Tidak Dapat diubah','error');
+        if ($pengambilan->id_status_pengambilan_sampel >= 2 || $pengambilan->id_user != auth()->user()->id) {
+            toast('Uppsss...Akses tidak diizinkan','error');
             return redirect()->route('pelanggan.pengambilanSampel.index');
         } else {
             $tipe_pelanggan = TipePelanggan::all();
@@ -199,17 +203,26 @@ class PengambilanSampelController extends Controller
     public function tracking(Request $request, $id){
 
         $timeline = TimelinePengambilanSampel::where('id_pengambilan_sampel_order', $id)->orderBy('id', 'DESC')->get();
-    
-        $nomor_order = PengambilanSampelOrder::where('id', $id)->first()->nomor_pre;
-
-        return view('pelanggan.pengambilan_sampel.tracking', compact('timeline', 'nomor_order'));
+        $pengambilan = PengambilanSampelOrder::where('id', $id)->first()->id_user;
+        if ($pengambilan != auth()->user()->id) {
+            toast('Uppsss...Akses tidak diizinkan','error');
+            return redirect()->route('pelanggan.pengambilanSampel.index');
+        } else {
+            $nomor_order = PengambilanSampelOrder::where('id', $id)->first()->nomor_pre;
+            return view('pelanggan.pengambilan_sampel.tracking', compact('timeline', 'nomor_order'));   
+        }
     }
 
     public function showInvoice($id){
 
         $pengambilan_order = PengambilanSampelOrder::findOrFail($id);
-        $tanggal_buat = TimelinePengambilanSampel::where('id_pengambilan_sampel_order', $id)->where('id_status_pengambilan_sampel', 4)->latest()->first()->tanggal;
-        return view('pelanggan.pengambilan_sampel.show_invoice', compact('pengambilan_order', 'tanggal_buat'));
+        if ($pengambilan_order->id_user != auth()->user()->id) {
+            toast('Uppsss.. akses tidak diizinkan','error');
+            return redirect()->route('pelanggan.pengambilanSampel.index');
+        } else {
+            $tanggal_buat = TimelinePengambilanSampel::where('id_pengambilan_sampel_order', $id)->where('id_status_pengambilan_sampel', 4)->latest()->first()->tanggal;
+            return view('pelanggan.pengambilan_sampel.show_invoice', compact('pengambilan_order', 'tanggal_buat'));
+        }
     }
 
     public function buktiPembayaran(Request $request){
@@ -239,16 +252,27 @@ class PengambilanSampelController extends Controller
     public function cetakInvoice($id){
 
         $pengambilan_order = PengambilanSampelOrder::findOrFail($id);
-        $tanggal_buat = TimelinePengambilanSampel::where('id_pengambilan_sampel_order', $id)->where('id_status_pengambilan_sampel', 4)->latest()->first()->tanggal;
-        $pdf = PDF::loadview('pelanggan.pengambilan_sampel.invoice', compact('pengambilan_order', 'tanggal_buat'))->setPaper('a4', 'potrait');
-	    return $pdf->stream();
+
+        if ($pengambilan_order->id_user != auth()->user()->id) {
+            toast('Uppsss.. akses tidak diizinkan','error');
+            return redirect()->route('pelanggan.pengambilanSampel.index');
+        } else {
+            $tanggal_buat = TimelinePengambilanSampel::where('id_pengambilan_sampel_order', $id)->where('id_status_pengambilan_sampel', 4)->latest()->first()->tanggal;
+            $pdf = PDF::loadview('pelanggan.pengambilan_sampel.invoice', compact('pengambilan_order', 'tanggal_buat'))->setPaper('a4', 'potrait');
+            return $pdf->stream();
+        }
     }
 
     public function cetakBaPelanggan($id){
         $pengambilan = PengambilanSampelOrder::findOrFail($id);
 
-        $pdf = PDF::loadview('pelanggan.pengambilan_sampel.ba_pelanggan', compact('pengambilan'))->setPaper('a4', 'potrait');
-	    return $pdf->stream();
+        if ($pengambilan->id_user != auth()->user()->id) {
+            toast('Uppsss.. akses tidak diizinkan','error');
+            return redirect()->route('pelanggan.pengambilanSampel.index');
+        } else {
+            $pdf = PDF::loadview('pelanggan.pengambilan_sampel.ba_pelanggan', compact('pengambilan'))->setPaper('a4', 'potrait');
+            return $pdf->stream();
+        }
     }
 
 }

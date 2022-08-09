@@ -21,16 +21,10 @@
                                 <div class="d-none d-lg-inline-block">
                                     <ul class="nav nav-pills me-1">
                                         <li class="nav-item pe-2 mx-1">
-                                            <a href="http://www.facebook.com/" target="_blank" title="Facebook" class="text-color-dark text-color-hover-primary text-2"><i class="fab fa-facebook-f"></i></a>
+                                            <a href="http://www.facebook.com/{{ $beranda->fb }}" target="_blank" title="Facebook" class="text-color-dark text-color-hover-primary text-2"><i class="fab fa-facebook-f"></i></a>
                                         </li>
                                         <li class="nav-item px-2 mx-1">
-                                            <a href="http://www.twitter.com/" target="_blank" title="Twitter" class="text-color-dark text-color-hover-primary text-2"><i class="fab fa-twitter"></i></a>
-                                        </li>
-                                        <li class="nav-item px-2 mx-1">
-                                            <a href="http://www.instagram.com/" target="_blank" title="Instagram" class="text-color-dark text-color-hover-primary text-2"><i class="fab fa-instagram"></i></a>
-                                        </li>
-                                        <li class="nav-item px-2 mx-1 me-0 pe-0">
-                                            <a href="http://www.linkedin.com/" target="_blank" title="Linkedin" class="text-color-dark text-color-hover-primary text-2"><i class="fab fa-linkedin-in"></i></a>
+                                            <a href="http://www.instagram.com/{{ $beranda->ig }}" target="_blank" title="Instagram" class="text-color-dark text-color-hover-primary text-2"><i class="fab fa-instagram"></i></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -64,8 +58,8 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="nav-link" href="#">
-                                                        Metode Pembayaran
+                                                    <a class="nav-link" href="{{ url('frontend/UserManualDLH.pdf') }}" target="_blank">
+                                                        Buku Panduan
                                                     </a>
                                                 </li>
                                                 <li>
@@ -204,15 +198,12 @@
         <section class="border-0 p-relative">
 
             <div class="container">
-                <div class="row pt-5 pb-4">
+                <div class="row pb-4 pt-4">
                     <div class="col-md-8">
-                        <h3 class="font-weight-semibold text-9 text-capitalize mb-2">Our Locations</h3>
+                        <h3 class="font-weight-semibold text-9 text-capitalize mb-2">LOKASI</h3>
                         <div class="divider divider-small mt-0 mb-4">
                             <hr class="bg-primary">
                         </div>
-                    </div>
-                    <div class="col-md-4 text-md-end">
-                        <a href="#" class="btn btn-tertiary border-0 text-3-5 font-weight-semi-bold btn-px-5 btn-py-3 d-none d-md-inline-block">Request Rate</a>
                     </div>
                 </div>
             </div>
@@ -220,7 +211,7 @@
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-lg-10">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.8177994129705!2d109.32411331409578!3d-0.02927863555309829!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e1d58f96ca48811%3A0xca6dc22bf4279b0f!2sDinas%20Lingkungan%20Hidup%20Kota%20Pontianak!5e0!3m2!1sen!2sid!4v1657273551985!5m2!1sen!2sid" class="google-map m-0" style="min-height: 600px; border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.8177994129705!2d109.32411331409578!3d-0.02927863555309829!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e1d58f96ca48811%3A0xca6dc22bf4279b0f!2sDinas%20Lingkungan%20Hidup%20Kota%20Pontianak!5e0!3m2!1sen!2sid!4v1657273551985!5m2!1sen!2sid" class="google-map m-0" style="min-height: 200px; border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
@@ -233,6 +224,11 @@
         </section>
 
     </div>
+      <!-- WA float button -->
+      <a href="https://api.whatsapp.com/send?phone={{ $beranda->wa }}&text=Halo%20Admin%21%20Saya%20mau%20bertanya." class="float" target="_blank">
+        <i class="fab fa-whatsapp my-float"></i>
+      </a>
+
     <footer id="footer" class="position-relative bg-quaternary mt-0 border-top-0">		
         <div class="container container-xl-custom pt-5 pb-3">
             <div class="row pt-5">
@@ -242,9 +238,9 @@
                 </div>
                 <div class="col-md-6 col-lg-3 mt-4 mt-md-0">
                     <h3 class="mb-3 text-4-5 text-color-light">Kontak Kami</h3>							
-                    <a href="tel:0123456789" class="d-flex align-items-center text-decoration-none text-color-primary text-color-hover-light font-weight-medium ms-1">
+                    <a href="" class="d-flex align-items-center text-decoration-none text-color-primary text-color-hover-light font-weight-medium ms-1">
                         <i class="icon icon-phone text-color-primary text-4-5 me-2"></i>
-                        Telp. (0561) 766980
+                        Telp. (0561) 748134
                     </a>
                 </div>
                 <div class="col-md-6 col-lg-4 mt-4 mt-lg-0">
@@ -258,23 +254,13 @@
                     <h3 class="mb-3 text-4-5 text-color-light">Follow Us</h3>
                     <ul class="social-icons social-icons-clean social-icons-medium">
                         <li class="social-icons-facebook">
-                            <a href="http://www.facebook.com/" target="_blank" title="Facebook">
+                            <a href="http://www.facebook.com/{{ $beranda->fb }}" target="_blank" title="Facebook">
                                 <i class="fab fa-facebook-f text-color-light"></i>
                             </a>
                         </li>
-                        <li class="social-icons-twitter">
-                            <a href="http://www.twitter.com/" target="_blank" title="Twitter">
-                                <i class="fab fa-twitter text-color-light"></i>
-                            </a>
-                        </li>
                         <li class="social-icons-instagram">
-                            <a href="http://www.instagram.com/" target="_blank" title="Instagram">
+                            <a href="http://www.instagram.com/{{ $beranda->ig }}" target="_blank" title="Instagram">
                                 <i class="fab fa-instagram text-color-light"></i>
-                            </a>
-                        </li>
-                        <li class="social-icons-linkedin">
-                            <a href="http://www.linkedin.com/" target="_blank" title="Linkedin">
-                                <i class="fab fa-linkedin text-color-light"></i>
                             </a>
                         </li>
                     </ul>

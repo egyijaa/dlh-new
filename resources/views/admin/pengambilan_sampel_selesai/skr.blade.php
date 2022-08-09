@@ -178,8 +178,8 @@
             <br>
             <br>
             <br>
-            <u><b>dr. Saptiko, M.Med. PH</b></u><br>
-						NIP. 19661113 199603 1 003
+            <u><b>{{ $kadis->nama }}</b></u><br>
+						NIP. {{ $kadis->nip }}
             </td>
           </tr>
       </table>

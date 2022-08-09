@@ -107,8 +107,8 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item {{ request()->is('admin/profil/changePassword/*') ?'active' : '' }}">
-                    <a href="{{ route('admin.profil.changePassword', Auth::user()->id) }}">
+                <li class="nav-item {{ request()->is('admin/profil/changePassword') ?'active' : '' }}">
+                    <a href="{{ route('admin.profil.changePassword') }}">
                         <i class="fas fa-user"></i>
                         <p>Profile Saya</p>
                     </a>

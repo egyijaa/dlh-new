@@ -48,7 +48,8 @@ class HomeController extends Controller
 
     public function biaya(){
         $parameter = ParameterSampel::all();
+        $beranda = Beranda::findOrFail(1);
 
-        return view('frontend.biaya', compact('parameter'));
+        return view('frontend.biaya', compact('parameter', 'beranda'));
     }
 }

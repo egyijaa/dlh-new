@@ -201,7 +201,7 @@ function terbilang($nilai) {
         <br>
         <table style="width:100%; font-size: 12px; padding-left: 8px; padding-bottom: 8px;">
           <tr>
-              <td align="center">Mengetahui,<br>Bendahara Penerimaan<br><br><br><br><br><u>BAMBANG DARMAWAN, A.Md</u><br>NIP. 19770723 199803 1 003</td>
+              <td align="center">Mengetahui,<br>Bendahara Penerimaan<br><br><br><br><br><u>{{ $bendahara->nama }}</u><br>NIP. {{ $bendahara->nip }}</td>
               <td align="center">Pembayar/Penyetor<br><br><br><br><br>{{ $pengambilan_order->nama_pemesan }}</td>
           </tr>
       </table>

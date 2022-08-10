@@ -31,7 +31,7 @@
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="email"><strong>Email</strong></label>
-                                                <input type="email" class="form-control" name="email"  value="{{ $item->name }}" readonly>
+                                                <input type="email" class="form-control" name="email"  value="{{ $item->email }}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-6">

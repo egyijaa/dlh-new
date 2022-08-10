@@ -397,4 +397,5 @@ Route::get('/reload-captcha', [App\Http\Controllers\Auth\LoginController::class,
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/cek-biaya', [App\Http\Controllers\HomeController::class, 'biaya'])->name('biaya');
+Route::get('/cek-sertifikat', [App\Http\Controllers\HomeController::class, 'cekSertifikat'])->name('cekSertifikat');
 

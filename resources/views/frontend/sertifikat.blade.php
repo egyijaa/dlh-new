@@ -48,12 +48,12 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="nav-link active" href="{{ route('biaya') }}">
+                                                    <a class="nav-link" href="{{ route('biaya') }}">
                                                         Cek Biaya
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="nav-link" href="{{ route('cekSertifikat') }}" >
+                                                    <a class="nav-link active" href="{{ route('cekSertifikat') }}" >
                                                         Cek Sertifikat
                                                     </a>
                                                 </li>
@@ -80,6 +80,8 @@
                                 <a href="{{ route('pelanggan.dashboard.index') }}" class="btn btn-modern btn-primary font-weight-bold border-0 btn-arrow-effect-1">Dashboard <i class="fas fa-arrow-right ms-2"></i></a>
                                 @elseif (Auth::user()->role == 1)
                                 <a href="{{ route('admin.dashboard.index') }}" class="btn btn-modern btn-primary font-weight-bold border-0 btn-arrow-effect-1">Dashboard Admin <i class="fas fa-arrow-right ms-2"></i></a>
+                                @elseif (Auth::user()->role == 2)
+                                <a href="{{ route('bendahara.dashboard.index') }}" class="btn btn-modern btn-primary font-weight-bold border-0 btn-arrow-effect-1">Dashboard Bendahara <i class="fas fa-arrow-right ms-2"></i></a>
                                 @endif
                                     <form action="{{ url('logout') }}" method="POST" class="btn btn-modern">
                                         @csrf
@@ -107,91 +109,31 @@
                 <div class="row justify-content-center">
                     <div class="col-md-6 col-lg-7">
                         <div class="card-header d-flex justify-content-center">
-                            <h3 class="card-title">Daftar Harga</h3>
+                            <h3 class="card-title">Cek Sertifikat Pengujian</h3>
                           </div>
                     </div>
                 </div>
-                <div class="row row-gutter-sm justify-content-center pb-5 mb-1">
-                    <div class="card">
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                          <table id="example1" class="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                              <th>No</th>
-                              <th>Jenis Sampel</th>
-                              <th>Parameter</th>
-                              <th>Harga</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                    $i = 1;
-                                @endphp
-                            @foreach ($parameter as $item)
-                                <tr>
-                                    <td>{{ $i++ }}</td>
-                                    <td>{{  $item->sampelUji->nama_sampel  }}</td>
-                                    <td>{{ $item->nama_parameter }}</td>
-                                    <td> @currency($item->harga)</td>
-                                </tr>
-                            @endforeach
+                
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <hr class="solid my-5">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h2 class="font-weight-normal text-7 mb-2"><strong class="font-weight-extra-bold">Coming Soon</strong></h2>
+                            <p class="mb-0 lead">Mohon maaf, pengecekan sertifikat pengujian dalam proses pengerjaan.. Untuk Sementara Anda bisa melihat sertifikat pengujian anda pada halaman dashboard pelanggan yang berada pada Menu Order Lama > Pengujian. </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <hr class="solid my-5">
+                        </div>
+                    </div>
+                </div>
 
-                            </tbody>
-                          </table>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="overflow-hidden mb-4">
-                            <h2 class="text-color-dark font-weight-bold text-center text-8 line-height-2 mb-0 appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="500">Proses Layanan Kami</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row pt-lg-4">
-                    <div class="col position-relative">
-                        <div class="process custom-process-style-1 d-flex w-100 flex-column flex-lg-row pb-2 mb-4">
-                            <div class="process-step col-12 col-lg-3 mb-5 mb-lg-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
-                                <div class="process-step-circle">
-                                    <strong class="process-step-circle-content text-color-primary text-8">1</strong>
-                                </div>
-                                <div class="process-step-content px-5">
-                                    <h4 class="text-color-dark font-weight-bold text-4 line-height-1 mb-3">1. Pendaftaran</h4>
-                                    <p class="custom-font-secondary custom-text-size-1 px-3 mb-0">Silahkan Login / Register di website POLIS untuk membuat akun</p>
-                                </div>
-                            </div>
-                            <div class="process-step col-12 col-lg-3 mb-5 mb-lg-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
-                                <div class="process-step-circle">
-                                    <strong class="process-step-circle-content text-color-primary text-8">2</strong>
-                                </div>
-                                <div class="process-step-content px-5">
-                                    <h4 class="text-color-dark font-weight-bold text-4 line-height-1 mb-3">2. Pemesanan</h4>
-                                    <p class="custom-font-secondary custom-text-size-1 px-3 mb-0">Pilih Menu order baru, kemudian pilih layanan yang diinginkan</p>
-                                </div>
-                            </div>
-                            <div class="process-step col-12 col-lg-3 mb-5 mb-lg-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="600">
-                                <div class="process-step-circle">
-                                    <strong class="process-step-circle-content text-color-primary text-8">3</strong>
-                                </div>
-                                <div class="process-step-content px-5">
-                                    <h4 class="text-color-dark font-weight-bold text-4 line-height-1 mb-3">3. Proses Layanan</h4>
-                                    <p class="custom-font-secondary custom-text-size-1 px-3 mb-0">Silahkan isi formulir secara lengkap dari masing-masing layanan yang telah diberikan</p>
-                                </div>
-                            </div>
-                            <div class="process-step col-12 col-lg-3 mb-5 mb-lg-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
-                                <div class="process-step-circle">
-                                    <strong class="process-step-circle-content text-color-primary text-8">4</strong>
-                                </div>
-                                <div class="process-step-content px-5">
-                                    <h4 class="text-color-dark font-weight-bold text-4 line-height-1 mb-3">4. Pengambilan Hasil</h4>
-                                    <p class="custom-font-secondary custom-text-size-1 px-3 mb-0">Hasil dapat diambil di kantor DLH</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </section>
         
@@ -224,8 +166,9 @@
         </section>
 
     </div>
-      <!-- WA float button -->
-      <a href="https://api.whatsapp.com/send?phone={{ $beranda->wa }}&text=Halo%20Admin%21%20Saya%20mau%20bertanya." class="float" target="_blank">
+
+       <!-- WA float button -->
+       <a href="https://api.whatsapp.com/send?phone={{ $beranda->wa }}&text=Halo%20Admin%21%20Saya%20mau%20bertanya." class="float" target="_blank">
         <i class="fab fa-whatsapp my-float"></i>
       </a>
 

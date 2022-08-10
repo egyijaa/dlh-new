@@ -52,4 +52,11 @@ class HomeController extends Controller
 
         return view('frontend.biaya', compact('parameter', 'beranda'));
     }
+
+    public function cekSertifikat(){
+        $parameter = ParameterSampel::all();
+        $beranda = Beranda::findOrFail(1);
+
+        return view('frontend.sertifikat', compact('parameter', 'beranda'));
+    }
 }

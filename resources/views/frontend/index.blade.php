@@ -9,7 +9,7 @@
                         <div class="header-column">
                             <div class="header-row">
                                 <div class="header-logo m-0">
-                                    <a href="demo-renewable-energy.html">
+                                    <a href="/">
                                         <img alt="Porto" width="61" height="51" src="{{ url('frontend/img/demos/logopemkot.png') }}">
                                     </a>
                                 </div>
@@ -53,18 +53,18 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="nav-link" href="#" >
+                                                    <a class="nav-link" href="{{ route('cekSertifikat') }}" >
                                                         Cek Sertifikat
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="nav-link" href="{{ url('frontend/UserManualDLH.pdf') }}" target="_blank">
-                                                        Buku Panduan
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a class="nav-link" href="#tentang" data-hash="" data-hash-offset="0" data-hash-offset-lg="32">
                                                         Tentang Kami
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="nav-link" href="{{ url('frontend/UserManualDLH.pdf') }}" target="_blank">
+                                                        Buku Panduan
                                                     </a>
                                                 </li>
                                             </ul>
@@ -436,7 +436,7 @@
                                     </blockquote>
                                     <div class="testimonial-author">
                                         <div class="testimonial-author-thumbnail">
-                                            <img src="{{ url('frontend/img/demos/industry-factory/testimonials/author-1.jpg') }}" class="img-fluid rounded-circle" alt="">
+                                            <img src="{{ url('admin/img/user.png') }}" class="img-fluid rounded-circle" alt="">
                                         </div>
                                         <p class="ms-3"><strong class="font-weight-semibold text-color-dark text-4">{{ $t->user->name }}</strong></p>
                                     </div>
@@ -450,9 +450,9 @@
                                     </blockquote>
                                     <div class="testimonial-author">
                                         <div class="testimonial-author-thumbnail">
-                                            <img src="{{ url('frontend/img/demos/industry-factory/testimonials/author-1.jpg') }}" class="img-fluid rounded-circle" alt="">
+                                            <img src="{{ url('admin/img/user.png') }}" class="img-fluid rounded-circle" alt="">
                                         </div>
-                                        <p class="ms-3"><strong class="font-weight-semibold text-color-dark text-4">Fikri hanif</strong></p>
+                                        <p class="ms-3"><strong class="font-weight-semibold text-color-dark text-4">Egy Hanif</strong></p>
                                     </div>
                                 </div>
                             </div>

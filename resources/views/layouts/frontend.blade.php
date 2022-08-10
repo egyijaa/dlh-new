@@ -8,13 +8,12 @@
 
 		<title>Pontianak Laboratory Information System | POLIS</title>	
 
-		<meta name="keywords" content="WebSite Template" />
-		<meta name="description" content="Porto - Multipurpose Website Template">
-		<meta name="author" content="okler.net">
+		<meta name="keywords" content="Pontianak Laboratory Information System | POLIS" />
+		<meta name="description" content="Pontianak Laboratory Information System | POLIS">
 
 		<!-- Favicon -->
-		<link rel="shortcut icon" href="{{ url('frontend/img/favicon.ico') }}" type="image/x-icon" />
-		<link rel="apple-touch-icon" href="{{ url('frontend/img/apple-touch-icon.png') }}">
+		<link rel="shortcut icon" href="{{ url('frontend/logopemkot.webp') }}" type="image/x-icon" />
+		<link rel="apple-touch-icon" href="{{ url('frontend/logopemkot.webp') }}">
 
 		<!-- Mobile Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">

@@ -120,17 +120,59 @@
                             <hr class="solid my-5">
                         </div>
                     </div>
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-12 text-center">
                             <h2 class="font-weight-normal text-7 mb-2"><strong class="font-weight-extra-bold">Coming Soon</strong></h2>
                             <p class="mb-0 lead">Mohon maaf, pengecekan sertifikat pengujian dalam proses pengerjaan.. Untuk Sementara Anda bisa melihat sertifikat pengujian anda pada halaman dashboard pelanggan yang berada pada Menu Order Lama > Pengujian. </p>
                         </div>
-                    </div>
+                    </div> --}}
+                    @guest
                     <div class="row">
-                        <div class="col">
-                            <hr class="solid my-5">
+                        <div class="col-8">
+                            <p>Silahkan <a href="/login">Login</a> Terlebih dahulu...</p>
                         </div>
                     </div>
+                    @endguest
+                    @auth
+                    <div class="row row-gutter-sm justify-content-center pb-5 mb-1">
+                        <div class="card">
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                              <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                  <th>No</th>
+                                  <th>Nomor Order</th>
+                                  <th>Atas Nama</th>
+                                  <th>Nomor Sertifikat</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $i = 1;
+                                    @endphp
+                                @foreach ($pengujian as $p)
+                                    <tr>
+                                        <td>{{ $i++ }}</td>
+                                        <td>{{  $p->nomor_pre  }}</td>
+                                        <td>{{ $p->nama_pemesan }}</td>
+                                        <td>
+                                            @foreach ($p->sampelOrder as $sampel)
+                                                <li>{{ $sampel->nomor_sertifikat }} @if ($sampel->foto_shu1 && $sampel->foto_shu2)
+                                                    - <a href="{{ route('pelanggan.pengujianSelesai.cetakShuPelanggan', $sampel->id) }}" target="_blank"><i class="btn btn-xs btn-primary shadow-sm my-1">Lihat PDF Sertifikat</i></a> 
+                                                    @endif</li>
+                                            @endforeach
+                                        </td>
+                                    </tr>
+                                @endforeach
+    
+                                </tbody>
+                              </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                    @endauth
                 </div>
 
 

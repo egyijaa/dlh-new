@@ -22,7 +22,7 @@
                                         <th>Nama</th>
                                         <th>Email</th>
                                         <th>Role</th>
-                                        <th>Aksi</th>
+                                        {{-- <th>Aksi</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -36,13 +36,14 @@
                                         <td>{{ $a->email }}</td>
                                         <td>@if ($a->role == 1)
                                             Admin
-                                        @else
-                                            Tidak Tersedia
+                                        @elseif ($a->role == 2)
+                                            Bendahara
+                                        @elseif ($a->role == 3)
+                                            Helper (Berita Acara)
                                         @endif</td>
-                                        <td>
-                                            <a href="#" data-id="{{ $a->id }}" data-name="{{ $a->name }}" data-email="{{ $a->email }}" data-role="{{ $a->role }}" data-toggle="modal" data-target="#edit"><i class="fas fa-edit"></i></a> | 
-                                            {{-- <a href="#" data-target="#delete" data-toggle="modal" data-id="{{ $a->id }}"><i class="fas fa-trash"></i></a> --}}
-                                        </td>
+                                        {{-- <td>
+                                            <a href="#" data-id="{{ $a->id }}" data-name="{{ $a->name }}" data-email="{{ $a->email }}" data-role="{{ $a->role }}" data-toggle="modal" data-target="#edit"><i class="fas fa-edit"></i></a> 
+                                        </td> --}}
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -110,84 +111,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form action="{{ route('admin.sampel-uji.delete') }}" method="POST">
-                @csrf
-                @method('delete')
-                <input type="hidden" name="id">
-                <div class="modal-header">
-                    <h5 class="modal-title"><span>Hapus</span> Data Kategori</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Apakah Anda yakin ingin menghapus Data ini ?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-danger">Hapus</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade" id="tambah" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form action="{{ route('admin.sampel-uji.store') }}" method="POST">
-                @csrf
-                <input type="hidden" name="id">
-                <div class="modal-header">
-                    <h5 class="modal-title"><span>Tambah</span> Data Sampel Uji</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="nama_sampel">Nama Sampel</label>
-                        <input type="text" class="form-control @error('nama_sampel') is-invalid @enderror" id="nama_sampel" name="nama_sampel" required>
-                        @error('nama_sampel')
-                        <div class="invalid-feedback">
-                            {{$message}}
-                        </div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="harga">Harga</label>
-                        <input type="number" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" required>
-                        @error('harga')
-                        <div class="invalid-feedback">
-                            {{$message}}
-                        </div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="status">Tersedia?</label>
-                        <select name="status" id="status" class="custom-select @error('status') is-invalid @enderror">
-                            <option value="1">Tersedia</option>
-                            <option value="0">Tidak Tersedia</option>
-                        </select>
-                        @error('status')
-                        <div class="invalid-feedback">
-                            {{$message}}
-                        </div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 @endsection
 
 @push('scripts')

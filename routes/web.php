@@ -24,7 +24,13 @@ use App\Http\Controllers\Bendahara\PengujianSelesaiOrderController as BendaharaP
 use App\Http\Controllers\Bendahara\PengambilanSampelOrderController as BendaharaPengambilanSampelOrderController;
 use App\Http\Controllers\Bendahara\PengambilanSampelSelesaiController as BendaharaPengambilanSampelSelesaiController;
 
+//helper (bantu buat BA)
+use App\Http\Controllers\Helper\DashboardController as HelperDashboardController;
+use App\Http\Controllers\Helper\ProfilController as HelperProfilController;
+use App\Http\Controllers\Helper\PengambilanSampelOrderController as HelperPengambilanSampelOrderController;
+use App\Http\Controllers\Helper\PengambilanSampelSelesaiController as HelperPengambilanSampelSelesaiController;
 
+//pelanggan
 use App\Http\Controllers\Pelanggan\DashboardController as PelangganDashboardController;
 use App\Http\Controllers\Pelanggan\PengujianController as PelangganPengujianController;
 use App\Http\Controllers\Pelanggan\PengujianSelesaiController as PelangganPengujianSelesaiController;
@@ -273,11 +279,57 @@ Route::prefix('bendahara')->name('bendahara.')->middleware(['auth', 'isBendahara
         Route::put('updateBuktiPembayaran/{id}', [BendaharaPengambilanSampelSelesaiController::class, 'updateBuktiPembayaran'])->name('updateBuktiPembayaran');
     });
 });
-
-
 //SELESAI BENDAHARA
 
 
+//Utk Helper (yg bantu buat BA)
+Route::prefix('helper')->name('helper.')->middleware(['auth', 'isHelper'])->group(function () {
+    Route::prefix('dashboard')->name('dashboard.')->group(function () {
+        Route::get('', [HelperDashboardController::class, 'index'])->name('index');
+    });
+
+    Route::prefix('profil')->name('profil.')->group(function () {
+        Route::get('changePassword', [HelperProfilController::class, 'changePassword'])->name('changePassword');
+        Route::put('savePassword/{id}', [HelperProfilController::class, 'savePassword'])->name('savePassword');
+    });
+
+    //pengambilan sampel order helper
+    Route::prefix('pengambilanSampel')->name('pengambilanSampel.')->group(function () {
+        Route::get('', [HelperPengambilanSampelOrderController::class, 'index'])->name('index');
+        Route::get('detailOrder/{id}', [HelperPengambilanSampelOrderController::class, 'detailOrder'])->name('detailOrder');
+        // Route::get('getOrder/{id}', [PengambilanSampelOrderController::class, 'getOrder'])->name('getOrder');
+
+        Route::get('beritaAcara/{id}', [HelperPengambilanSampelOrderController::class, 'beritaAcara'])->name('beritaAcara');
+        Route::post('storeBeritaAcara', [HelperPengambilanSampelOrderController::class, 'storeBeritaAcara'])->name('storeBeritaAcara');
+        Route::put('updateBeritaAcara', [HelperPengambilanSampelOrderController::class, 'updateBeritaAcara'])->name('updateBeritaAcara');
+        Route::get('cetakBa/{id}', [HelperPengambilanSampelOrderController::class, 'cetakBa'])->name('cetakBa');
+        
+        Route::get('editBaPelanggan/{id}', [HelperPengambilanSampelOrderController::class, 'editBaPelanggan'])->name('editBaPelanggan');
+        Route::put('updateBaPelanggan/{id}', [HelperPengambilanSampelOrderController::class, 'updateBaPelanggan'])->name('updateBaPelanggan');
+        Route::get('cetakBaPelanggan/{id}', [HelperPengambilanSampelOrderController::class, 'cetakBaPelanggan'])->name('cetakBaPelanggan');
+    });
+
+
+    //pengambilan sampel order helper SELESAIIII
+    Route::prefix('pengambilanSampelSelesai')->name('pengambilanSampelSelesai.')->group(function () {
+        Route::get('', [HelperPengambilanSampelSelesaiController::class, 'index'])->name('index');
+        Route::get('detailOrder/{id}', [HelperPengambilanSampelSelesaiController::class, 'detailOrder'])->name('detailOrder');
+        // Route::get('getOrder/{id}', [PengambilanSampelOrderController::class, 'getOrder'])->name('getOrder');
+        Route::get('editOrder/{id}', [HelperPengambilanSampelSelesaiController::class, 'editOrder'])->name('editOrder');
+        Route::put('updateOrder/{id}', [HelperPengambilanSampelSelesaiController::class, 'updateOrder'])->name('updateOrder');
+
+        Route::get('beritaAcara/{id}', [HelperPengambilanSampelSelesaiController::class, 'beritaAcara'])->name('beritaAcara');
+        Route::post('storeBeritaAcara', [HelperPengambilanSampelSelesaiController::class, 'storeBeritaAcara'])->name('storeBeritaAcara');
+        Route::put('updateBeritaAcara', [HelperPengambilanSampelSelesaiController::class, 'updateBeritaAcara'])->name('updateBeritaAcara');
+        Route::get('cetakBa/{id}', [HelperPengambilanSampelSelesaiController::class, 'cetakBa'])->name('cetakBa');
+        
+        Route::get('editBaPelanggan/{id}', [HelperPengambilanSampelSelesaiController::class, 'editBaPelanggan'])->name('editBaPelanggan');
+        Route::put('updateBaPelanggan/{id}', [HelperPengambilanSampelSelesaiController::class, 'updateBaPelanggan'])->name('updateBaPelanggan');
+        Route::get('cetakBaPelanggan/{id}', [HelperPengambilanSampelSelesaiController::class, 'cetakBaPelanggan'])->name('cetakBaPelanggan');
+    });
+});
+
+//Selesai helper
 
 
 //bagian pelanggan

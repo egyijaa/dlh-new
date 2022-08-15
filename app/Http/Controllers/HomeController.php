@@ -53,10 +53,15 @@ class HomeController extends Controller
         return view('frontend.biaya', compact('parameter', 'beranda'));
     }
 
-    public function cekSertifikat(){
+    public function cekSertifikat(Request $request){
         $parameter = ParameterSampel::all();
         $beranda = Beranda::findOrFail(1);
 
-        return view('frontend.sertifikat', compact('parameter', 'beranda'));
+        if (Auth::check()) {
+            $pengujian = PengujianOrder::with('sampelOrder')->where('id_user', auth()->user()->id)->where('id_status_pengujian', 13 )->orderBy('id', 'DESC')->get();
+            return view('frontend.sertifikat', compact('parameter', 'beranda', 'pengujian'));
+        } else {
+            return view('frontend.sertifikat', compact('parameter', 'beranda'));
+        }
     }
 }

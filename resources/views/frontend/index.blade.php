@@ -82,6 +82,8 @@
                                 <a href="{{ route('admin.dashboard.index') }}" class="btn btn-modern btn-primary font-weight-bold border-0 btn-arrow-effect-1">Dashboard Admin <i class="fas fa-arrow-right ms-2"></i></a>
                                 @elseif (Auth::user()->role == 2)
                                 <a href="{{ route('bendahara.dashboard.index') }}" class="btn btn-modern btn-primary font-weight-bold border-0 btn-arrow-effect-1">Dashboard Bendahara <i class="fas fa-arrow-right ms-2"></i></a>
+                                @elseif (Auth::user()->role == 3)
+                                <a href="{{ route('helper.dashboard.index') }}" class="btn btn-modern btn-primary font-weight-bold border-0 btn-arrow-effect-1">Dashboard Helper <i class="fas fa-arrow-right ms-2"></i></a>
                                 @endif
                                     <form action="{{ url('logout') }}" method="POST" class="btn btn-modern">
                                         @csrf
